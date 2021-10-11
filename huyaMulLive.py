@@ -77,7 +77,7 @@ class logThread(threading.Thread):
     def run(self):
         while True:
             print()
-            logger.info('[{}] 正在下载{}个 录制范围[ {} , {} ]\n'.format(get_timenow(), threading.active_count(),record_range[0],record_range[1]))
+            logger.info('活跃线程数 {} 录制范围[ {} , {} ]\n'.format(threading.active_count(),record_range[0],record_range[1]))
             print('*' * 10)
             logger.info('共有主播 {}'.format(len(hrids)))
             # for hrid in hrids:
@@ -520,7 +520,7 @@ def get_rids():
 
 if __name__ == '__main__':
     record_ok_path = 'recordok'
-    record_range = []
+    record_range = [0,0]
     debugmode = False
     # download threads
     dlrids = []

@@ -65,7 +65,7 @@ async def index(request):
     huyadis.sort()
     responsestr = '<h>正在上传 {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{}</a></br>'.format(mp4_)
+        responsestr+='<a>{} : {} bytes</a></br>'.format(mp4_,os.path.getsize(mp4_))
     return sanic.response.html(responsestr)
 
 if __name__ == '__main__':
