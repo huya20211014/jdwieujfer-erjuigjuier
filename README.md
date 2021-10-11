@@ -4,7 +4,7 @@
 
 - 生成命令
 
-- 请切换至指定分支使用，例如`git checkout huyadocer1`
+- 请切换至指定分支使用，例如`git checkout huyadocker1`
 
 ```
 curl https://cli-assets.heroku.com/install.sh | sh
