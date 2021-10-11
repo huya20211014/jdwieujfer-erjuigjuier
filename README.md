@@ -31,7 +31,7 @@ heroku container:release web -a huyadocker2
 
 - huyadocer3
 ```
-mianliuwang202107@gmail.com
+chenbb2020@gmail.com
 
 heroku login -i
 heroku container:login
