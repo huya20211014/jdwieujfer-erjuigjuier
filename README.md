@@ -24,9 +24,9 @@ myr907097904@gmail.com
 
 heroku login -i
 heroku container:login
-heroku create huyadocker1
-heroku container:push web -a huyadocker1
-heroku container:release web -a huyadocker1
+heroku create huyadocker2
+heroku container:push web -a huyadocker2
+heroku container:release web -a huyadocker2
 ```
 
 - huyadocer3
@@ -35,9 +35,9 @@ mianliuwang202107@gmail.com
 
 heroku login -i
 heroku container:login
-heroku create huyadocker1
-heroku container:push web -a huyadocker1
-heroku container:release web -a huyadocker1
+heroku create huyadocker3
+heroku container:push web -a huyadocker3
+heroku container:release web -a huyadocker3
 ```
 
 - huyadocer4
@@ -46,7 +46,7 @@ mianliuwang202107@gmail.com
 
 heroku login -i
 heroku container:login
-heroku create huyadocker1
-heroku container:push web -a huyadocker1
-heroku container:release web -a huyadocker1
+heroku create huyadocker4
+heroku container:push web -a huyadocker4
+heroku container:release web -a huyadocker4
 ```
