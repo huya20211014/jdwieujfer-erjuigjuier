@@ -111,6 +111,10 @@ class upThread(threading.Thread):
                 self.del_session()
         except Exception as e:
             logger.info('{}'.format(e))
+            try:
+                self.del_session()
+            except Exception as e:
+                logger.info('{}'.format(e))
         global upthreads
         upthreads.remove(self.upID)
         logger.info('Thread {} exit'.format(self.upID))
@@ -201,9 +205,9 @@ if __name__ == '__main__':
         while True:
             try:
                 mp4filestmp = getmp4file('recordok')
-                # mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
-                mp4filesdet = mp4filestmp
-                mp4files = mp4filesdet
+                mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
+                # mp4filesdet = mp4filestmp
+                mp4files += mp4filesdet
 
                 max_thread_num = max_thread_num_MAX
                 if max_thread_num > len(mp4files):
@@ -235,7 +239,7 @@ if __name__ == '__main__':
                         iiii += 1
                 elif uids_idx >= len(mp4files) and threading.active_count() == 1:
                     logger.info('uids_idx >= len(mp4files) and threading.active_count() == 1')
-                    # break
+                    break
                 time.sleep(2)
                 # sleep_dis(2)
             except Exception as e:
