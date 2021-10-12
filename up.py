@@ -96,7 +96,7 @@ class upThread(threading.Thread):
                 if not os.path.exists(self.configf):
                     self.gen_session()
                 upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
-                upload_caption = '{}_HerokuUP'.format(upload_caption)
+                upload_caption = '{}_HerokuUP_huyadocker2'.format(upload_caption)
                 cmd = '{} -d --to {} --config "{}" --caption "{}" "recordok/{}"'.format(telegram_upload,
                                                                                      self.to_channel,
                                                                                      self.configf, upload_caption,
@@ -155,7 +155,7 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
-    max_thread_num_MAX = 10
+    max_thread_num_MAX = 2
     sess_path = 'sess'
     sess_total = 2
     config_path = 'up.ini'
@@ -201,8 +201,9 @@ if __name__ == '__main__':
         while True:
             try:
                 mp4filestmp = getmp4file('recordok')
-                mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
-                mp4files += mp4filesdet
+                # mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
+                mp4filesdet = mp4filestmp
+                mp4files = mp4filesdet
 
                 max_thread_num = max_thread_num_MAX
                 if max_thread_num > len(mp4files):

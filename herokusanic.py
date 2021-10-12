@@ -41,6 +41,14 @@ class upth(threading.Thread):
 
 app = Sanic(name="HerokuSanic20211010")
 
+def getsizestr(mp4_):
+    bytessize = os.path.getsize(mp4_)
+    dws = ['B','KB','MB','GB','TB']
+    dwidx = 0
+    while bytessize>1024:
+        bytessize/=1024
+        dwidx +=1
+    return '{} {}'.format(bytessize,dws[dwidx])
 
 @app.route('/')
 async def index(request):
@@ -55,7 +63,7 @@ async def index(request):
     huyadis.sort()
     responsestr = '<h>正在录制 {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} {}</a></br>'.format(mp4_,os.path.getsize(mp4_))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(mp4_))
     return sanic.response.html(responsestr)
 
 @app.route('/recordok')
@@ -65,7 +73,7 @@ async def index(request):
     huyadis.sort()
     responsestr = '<h>正在上传 {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} : {} bytes</a></br>'.format(mp4_,os.path.getsize(os.path.join('recordok',mp4_)))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('recordok',mp4_)))
     return sanic.response.html(responsestr)
 
 if __name__ == '__main__':
