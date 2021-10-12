@@ -203,7 +203,7 @@ if __name__ == '__main__':
                 mp4filestmp = getmp4file('recordok')
                 # mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
                 mp4filesdet = mp4filestmp
-                mp4files += mp4filesdet
+                mp4files = mp4filesdet
 
                 max_thread_num = max_thread_num_MAX
                 if max_thread_num > len(mp4files):
