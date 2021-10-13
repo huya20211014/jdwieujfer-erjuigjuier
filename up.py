@@ -96,7 +96,7 @@ class upThread(threading.Thread):
                 if not os.path.exists(self.configf):
                     self.gen_session()
                 upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
-                upload_caption = '{}_HerokuUP'.format(upload_caption)
+                upload_caption = '{}_HerokuUP_huyadocker3'.format(upload_caption)
                 cmd = '{} -d --to {} --config "{}" --caption "{}" "recordok/{}"'.format(telegram_upload,
                                                                                      self.to_channel,
                                                                                      self.configf, upload_caption,
@@ -111,6 +111,10 @@ class upThread(threading.Thread):
                 self.del_session()
         except Exception as e:
             logger.info('{}'.format(e))
+            try:
+                self.del_session()
+            except Exception as e:
+                logger.info('{}'.format(e))
         global upthreads
         upthreads.remove(self.upID)
         logger.info('Thread {} exit'.format(self.upID))
@@ -155,7 +159,7 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
-    max_thread_num_MAX = 10
+    max_thread_num_MAX = 15
     sess_path = 'sess'
     sess_total = 2
     config_path = 'up.ini'
@@ -202,6 +206,7 @@ if __name__ == '__main__':
             try:
                 mp4filestmp = getmp4file('recordok')
                 mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
+                # mp4filesdet = mp4filestmp
                 mp4files += mp4filesdet
 
                 max_thread_num = max_thread_num_MAX
@@ -234,7 +239,7 @@ if __name__ == '__main__':
                         iiii += 1
                 elif uids_idx >= len(mp4files) and threading.active_count() == 1:
                     logger.info('uids_idx >= len(mp4files) and threading.active_count() == 1')
-                    # break
+                    break
                 time.sleep(2)
                 # sleep_dis(2)
             except Exception as e:
