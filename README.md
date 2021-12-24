@@ -50,3 +50,14 @@ heroku create huyadocker4
 heroku container:push web -a huyadocker4
 heroku container:release web -a huyadocker4
 ```
+
+- bilibili1
+```
+bilibili20211225@gmail.com
+
+heroku login -i
+heroku container:login
+heroku create bilibilidocker1
+heroku container:push web -a bilibilidocker1
+heroku container:release web -a bilibilidocker1
+```

@@ -20,7 +20,7 @@ class huyath(threading.Thread):
     def run(self):
         while True:
             try:
-                os.system('python3 huyaMulLive.py')
+                os.system('python3 bMulLive.py')
             except Exception as e:
                 print(e)
                 time.sleep(3)
@@ -56,14 +56,14 @@ async def index(request):
     return sanic.response.text(str(huyadis))
 
 
-@app.route('/huya')
+@app.route('/bilibili')
 async def index(request):
-    huyadis = [mp4_ for mp4_ in os.listdir('.') if '.mp4' in mp4_]
+    huyadis = [mp4_ for mp4_ in os.listdir('record') if '.mp4' in mp4_]
     huyalen = len(huyadis)
     huyadis.sort()
     responsestr = '<h>正在录制 {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(mp4_))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('record',mp4_)))
     return sanic.response.html(responsestr)
 
 @app.route('/recordok')
