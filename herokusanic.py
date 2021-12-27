@@ -20,7 +20,7 @@ class huyath(threading.Thread):
     def run(self):
         while True:
             try:
-                os.system('python3 bMulLive.py')
+                os.system('python3 douyuMulLive.py')
             except Exception as e:
                 print(e)
                 time.sleep(3)
@@ -56,7 +56,7 @@ async def index(request):
     return sanic.response.text(str(huyadis))
 
 
-@app.route('/bilibili')
+@app.route('/record')
 async def index(request):
     huyadis = [mp4_ for mp4_ in os.listdir('record') if '.mp4' in mp4_]
     huyalen = len(huyadis)

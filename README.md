@@ -61,3 +61,14 @@ heroku create bilibilidocker1
 heroku container:push web -a bilibilidocker1
 heroku container:release web -a bilibilidocker1
 ```
+
+- douyu
+```
+jupyter20211226@outlook.com
+
+heroku login -i
+heroku container:login
+heroku create douyudocker1
+heroku container:push web -a douyudocker1
+heroku container:release web -a douyudocker1
+```
