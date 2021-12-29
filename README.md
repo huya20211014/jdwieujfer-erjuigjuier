@@ -76,7 +76,7 @@ heroku container:release web -a douyudocker1
 ```
 
 
-- cc
+- cc1
 ```
 ccdocker1@outlook.com
 
@@ -85,4 +85,15 @@ heroku container:login
 heroku create ccdocker1
 heroku container:push web -a ccdocker1
 heroku container:release web -a ccdocker1
+```
+
+- cc2
+```
+ccdocker2@outlook.com
+
+heroku login -i
+heroku container:login
+heroku create ccdocker2
+heroku container:push web -a ccdocker2
+heroku container:release web -a ccdocker2
 ```
