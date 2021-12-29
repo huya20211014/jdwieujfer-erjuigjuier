@@ -197,8 +197,9 @@ class getm3u8Thread(threading.Thread):
                 #     '-max_muxing_queue_size', '2048',
                 #     "{path}".format(path=file),
                 # ], stderr=subprocess.STDOUT)
+                luzhishichang = os.environ.get("luzhishichang")
                 _output = subprocess.check_output(
-                    'ffmpeg -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t 1800 -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(self.threadURL,file),
+                    'ffmpeg -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(self.threadURL,luzhishichang,file),
                     stderr=subprocess.STDOUT, shell=True)
 
                 recordfinish = True
@@ -520,15 +521,24 @@ class ksDLThread(threading.Thread):
 def get_rids():
     hridstr = ''
     rids_dic = {}
-    with open('blrids.ini', mode='r', encoding='utf-8') as hridsf:
-        hridstr = hridsf.read()
-    hrids = [hrid for hrid in hridstr.split('\n') if hrid != '']
-    for hrid in hrids:
-        rid, nickname = hrid.split(' ')
-        if rid not in rids_dic:
-            # nickname_now = get_nickname(rid)
+    # with open('blrids.ini', mode='r', encoding='utf-8') as hridsf:
+    #     hridstr = hridsf.read()
+    # hrids = [hrid for hrid in hridstr.split('\n') if hrid != '']
+    # for hrid in hrids:
+    #     rid, nickname = hrid.split(' ')
+    #     if rid not in rids_dic:
+    #         # nickname_now = get_nickname(rid)
+    #         nickname_now = ''
+    #         rids_dic[rid] = [nickname, nickname_now]
+    # return rids_dic
+
+    douyuidsstr = os.environ.get("blrids")
+    douyuids = douyuidsstr.split('&')
+    for douyuid in douyuids:
+        if douyuid != "":
+            id_, nickname_ = douyuid.split('=')
             nickname_now = ''
-            rids_dic[rid] = [nickname, nickname_now]
+            rids_dic[id_] = [nickname_, nickname_now]
     return rids_dic
 
 
