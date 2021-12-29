@@ -173,7 +173,7 @@ class getm3u8Thread(threading.Thread):
         self.rid = rid
 
     def down_m3u8(self):
-        try_max = 3
+        try_max = 1
         try_time = 0
         self.nickname = author_dic[self.rid][0]
         while try_time < try_max:
@@ -209,7 +209,7 @@ class getm3u8Thread(threading.Thread):
                 # ], stderr=subprocess.STDOUT)
                 luzhishichang = os.environ.get("luzhishichang")
                 _output = subprocess.check_output(
-                    'ffmpeg -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
+                    'ffmpeg -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 2000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 20 "{}"'.format(
                         self.threadURL, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
 
@@ -286,7 +286,7 @@ class DouYu:
     hlsa-akm.douyucdn.cn
     hls1a-akm.douyucdn.cn
     """
-    host = 'hls3-akm.douyucdn.cn'
+    host = 'dyscdnali1.douyucdn.cn'
 
     def __init__(self, rid):
         """
