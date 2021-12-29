@@ -1,5 +1,7 @@
 # 使用说明
 
+- 增加录制的python脚本 在herokusanic.py中指定录制脚本 重新生成sess 在up.py中指定录制前缀
+
 - 切记每次生成sess 并在config.ini中指定录制范围
 
 - 生成命令
@@ -71,4 +73,16 @@ heroku container:login
 heroku create douyudocker1
 heroku container:push web -a douyudocker1
 heroku container:release web -a douyudocker1
+```
+
+
+- cc
+```
+ccdocker1@outlook.com
+
+heroku login -i
+heroku container:login
+heroku create ccdocker1
+heroku container:push web -a ccdocker1
+heroku container:release web -a ccdocker1
 ```
