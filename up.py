@@ -96,7 +96,7 @@ class upThread(threading.Thread):
                 if not os.path.exists(self.configf):
                     self.gen_session()
                 upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
-                upload_caption = '{}_HerokuUP_bilibili_docker1'.format(upload_caption)
+                upload_caption = '{}_HerokuUP_bilibili_2_docker1'.format(upload_caption)
                 cmd = '{} -d --to {} --config "{}" --caption "{}" "recordok/{}"'.format(telegram_upload,
                                                                                      self.to_channel,
                                                                                      self.configf, upload_caption,
