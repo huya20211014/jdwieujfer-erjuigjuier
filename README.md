@@ -65,11 +65,11 @@ heroku container:release web -a bilibilidocker1
 
 - bilibili2
 ```
-bilibilidocker2@gmail.com
+bilibilidocker2@outlook.com
 
 heroku login -i
 heroku container:login
 heroku create bilibilidocker2
 heroku container:push web -a bilibilidocker2
 heroku container:release web -a bilibilidocker2
-```heroku login -i
+```
