@@ -97,3 +97,14 @@ heroku create ccdocker2
 heroku container:push web -a ccdocker2
 heroku container:release web -a ccdocker2
 ```
+
+- afreecatv1
+```
+afreedocker1@outlook.com
+
+heroku login -i
+heroku container:login
+heroku create afreedocker1
+heroku container:push web -a afreedocker1
+heroku container:release web -a afreedocker1
+```
