@@ -72,3 +72,14 @@ heroku create douyudocker1
 heroku container:push web -a douyudocker1
 heroku container:release web -a douyudocker1
 ```
+
+- douyu2
+```
+douyudocker2@outlook.com
+
+douyudocker2
+heroku container:login
+heroku create douyudocker2
+heroku container:push web -a douyudocker2
+heroku container:release web -a douyudocker2
+```
