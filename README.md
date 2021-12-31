@@ -108,3 +108,14 @@ heroku create afreedocker1
 heroku container:push web -a afreedocker1
 heroku container:release web -a afreedocker1
 ```
+
+- afreecatv2
+```
+afreedocker2@outlook.com
+
+heroku login -i
+heroku container:login
+heroku create afreedocker2
+heroku container:push web -a afreedocker2
+heroku container:release web -a afreedocker2
+```
