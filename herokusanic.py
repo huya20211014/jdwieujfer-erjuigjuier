@@ -8,10 +8,33 @@ import sanic
 import threading
 import configparser
 import logging
+import traceback
 import os
 from sanic import Sanic
 import time
+# 第一步，创建一个logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)  # Log等级开关
 
+# 第二步，创建一个handler，用于写入日志文件
+# log_path = os.path.dirname(os.getcwd()) + '/Logs/'
+# log_name = log_path + 'log.log'
+# logfile = 'log.txt'
+# file_handler = logging.FileHandler(logfile, mode='a+')
+# file_handler.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
+
+# 第三步，定义handler的输出格式
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+# file_handler.setFormatter(formatter)
+
+# 第四步，将handler添加到logger里面
+# logger.addHandler(file_handler)
+
+
+# 如果需要同時需要在終端上輸出，定義一個streamHandler
+p_handler = logging.StreamHandler()  # 往屏幕上输出
+p_handler.setFormatter(formatter)  # 设置屏幕上显示的格式
+logger.addHandler(p_handler)
 
 class huyath(threading.Thread):
     def __init__(self):
@@ -20,9 +43,12 @@ class huyath(threading.Thread):
     def run(self):
         while True:
             try:
-                os.system('python3 ksMulLiveHeroku.py')
+                logger.info('python3 douyinMulLiveAioHeroku.py')
+                os.system('python3 douyinMulLiveAioHeroku.py')
             except Exception as e:
                 print(e)
+                logger.info('{}'.format(e))
+                traceback.print_exc()
                 time.sleep(3)
 
 
@@ -35,6 +61,7 @@ class upth(threading.Thread):
             try:
                 os.system('python3 up.py')
             except Exception as e:
+                traceback.print_exc()
                 print(e)
                 time.sleep(3)
 
