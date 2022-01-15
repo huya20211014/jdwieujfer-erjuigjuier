@@ -20,7 +20,7 @@ class huyath(threading.Thread):
     def run(self):
         while True:
             try:
-                os.system('python3 afreecatvMulLive.py')
+                os.system('python3 ksMulLiveHeroku.py')
             except Exception as e:
                 print(e)
                 time.sleep(3)

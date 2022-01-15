@@ -158,7 +158,8 @@ def get_now_uids(mp4files):
 
 
 if __name__ == '__main__':
-    UPLOAD_PRE = 'AfreecaTV_2'
+    ksmullive_idx = int(os.environ.get("ksmullive_idx"))
+    UPLOAD_PRE = 'Kuaishou_docker{}'.format(ksmullive_idx)
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     max_thread_num_MAX = 15
     sess_path = 'sess'
