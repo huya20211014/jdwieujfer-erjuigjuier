@@ -354,6 +354,6 @@ if __name__ == '__main__':
     # luzhishichang = 1800
     # ids_file_path = 'URL_config.ini'
     # ids_file_path = 'ids.txt'
-    SLEEP_TIME = 300
+    SLEEP_TIME = 200
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())

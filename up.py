@@ -96,7 +96,7 @@ class upThread(threading.Thread):
                 if not os.path.exists(self.configf):
                     self.gen_session()
                 upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
-                upload_caption = '{}_HerokuUP_{}_docker1'.format(upload_caption,UPLOAD_PRE)
+                upload_caption = '{}_HerokuUP_{}'.format(upload_caption,UPLOAD_PRE)
                 cmd = '{} -d --to {} --config "{}" --caption "{}" "recordok/{}"'.format(telegram_upload,
                                                                                      self.to_channel,
                                                                                      self.configf, upload_caption,
@@ -159,7 +159,7 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    UPLOAD_PRE = 'Douyin_docker1'
+    UPLOAD_PRE = 'Douyin_docker2'
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     max_thread_num_MAX = 15
     sess_path = 'sess'
