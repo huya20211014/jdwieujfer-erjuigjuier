@@ -540,6 +540,14 @@ def getids():
             author_live_url = author_live_url_obj['url']
             author_live_url_quality = author_live_url_obj['quality']
 
+            gameInfo_str = '${}.gameInfo'.format(iii)
+            gameInfo_obj = graphqlServerClient[gameInfo_str]
+            gameInfo_name = gameInfo_obj['name']
+            if gameInfo_name != '购物':
+                logger.info('{} 跳过'.format(author_nickname))
+                continue
+            else:
+                logger.info('{} 加入'.format(author_nickname))
             # id_, eid_, name_, avatar_, principalId_, description_, sex_
             id_ = author_id
             avatar_ = iii_obj_user_obj['avatar']
