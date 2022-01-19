@@ -135,4 +135,4 @@ heroku config:set ksmullive_idx=1 ksmullive_tot=16 cookies=ZGlkJiYmd2ViXzIwNzcxO
 heroku container:push web -a ksdocker1 && heroku container:release web -a ksdocker1
 ```
 
-git add -A && git commit -m "add kuaishou16" && git push origin kuaishou16
+git add -A && git commit -m "add kuaishou1" && git push origin kuaishou1
