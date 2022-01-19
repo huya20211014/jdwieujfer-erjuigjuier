@@ -74,6 +74,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def sleep_dis(sleep_time):
     for i in range(sleep_time, -1, -1):
+        # logger.info('休眠 %5s s' % i)
         print('休眠 %5s s' % i, end='\r')
         time.sleep(1)
 
@@ -212,6 +213,7 @@ class getm3u8Thread(threading.Thread):
             #     logger.info('{} --> {} succeed!'.format(record_ok_tmp_file, record_ok_path))
             # logger.info(record_ok_tmp_file, '-->', record_ok_path, 'succeed!')
         except Exception as e:
+            traceback.print_exc()
             recordfinish = True
             # if not os.path.exists(record_ok_path):
             #     os.makedirs(record_ok_path)
@@ -222,7 +224,7 @@ class getm3u8Thread(threading.Thread):
                 dlrids.remove(self.rid)
             if not os.path.exists(record_ok_pathtmp):
                 os.makedirs(record_ok_pathtmp)
-            logger.debug('{} {}'.format(self.room, traceback.format_exc()))
+            logger.info('{} {}'.format(self.room, traceback.format_exc()))
             traceback.print_exc()
 
     def run(self):
@@ -283,7 +285,8 @@ class KuaiShou:
                 else:
                     raise Exception('直播间不存在或未开播')
             except:
-                logger.debug('{} {}'.format(self.rid, traceback.format_exc()))
+                traceback.print_exc()
+                logger.info('{} {}'.format(self.rid, traceback.format_exc()))
                 return -1
 
 
@@ -292,6 +295,7 @@ def get_real_url(rid):
         ks = KuaiShou(rid)
         return ks.get_real_url()
     except Exception as e:
+        traceback.print_exc()
         logger.info('Exception：{}'.format(e))
         return -1
 
@@ -377,6 +381,7 @@ def main(rid):
     except Exception as e:
         # logger.info('链接不对劲')
         # logger.info('解析链接中')
+        traceback.print_exc()
         logging.error(e)
         if rid in dlrids:
             dlrids.remove(rid)
@@ -491,6 +496,7 @@ def getids():
     #     'kuaishou.live.web_ph': 'de40498a4ecf5070ab1921e381edb81dadc1',
     # }
     cookies = getcookies()
+    logger.info("{}".format(cookies))
     headers = {
         'Connection': 'keep-alive',
         'Cache-Control': 'max-age=0',
@@ -509,11 +515,13 @@ def getids():
     }
     response = requests.get('https://live.kuaishou.com/my-follow/living', headers=headers, cookies=cookies, timeout=10)
     restext = response.text
+    # logger.info('{}'.format(restext))
     sposstr = '<script>window.__APOLLO_STATE__='
     eposstr = ';(function(){var'
     spos = restext.index(sposstr) + len(sposstr)
     epos = restext[spos:].index(eposstr)
     resjsonstr = restext[spos:spos + epos]
+    # logger.info('{}'.format(resjsonstr))
     # print(resjsonstr)
     resjson = json.loads(resjsonstr)
     clients = resjson['clients']
@@ -589,6 +597,7 @@ if __name__ == '__main__':
         try:
             logger.info('获取直播列表')
             author_dic = getids()
+            logger.info('{}'.format(author_dic))
             logger.info('更新主播信息')
             for author_id in author_dic:
                 author_list = author_dic[author_id]
@@ -601,7 +610,7 @@ if __name__ == '__main__':
                 principalId_ = ''
                 description_ = ''
                 sex_ = ''
-                insert_db(id_, eid_, name_, avatar_, principalId_, description_, sex_)
+                # insert_db(id_, eid_, name_, avatar_, principalId_, description_, sex_)
         except:
             traceback.print_exc()
             sleep_dis(100)
