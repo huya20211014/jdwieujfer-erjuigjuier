@@ -560,9 +560,11 @@ def getids():
     author_id_len = len(author_ids)
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
     ksmullive_tot = int(os.environ.get("ksmullive_tot"))
-    split_len = author_id_len // ksmullive_tot + 1
+    split_len = author_id_len // ksmullive_tot
     author_id_start = split_len * (ksmullive_idx - 1)
-    author_id_end = min(split_len * ksmullive_idx, author_id_len)
+    author_id_end = split_len * ksmullive_idx
+    if ksmullive_idx == ksmullive_tot:
+        author_id_end = author_id_len
     author_ids_fin = author_ids[author_id_start:author_id_end]
     author_dic_tmp = {}
     for author_id_fin in author_ids_fin:
