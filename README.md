@@ -97,3 +97,19 @@ heroku create ccdocker2
 heroku container:push web -a ccdocker2
 heroku container:release web -a ccdocker2
 ```
+
+
+- cc2xby
+```
+karep94751@altcen.com
+
+heroku login -i
+heroku container:login
+heroku create ccdocker2xby
+
+heroku config:set luzhishichang=1800 douyuids="10337137=杨超越&7746333=奶优米&109064=尧顺宇&4624967=腐团儿&462228=隔壁的苏苏s&6677800=傲娇的喵小八&22619=Minana&6863470=唐星儿&6515025=何菱&6208237=球球Emma&6505338=上蓝冰儿&7753315=七姑娘小梧桐&9945289=爱跳舞的肉肉&6939197=李小婉&8998792=奈奈&71690=陈叨叨&9516609=狐苏&10109975=李嫣然&9545293=甜小桃&5440020=小小玉酱&10432719=抠门三儿&291260=酥念儿&6381492=曦曦Stacey" -a ccdocker2xby
+
+heroku container:push web -a ccdocker2xby && heroku container:release web -a ccdocker2xby
+```
+
+git add -A && git commit -m "add cc2xby" && git push origin cc2xby
