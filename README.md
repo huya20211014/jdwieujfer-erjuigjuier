@@ -77,12 +77,12 @@ heroku container:release web -a bilibilidocker2
 
 - bilibili2xby
 ```
-mihelod601@bubblybank.com
+bebolif633@get2israel.com
 heroku login -i
 heroku container:login
 heroku create bilibili2xby
 
-heroku config:set luzhishichang=1800 douyuids="10337137=杨超越&7746333=奶优米&109064=尧顺宇&4624967=腐团儿&462228=隔壁的苏苏s&6677800=傲娇的喵小八&22619=Minana&6863470=唐星儿&6515025=何菱&6208237=球球Emma&6505338=上蓝冰儿&7753315=七姑娘小梧桐&9945289=爱跳舞的肉肉&6939197=李小婉&8998792=奈奈&71690=陈叨叨&9516609=狐苏&10109975=李嫣然&9545293=甜小桃&5440020=小小玉酱&10432719=抠门三儿&291260=酥念儿&6381492=曦曦Stacey" -a bilibili2xby
+heroku config:set luzhishichang=1800 blrids="3328241=座山雕&22071218=耿清清&715=小须须&22820500=余多多&23414019=玥檬呀&22828499=慕儿&23858274=小艺&23739110=月神月柒&23273792=Yuki7雪糕&1319379=徐珺大哥&23587248=憨憨小奶糖&21678026=兔牙Sinar酱&23634221=格导师&912892=岚西啊喵&816238=御酱Asahi&24012358=Di宝宝&23448867=你的小桃气呀&23237648=大长腿芙芙&23946408=甜诱小迷妹&919589=李礼礼可欣&938715=梦可御&23551267=喵可卿&3096485=周末yuuko&23981016=涵宝不睡懒觉&22940531=很嚣张的青禾&22698376=丝瑶姐姐" -a bilibili2xby
 
 heroku container:push web -a bilibili2xby && heroku container:release web -a bilibili2xby
 ```
