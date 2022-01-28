@@ -51,15 +51,15 @@ heroku container:push web -a huyadocker4
 heroku container:release web -a huyadocker4
 ```
 
-- huyadocer1xby
+- huyadocker1xby
 ```
 gigapic495@bubblybank.com
 
 heroku login -i
 heroku container:login
-heroku create huyadocer1xby
-heroku container:push web -a huyadocer1xby && heroku container:release web -a huyadocer1xby
+heroku create huyadocker1xby
+heroku container:push web -a huyadocker1xby && heroku container:release web -a huyadocker1xby
 ```
  
- 
-git add -A && git commit -m "add huyadocer1xby" && git push origin huyadocer1xby
+
+git add -A && git commit -m "add huyadocker1xby" && git push origin huyadocker1xby
