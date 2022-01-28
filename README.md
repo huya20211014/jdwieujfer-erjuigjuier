@@ -65,7 +65,7 @@ git add -A && git commit -m "add huyadocker1xby" && git push origin huyadocker1x
 
 - huyadocker2xby
 ```
-gigapic495@bubblybank.com
+johado7193@altcen.com
 
 heroku login -i
 heroku container:login
