@@ -149,9 +149,10 @@ heroku container:push web -a douyindocker1 && heroku container:release web -a do
 
 - dymcmm03
 ```
-heroku login -i
 dymcmm03@dslab2021.me
 Yttyhxways778!
+
+heroku login -i
 rm -rf sess/tgup*
 python3 sessgen.py
 mv tgup* sess
