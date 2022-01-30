@@ -158,3 +158,4 @@ heroku config:set luzhishichang=1800 ids_str=aHR0cHM6Ly92LmRvdXlpbi5jb20vZXhlVEN
 
 heroku container:push web -a douyindocker2 && heroku container:release web -a douyindocker2
 ```
+git add -A && git commit -m "fix bugs" && git push origin douyin2

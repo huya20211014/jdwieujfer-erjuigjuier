@@ -89,38 +89,51 @@ async def subwords(words):
 
 
 async def get_roomid(html):
-    js = re.findall(r"<script>(.{666,}?)</script>", html)[0]
-    ret = json.loads(js.replace("window.__INIT_PROPS__ = ", ""))
-    if "room" in ret["/webcast/reflow/:id"] and 'own_room' not in ret["/webcast/reflow/:id"]["room"]["owner"]:
+
+    # # js = re.findall(r"<script>(.{666,}?)</script>", html)[0]
+    # js = re.findall(r'<script id="RENDER_DATA" type="application/json">(.{666,}?)</script>', html)[0]
+    # print(js)
+    # ret = json.loads(js.replace("window.__INIT_PROPS__ = ", ""))
+    # if "room" in ret["/webcast/reflow/:id"] and 'own_room' not in ret["/webcast/reflow/:id"]["room"]["owner"]:
+    #     return -1
+    # else:
+    #     return ret["/webcast/reflow/:id"]["room"]["owner"]["own_room"]["room_ids_str"][0]
+
+    if "room" in html["data"] and 'own_room' not in html["data"]["room"]["owner"]:
         return -1
     else:
-        return ret["/webcast/reflow/:id"]["room"]["owner"]["own_room"]["room_ids_str"][0]
+        return (html["data"]["room"]["owner"]["own_room"]["room_ids_str"][0])
 
 
 async def get_nickname(html):
-    js = re.findall(r"<script>(.{666,}?)</script>", html)[0]
-    ret = json.loads(js.replace("window.__INIT_PROPS__ = ", ""))
-    return ret["/webcast/reflow/:id"]["room"]["owner"]["nickname"]
+    return html["data"]["room"]["owner"]['nickname']
+    # js = re.findall(r"<script>(.{666,}?)</script>", html)[0]
+    # ret = json.loads(js.replace("window.__INIT_PROPS__ = ", ""))
+    # return ret["/webcast/reflow/:id"]["room"]["owner"]["nickname"]
 
 
 async def get_status(html):
-    js = re.findall(r"<script>(.{666,}?)</script>", html)[0]
-    ret = json.loads(js.replace("window.__INIT_PROPS__ = ", ""))
-    return ret["/webcast/reflow/:id"]["room"]["status"]
+    return html["data"]["room"]["status"]
+    # js = re.findall(r"<script>(.{666,}?)</script>", html)[0]
+    # ret = json.loads(js.replace("window.__INIT_PROPS__ = ", ""))
+    # return ret["/webcast/reflow/:id"]["room"]["status"]
 
 
 async def get_urls(html):
-    js = re.findall(r"<script>window.__INIT_PROPS__ =(.{666,}?)</script>", html)[0]
-    ret = json.loads(js.replace("<script>window.__INIT_PROPS__ = ", ""))
-    # ["room"]["stream_url"]['rtmp_pull_url']
-    return ret["/webcast/reflow/:id"]["room"]["stream_url"]['rtmp_pull_url']
+    # js = re.findall(r"<script>window.__INIT_PROPS__ =(.{666,}?)</script>", html)[0]
+    # ret = json.loads(js.replace("<script>window.__INIT_PROPS__ = ", ""))
+    # # ["room"]["stream_url"]['rtmp_pull_url']
+    # return ret["/webcast/reflow/:id"]["room"]["stream_url"]['rtmp_pull_url']
+    return html["data"]["room"]["stream_url"]['rtmp_pull_url']
+
 
 
 async def get_jiaodihuazhiurl(html):
-    js = re.findall(r"<script>window.__INIT_PROPS__ =(.{666,}?)</script>", html)[0]
-    ret = json.loads(js.replace("<script>window.__INIT_PROPS__ = ", ""))
+    # js = re.findall(r"<script>window.__INIT_PROPS__ =(.{666,}?)</script>", html)[0]
+    # ret = json.loads(js.replace("<script>window.__INIT_PROPS__ = ", ""))
     huazhis = ['HD1', 'SD1', 'SD2']
-    flv_pull_url = ret["/webcast/reflow/:id"]["room"]["stream_url"]['flv_pull_url']
+    # flv_pull_url = ret["/webcast/reflow/:id"]["room"]["stream_url"]['flv_pull_url']
+    flv_pull_url = html["data"]["room"]["stream_url"]['flv_pull_url']
     for huazhi in huazhis:
         if huazhi in flv_pull_url:
             logger.info('返回 {} 画质'.format(huazhi))
@@ -134,7 +147,12 @@ async def get(session,queue):
     Modelheaders = {
         # 'upgrade-insecure-requests':'1',
         # 'X-Forwarded-For': genip(),
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Mobile Safari/537.36'
+        # 'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Mobile Safari/537.36'
+        'User-Agent':'Mozilla/5.0 (Linux; U; Android 8.1.0; en-US; Nexus 6P Build/OPM7.181205.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/12.11.1.1197 Mobile Safari/537.36'
+    }
+    js_headers = {
+        # 'upgrade-insecure-requests':'1',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36'
     }
     while True:
         try:
@@ -150,7 +168,16 @@ async def get(session,queue):
             try:
                 try_time += 1
                 res = await session.get(share_url, headers=Modelheaders, timeout=10)
-                res_html = await res.text()
+                # logger.info(res.url)
+                resurl = str(res.url)
+                roomid = ((resurl).split('/')[-1]).split('?')[0]
+                # print(''.format(roomid))
+                jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128"
+                res_js = await session.get(jsurl, headers=Modelheaders, timeout=10)
+                res_html = await res_js.text()
+                res_html = str(res_html)
+                # print(res_html)
+                res_html = json.loads(res_html)
                 if res_html != '':
                     break
                 else:
@@ -161,14 +188,19 @@ async def get(session,queue):
                         return
                     sleep_dis(2)
             except Exception as e:
-                traceback.print_exc()
-                logger.info('{}'.format(e))
+                # traceback.print_exc()
+                logger.info('{}'.format(traceback.format_exc()))
                 if try_time == try_max:
                     logger.info('{}获取错误 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
                     return
         # print(res_html)
+
+
+
         res_roomid = await get_roomid(res_html)
+        # print('res_roomid {}'.format(res_roomid))
+        # return
         res_nickname = await get_nickname(res_html)
         res_nickname = strfomat(res_nickname)
         if res_roomid == -1:
@@ -180,7 +212,8 @@ async def get(session,queue):
         # print(res_nickname)
         # res_status = await get_status(res_html)
         # res_urls = await get_urls(res_html)
-        room_url = 'https://webcast.amemv.com/webcast/reflow/{}'.format(res_roomid)
+        # room_url = 'https://webcast.amemv.com/webcast/reflow/{}'.format(res_roomid)
+        room_url = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id={}&app_id=1128".format(res_roomid)
         # res = await session.get(room_url, headers=Modelheaders, proxy=proxies2, timeout=30)
         # res_html = await res.text()
 
@@ -192,6 +225,10 @@ async def get(session,queue):
                 try_time += 1
                 res = await session.get(room_url, headers=Modelheaders, timeout=10)
                 res_html = await res.text()
+                # res_html = await res_js.text()
+                res_html = str(res_html)
+                # print(res_html)
+                res_html = json.loads(res_html)
                 if res_html != '':
                     break
                 else:
@@ -202,8 +239,8 @@ async def get(session,queue):
                         return
                     sleep_dis(2)
             except Exception as e:
-                traceback.print_exc()
-                logger.info('{}'.format(e))
+                # traceback.print_exc()
+                logger.info('{}'.format(traceback.format_exc()))
                 if try_time == try_max:
                     logger.info('{} 获取错误 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
@@ -354,6 +391,6 @@ if __name__ == '__main__':
     # luzhishichang = 1800
     # ids_file_path = 'URL_config.ini'
     # ids_file_path = 'ids.txt'
-    SLEEP_TIME = 200
+    SLEEP_TIME = 300
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
