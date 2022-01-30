@@ -189,6 +189,7 @@ async def get(session,queue):
                     sleep_dis(2)
             except Exception as e:
                 # traceback.print_exc()
+                logger.info('{}'.format(traceback.format_exc()))
                 if try_time == try_max:
                     logger.info('{}获取错误 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
@@ -239,6 +240,7 @@ async def get(session,queue):
                     sleep_dis(2)
             except Exception as e:
                 # traceback.print_exc()
+                logger.info('{}'.format(traceback.format_exc()))
                 if try_time == try_max:
                     logger.info('{} 获取错误 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
