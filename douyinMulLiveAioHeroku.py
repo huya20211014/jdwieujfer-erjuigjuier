@@ -136,9 +136,9 @@ async def get_jiaodihuazhiurl(html):
     flv_pull_url = html["data"]["room"]["stream_url"]['flv_pull_url']
     for huazhi in huazhis:
         if huazhi in flv_pull_url:
-            print('返回 {} 画质'.format(huazhi))
+            logger.info('返回 {} 画质'.format(huazhi))
             return flv_pull_url[huazhi]
-    print('渣画质不存在,返回原始画质')
+    logger.info('渣画质不存在,返回原始画质')
     return get_urls(html)
 
 
@@ -160,7 +160,7 @@ async def get(session,queue):
         except asyncio.QueueEmpty:
             return
         nickname_txt = ids_dic[share_url]
-        print('{} {}'.format(nickname_txt, share_url))
+        logger.info('{} {}'.format(nickname_txt, share_url))
         res_html = ''
         try_time = 0
         try_max = 2
@@ -168,7 +168,7 @@ async def get(session,queue):
             try:
                 try_time += 1
                 res = await session.get(share_url, headers=Modelheaders, proxy=proxies2, timeout=10)
-                # print(res.url)
+                # logger.info(res.url)
                 resurl = str(res.url)
                 roomid = ((resurl).split('/')[-1]).split('?')[0]
                 # print(''.format(roomid))
@@ -181,16 +181,16 @@ async def get(session,queue):
                 if res_html != '':
                     break
                 else:
-                    print('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
+                    logger.info('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
                     if try_time == try_max:
-                        print('{}获取失败 退出'.format(ids_dic[share_url]))
+                        logger.info('{}获取失败 退出'.format(ids_dic[share_url]))
                         ids_running[share_url] = False
                         return
                     sleep_dis(2)
             except Exception as e:
                 # traceback.print_exc()
                 if try_time == try_max:
-                    print('{}获取错误 退出'.format(ids_dic[share_url]))
+                    logger.info('{}获取错误 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
                     return
         # print(res_html)
@@ -203,7 +203,7 @@ async def get(session,queue):
         res_nickname = await get_nickname(res_html)
         res_nickname = strfomat(res_nickname)
         if res_roomid == -1:
-            print('{} 未在直播'.format(res_nickname))
+            logger.info('{} 未在直播'.format(res_nickname))
             ids_running[share_url] = False
             return
         # print(res_roomid)
@@ -231,23 +231,23 @@ async def get(session,queue):
                 if res_html != '':
                     break
                 else:
-                    print('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
+                    logger.info('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
                     if try_time == try_max:
-                        print('{} 获取失败 退出'.format(ids_dic[share_url]))
+                        logger.info('{} 获取失败 退出'.format(ids_dic[share_url]))
                         ids_running[share_url] = False
                         return
                     sleep_dis(2)
             except Exception as e:
                 # traceback.print_exc()
                 if try_time == try_max:
-                    print('{} 获取错误 退出'.format(ids_dic[share_url]))
+                    logger.info('{} 获取错误 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
                     return
 
         res_roomid = await get_roomid(res_html)
         res_status = await get_status(res_html)
         res_urls = await get_urls(res_html)
-        print('获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls))
+        logger.info('获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls))
         dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls)
         dlthread.start()
 
