@@ -167,13 +167,13 @@ async def get(session,queue):
         while True:
             try:
                 try_time += 1
-                res = await session.get(share_url, headers=Modelheaders, proxy=proxies2, timeout=10)
+                res = await session.get(share_url, headers=Modelheaders, timeout=10)
                 # logger.info(res.url)
                 resurl = str(res.url)
                 roomid = ((resurl).split('/')[-1]).split('?')[0]
                 # print(''.format(roomid))
                 jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128"
-                res_js = await session.get(jsurl, headers=Modelheaders, proxy=proxies2, timeout=10)
+                res_js = await session.get(jsurl, headers=Modelheaders, timeout=10)
                 res_html = await res_js.text()
                 res_html = str(res_html)
                 # print(res_html)
@@ -223,7 +223,7 @@ async def get(session,queue):
         while True:
             try:
                 try_time += 1
-                res = await session.get(room_url, headers=Modelheaders, proxy=proxies2, timeout=10)
+                res = await session.get(room_url, headers=Modelheaders, timeout=10)
                 res_html = await res.text()
                 # res_html = await res_js.text()
                 res_html = str(res_html)
