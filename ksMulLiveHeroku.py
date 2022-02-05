@@ -582,7 +582,7 @@ def getids():
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    ksmullive_tot_str = getherokuargs('ksmullive_tot_str')
+    ksmullive_tot_str = getherokuargs('ksmullive_tot')
     ksmullive_tot = int(ksmullive_tot_str)
     split_len = author_id_len // ksmullive_tot
     author_id_start = split_len * (ksmullive_idx - 1)
