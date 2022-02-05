@@ -47,6 +47,6 @@ ENV LC_ALL C.UTF-8
 # RUN sudo pip3 install pip pipenv --upgrade
 RUN pip3 install -U pipenv pip sanic requests
 RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
-RUN pip3 install pyexecjs
+RUN pip3 install pyexecjs flask
 COPY . ./
 CMD ["./20211011.sh"]

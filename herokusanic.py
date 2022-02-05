@@ -16,6 +16,7 @@ import time
 import logging
 import sanic
 from sanic import Sanic
+from flask import Flask, session, redirect, request, jsonify, make_response
 # 第一步，创建一个logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级开关
@@ -51,7 +52,7 @@ class upth(threading.Thread):
                 time.sleep(3)
 
 
-app = Sanic(name="HerokuSanic20211010")
+app = Flask("HerokuSanic20211010")
 
 
 def getsizestr(mp4_):
@@ -65,19 +66,27 @@ def getsizestr(mp4_):
 
 
 @app.route('/')
-async def index(request):
+def index():
     huyadis = 'Hello World'
-    return sanic.response.text(str(huyadis))
+    return str(huyadis)
 
 
 @app.route('/api', methods=['GET'])
-async def api(request):
+def api():
     logger.info('{}'.format(request.args))
     qury_type = request.args['query_type']
     qury_type_val = os.environ.get("{}".format(qury_type))
-    # if qury_type_val is None:
-    #     return sanic.response.text("抱歉 没有设置{}".format(qury_type))
-    return sanic.response.text(qury_type_val)
+    if qury_type_val is None:
+        res_json = jsonify({
+            'success': False,
+            'data': qury_type_val
+        })
+    else:
+        res_json = jsonify({
+            'success': True,
+            'data': qury_type_val
+        })
+    return res_json
 
 
 # @app.route('/recordok')
