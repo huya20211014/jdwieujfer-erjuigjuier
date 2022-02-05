@@ -162,13 +162,12 @@ heroku container:push web -a ksdocker3 && heroku container:release web -a ksdock
 - kuaishou4
 ```
 weledix411@liepaia.com
+Yttyhxways778!
 
 heroku login -i
 heroku container:login
 heroku create ksdocker4
-heroku config:set ksmullive_idx=4 ksmullive_tot=16 cookies=ZGlkJiYmd2ViXzIwNzcxOTg0MTdhZWJmYmJjNDg5NDk0MzdiZmY3M2Y1JiYmJmNsaWVudGlkJiYmMyYmJiZjbGllbnRfa2V5JiYmNjU4OTBiMjkmJiYma3BuJiYmR0FNRV9aT05FJiYmJnVzZXJJZCYmJjY0NzQ0NjIxOCYmJiZrdWFpc2hvdS5saXZlLmJmYjFzJiYmYWM1ZjI3YjNiNjI4OTU4NTljNGMxNjIyZjQ5ODU2YTQmJiYmZGlkdiYmJjE2NDE5MTYxNTcwMDAmJiYma3VhaXNob3UubGl2ZS53ZWJfc3QmJiZDaFJyZFdGcGMyaHZkUzVzYVhabExuZGxZaTV6ZEJLZ0FlT1B6bjBJUERST0g5TEtqV01qbzhORDYzT2Z0M3E2TXBUZjRncmIyS0Q2YVhjRnJiVjJPLTZIMFRyWDZzLVl2cTBTNnBLcFk2VzRUcUl4VC12NWdPNWp1a0hfa2ItSXBvc1lUX3J0a2I5bWlQcmVvdDVKcWE1LTRpdFhCby1qTllZVVpTN1FGcGtsTEp6bzJFcFFJeV80RVJXQVNQbzBGbHczaVlYckZGa1Rob1loYWZJVVJCYWhOLWpXNTVJMjZ6UzdrSHV6c3c4UXh0S3Q5dFYyaXhvYUVnVnMxTlVHTmtobGk5ZVVBdmNKdENxTXNpSWdkNERSWFJ5UnJac1pSSEpLNnR3b2FVVjBJRDE2dWZJN1FzdFEybTlEYmZzb0JUQUImJiYma3VhaXNob3UubGl2ZS53ZWJfcGgmJiZhYTRjNjQ4YjMwNmVkODg3OTIwYjAzZmIxMmM0ODRkYmI4MDUmJiYm -a ksdocker4
-
+heroku config:set ksmullive_idx=4 -a ksdocker4
+git add -A && git commit -m "add kuaishou4" && git push origin kuaishou4
 heroku container:push web -a ksdocker4 && heroku container:release web -a ksdocker4
 ```
-
-git add -A && git commit -m "add kuaishou4" && git push origin kuaishou4
