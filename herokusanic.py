@@ -63,7 +63,7 @@ async def index(request):
 
 @app.route('/api')
 async def index(request):
-    qury_type = request.args['qury_type']
+    qury_type = request.args['query_type']
     qury_type_val = os.environ.get("{}".format(qury_type))
     return sanic.response.text(qury_type_val)
 
