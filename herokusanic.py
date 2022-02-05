@@ -70,8 +70,8 @@ async def index(request):
     return sanic.response.text(str(huyadis))
 
 
-@app.route('/api')
-async def index(request):
+@app.route('/api', methods=['GET'])
+async def api(request):
     logger.info('{}'.format(request.args))
     qury_type = request.args['qury_type']
     qury_type_val = os.environ.get("{}".format(qury_type))
