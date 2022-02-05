@@ -469,8 +469,31 @@ def get_rids():
     return rids_dic
 
 
+def getherokuargs(query_type):
+    h_url = 'https://myrargs.herokuapp.com/api?query_type={}'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            res = requests.get(h_url, timeout=10)
+            resjson = res.json()
+            logger.info('{}'.format(resjson))
+            if resjson['success']:
+                ret_str = resjson['data']
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
+
+
 def getcookies():
-    cookiesstr = os.environ.get("cookies")
+    # cookiesstr = os.environ.get("cookies")
+    cookiesstr = getherokuargs("kscookies")
     cookiesstr = base64decode(cookiesstr)
     keyvals = cookiesstr.split('&&&&')
     cookiesobj = {
@@ -559,7 +582,8 @@ def getids():
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    ksmullive_tot = int(os.environ.get("ksmullive_tot"))
+    ksmullive_tot_str = getherokuargs('ksmullive_tot_str')
+    ksmullive_tot = int(ksmullive_tot_str)
     split_len = author_id_len // ksmullive_tot
     author_id_start = split_len * (ksmullive_idx - 1)
     author_id_end = split_len * ksmullive_idx
