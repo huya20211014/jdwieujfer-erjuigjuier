@@ -10,14 +10,20 @@
 # @Email   : myr907097904@gmail.com
 # @File    : herokusanic.py
 # @Software: PyCharm
-import sanic
-import threading
-import configparser
-import logging
 import os
-from sanic import Sanic
+import threading
 import time
-
+import logging
+import sanic
+from sanic import Sanic
+# 第一步，创建一个logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)  # Log等级开关
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 class huyath(threading.Thread):
     def __init__(self):
@@ -47,26 +53,29 @@ class upth(threading.Thread):
 
 app = Sanic(name="HerokuSanic20211010")
 
+
 def getsizestr(mp4_):
     bytessize = os.path.getsize(mp4_)
-    dws = ['B','KB','MB','GB','TB']
+    dws = ['B', 'KB', 'MB', 'GB', 'TB']
     dwidx = 0
-    while bytessize>1024:
-        bytessize/=1024
-        dwidx +=1
-    return '{} {}'.format(bytessize,dws[dwidx])
+    while bytessize > 1024:
+        bytessize /= 1024
+        dwidx += 1
+    return '{} {}'.format(bytessize, dws[dwidx])
+
 
 @app.route('/')
 async def index(request):
     huyadis = 'Hello World'
     return sanic.response.text(str(huyadis))
 
+
 @app.route('/api')
 async def index(request):
-    qury_type = request.args['query_type']
+    logger.info('{}'.format(request.args))
+    qury_type = request.args['qury_type']
     qury_type_val = os.environ.get("{}".format(qury_type))
     return sanic.response.text(qury_type_val)
-
 
 
 # @app.route('/recordok')
