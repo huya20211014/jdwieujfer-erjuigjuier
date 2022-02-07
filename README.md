@@ -326,19 +326,20 @@ heroku container:push web -a ksdocker15 && heroku container:release web -a ksdoc
 git add -A && git commit -m "add kuaishou15" && git push origin kuaishou15
 
 
-- kuaishou18
+- kuaishou19
 ```
-kszb18@dslab2021.me
+kszb19@dslab2021.me
 Yttyhxways778!
 
-heroku login -i
+
 rm -rf sess/tgup*
 python3 sessgen.py
 mv tgup* sess
+heroku login -i
 heroku container:login
-heroku create ksdocker18
-heroku config:set ksmullive_idx=18 -a ksdocker18
-git add -A && git commit -m "add kuaishou18" && git push origin kuaishou18
-heroku container:push web -a ksdocker18 && heroku container:release web -a ksdocker18
+heroku create ksdocker19
+heroku config:set ksmullive_idx=18 -a ksdocker19
+git add -A && git commit -m "add kuaishou19" && git push origin kuaishou19
+heroku container:push web -a ksdocker19 && heroku container:release web -a ksdocker19
 ```
 
