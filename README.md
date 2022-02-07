@@ -338,7 +338,7 @@ mv tgup* sess
 heroku login -i
 heroku container:login
 heroku create ksdocker19
-heroku config:set ksmullive_idx=18 -a ksdocker19
+heroku config:set ksmullive_idx=19 -a ksdocker19
 git add -A && git commit -m "add kuaishou19" && git push origin kuaishou19
 heroku container:push web -a ksdocker19 && heroku container:release web -a ksdocker19
 ```
