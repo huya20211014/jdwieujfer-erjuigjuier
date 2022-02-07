@@ -332,6 +332,9 @@ capaji1476@huekieu.com
 Yttyhxways778!
 
 heroku login -i
+rm -rf sess/tgup*
+python3 sessgen.py
+mv tgup* sess
 heroku container:login
 heroku create ksdocker16
 heroku config:set ksmullive_idx=16 -a ksdocker16
