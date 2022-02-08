@@ -164,10 +164,13 @@ heroku container:push web -a ksdocker3 && heroku container:release web -a ksdock
 weledix411@liepaia.com
 Yttyhxways778!
 
+nme2mgnkytczzmv@dslab2021.me
+Yttyhxways778!
+
 heroku login -i
 heroku container:login
-heroku create ksdocker4
-heroku config:set ksmullive_idx=4 -a ksdocker4
+heroku create nme2mgnkytczzmv
+heroku config:set ksmullive_idx=4 -a nme2mgnkytczzmv
 git add -A && git commit -m "add kuaishou4" && git push origin kuaishou4
-heroku container:push web -a ksdocker4 && heroku container:release web -a ksdocker4
+heroku container:push web -a nme2mgnkytczzmv && heroku container:release web -a nme2mgnkytczzmv
 ```
