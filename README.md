@@ -77,13 +77,14 @@ heroku container:release web -a douyudocker1
 ```
 douyudocker2@outlook.com
 
-douyudocker2
+ndjjmdu4zwfin2r@dslab2021.me
+Yttyhxways778!
+
 heroku login -i
 heroku container:login
-heroku create douyudocker2
-heroku config:set luzhishichang=1800 douyuids="10337137=杨超越&7746333=奶优米&109064=尧顺宇&4624967=腐团儿&462228=隔壁的苏苏s&6677800=傲娇的喵小八&22619=Minana&6863470=唐星儿&6515025=何菱&6208237=球球Emma&6505338=上蓝冰儿&7753315=七姑娘小梧桐&9945289=爱跳舞的肉肉&6939197=李小婉&8998792=奈奈&71690=陈叨叨&9516609=狐苏&10109975=李嫣然&9545293=甜小桃&5440020=小小玉酱&10432719=抠门三儿&291260=酥念儿&6381492=曦曦Stacey&9243236=阿喜&123111=拉拉&10484268=用飘柔的小姐姐&700=张琪格&968987=南妹儿&7524314=猫痒痒lisa酱&" -a douyudocker2
-
-heroku container:push web -a douyudocker2 && heroku container:release web -a douyudocker2
+heroku create ndjjmdu4zwfin2r
+heroku config:set luzhishichang=1800 douyuids="10337137=杨超越&7746333=奶优米&109064=尧顺宇&4624967=腐团儿&462228=隔壁的苏苏s&6677800=傲娇的喵小八&22619=Minana&6863470=唐星儿&6515025=何菱&6208237=球球Emma&6505338=上蓝冰儿&7753315=七姑娘小梧桐&9945289=爱跳舞的肉肉&6939197=李小婉&8998792=奈奈&71690=陈叨叨&9516609=狐苏&10109975=李嫣然&9545293=甜小桃&5440020=小小玉酱&10432719=抠门三儿&291260=酥念儿&6381492=曦曦Stacey&9243236=阿喜&123111=拉拉&10484268=用飘柔的小姐姐&700=张琪格&968987=南妹儿&7524314=猫痒痒lisa酱&" -a ndjjmdu4zwfin2r
+git add -A && git commit -m "add douyu2" && git push origin douyu2
+heroku container:push web -a ndjjmdu4zwfin2r && heroku container:release web -a ndjjmdu4zwfin2r
 ```
 
-git add -A && git commit -m "add douyu2" && git push origin douyu2
