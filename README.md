@@ -329,6 +329,8 @@ git add -A && git commit -m "add kuaishou15" && git push origin kuaishou15
 - kuaishou19
 ```
 kszb19@dslab2021.me
+
+mtrlodvlmgu3mza@dslab2021.me
 Yttyhxways778!
 
 
@@ -337,9 +339,9 @@ python3 sessgen.py
 mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create ksdocker19
-heroku config:set ksmullive_idx=19 -a ksdocker19
+heroku create mtrlodvlmgu3mza
+heroku config:set ksmullive_idx=19 -a mtrlodvlmgu3mza
 git add -A && git commit -m "add kuaishou19" && git push origin kuaishou19
-heroku container:push web -a ksdocker19 && heroku container:release web -a ksdocker19
+heroku container:push web -a mtrlodvlmgu3mza && heroku container:release web -a mtrlodvlmgu3mza
 ```
 
