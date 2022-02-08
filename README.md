@@ -74,13 +74,16 @@ heroku container:push web -a huyadocker2xby && heroku container:release web -a h
 ```
 git add -A && git commit -m "add huyadocker2xby" && git push origin huyadocker2xby
 
-- huyadocker3xby
+- otfmodkwnzzjnzn
 ```
 romopis182@bubblybank.com
 
+otfmodkwnzzjnzn@dslab2021.me
+Yttyhxways778!
+
 heroku login -i
 heroku container:login
-heroku create huyadocker3xby
-heroku container:push web -a huyadocker3xby && heroku container:release web -a huyadocker3xby
-```
+heroku create otfmodkwnzzjnzn
 git add -A && git commit -m "add huyadocker3xby" && git push origin huyadocker3xby
+heroku container:push web -a otfmodkwnzzjnzn && heroku container:release web -a otfmodkwnzzjnzn
+```
