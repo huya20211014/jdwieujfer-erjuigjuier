@@ -230,12 +230,15 @@ git add -A && git commit -m "add kuaishou8" && git push origin kuaishou8
 papaj73161@dkb3.com
 Yttyhxways778!
 
+otcxotq0oddhyzu@dslab2021.me
+Yttyhxways778!
+
 heroku login -i
 heroku container:login
-heroku create ksdocker9
-heroku config:set ksmullive_idx=9 -a ksdocker9
+heroku create otcxotq0oddhyzu
+heroku config:set ksmullive_idx=9 -a otcxotq0oddhyzu
 git add -A && git commit -m "add kuaishou9" && git push origin kuaishou9
-heroku container:push web -a ksdocker9 && heroku container:release web -a ksdocker9
+heroku container:push web -a otcxotq0oddhyzu && heroku container:release web -a otcxotq0oddhyzu
 ```
 
 
