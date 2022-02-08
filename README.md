@@ -147,18 +147,19 @@ heroku config:set luzhishichang=1800 ids_str=aHR0cHM6Ly92LmRvdXlpbi5jb20vZXhlVEN
 heroku container:push web -a douyindocker1 && heroku container:release web -a douyindocker1
 ```
 
-- dymcmm19
+- yjazytfkzmq2otd
 ```
-dymcmm19@dslab2021.me
+yjazytfkzmq2otd@dslab2021.me
 Yttyhxways778!
 
-heroku login -i
+
 rm -rf sess/tgup*
 python3 sessgen.py
 mv tgup* sess
+heroku login -i
 heroku container:login
-heroku create dymcmm19
-heroku config:set luzhishichang=1800 ids_str=aHR0cHM6Ly92LmRvdXlpbi5jb20vTHExRGdyRy8s5Li75pKtOiDmipbpn7Pnm7Tmkq1f5bCP5qGD5a2QCmh0dHBzOi8vdi5kb3V5aW4uY29tL0xxMXlzWHIvLOS4u+aSrTog5oqW6Z+z55u05pKtX+aciOaciApodHRwczovL3YuZG91eWluLmNvbS9McTF5MkVGLyzkuLvmkq06IOaKlumfs+ebtOaSrV/ogonlpJrlpJoKaHR0cHM6Ly92LmRvdXlpbi5jb20vTHExeXVmUC8s5Li75pKtOiDmipbpn7Pnm7Tmkq1f5bCP6KW/Cmh0dHBzOi8vdi5kb3V5aW4uY29tL0xxMVhOR1EvLOS4u+aSrTog5oqW6Z+z55u05pKtX+eZu+eZuwpodHRwczovL3YuZG91eWluLmNvbS84Zk5Gc3cyLyzkuLvmkq06IOaKlumfs+ebtOaSrV/niLHot7PoiJ7lsI/mn7PlsqkK -a dymcmm19
+heroku create yjazytfkzmq2otd
+heroku config:set luzhishichang=1800 ids_str=aHR0cHM6Ly92LmRvdXlpbi5jb20vTHExRGdyRy8s5Li75pKtOiDmipbpn7Pnm7Tmkq1f5bCP5qGD5a2QCmh0dHBzOi8vdi5kb3V5aW4uY29tL0xxMXlzWHIvLOS4u+aSrTog5oqW6Z+z55u05pKtX+aciOaciApodHRwczovL3YuZG91eWluLmNvbS9McTF5MkVGLyzkuLvmkq06IOaKlumfs+ebtOaSrV/ogonlpJrlpJoKaHR0cHM6Ly92LmRvdXlpbi5jb20vTHExeXVmUC8s5Li75pKtOiDmipbpn7Pnm7Tmkq1f5bCP6KW/Cmh0dHBzOi8vdi5kb3V5aW4uY29tL0xxMVhOR1EvLOS4u+aSrTog5oqW6Z+z55u05pKtX+eZu+eZuwpodHRwczovL3YuZG91eWluLmNvbS84Zk5Gc3cyLyzkuLvmkq06IOaKlumfs+ebtOaSrV/niLHot7PoiJ7lsI/mn7PlsqkK -a yjazytfkzmq2otd
 git add -A && git commit -m "add dymcmm19" && git push origin dymcmm19
-heroku container:push web -a dymcmm19 && heroku container:release web -a dymcmm19
+heroku container:push web -a yjazytfkzmq2otd && heroku container:release web -a yjazytfkzmq2otd
 ```
