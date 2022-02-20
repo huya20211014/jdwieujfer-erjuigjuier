@@ -136,7 +136,7 @@ class getm3u8Thread(threading.Thread):
     def down_m3u8(self):
         try:
             ffmpeg_path = "ffmpeg"
-            file = '{}.mp4'.format(self.room)
+            file = '虎牙直播_{}.mp4'.format(self.room)
             _output = subprocess.check_output([
                 ffmpeg_path, "-y",
                 "-v", "verbose",
