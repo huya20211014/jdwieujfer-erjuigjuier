@@ -14,11 +14,12 @@ RUN echo root:root | chpasswd
 RUN apt-get update && \
     apt-get install -q -y --no-install-recommends apt-utils
 RUN echo 'Asia/Shanghai' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    apt-get update && \
+    ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN apt-get update && \
     apt-get install -q -y --no-install-recommends net-tools telnet tzdata sudo git zsh nano aria2 curl vim software-properties-common && \
-    apt-get install -q -y --no-install-recommends --reinstall ca-certificates && \
-    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh \
+RUN apt-get update && \
+    apt-get install -q -y --no-install-recommends --reinstall ca-certificates
+RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh \
     && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
     && sed -i "s/robbyrussell/ys/g" ~/.zshrc \
     && sed -i "s/plugins=(git)/plugins=(git cp extract)/g" ~/.zshrc \
@@ -26,8 +27,8 @@ RUN echo 'Asia/Shanghai' > /etc/timezone && \
     && add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
     && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update && apt install -y ffmpeg python3.8 \
-    && rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3 \
-    && apt install -y python3-pip python3.8-dev nodejs
+    && rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3
+RUN apt-get update && apt install -y python3-pip python3.8-dev nodejs
 
 
 # setup environment
