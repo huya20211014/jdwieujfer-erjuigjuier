@@ -16,7 +16,7 @@ RUN apt-get update && \
 RUN echo 'Asia/Shanghai' > /etc/timezone && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN apt-get update && \
-    apt-get install -q -y --no-install-recommends net-tools telnet tzdata sudo git zsh nano aria2 curl vim software-properties-common && \
+    apt-get install -q -y --no-install-recommends net-tools telnet tzdata sudo git zsh nano aria2 curl vim software-properties-common
 RUN apt-get update && \
     apt-get install -q -y --no-install-recommends --reinstall ca-certificates
 RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh \
