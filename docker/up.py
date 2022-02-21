@@ -159,7 +159,7 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    UPLOAD_PRE = 'Douyin_dyzb05'
+    UPLOAD_PRE = 'Douyin_dyzb06'
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     max_thread_num_MAX = 15
     sess_path = 'sess'
