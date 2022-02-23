@@ -104,6 +104,12 @@ async def index(request):
     return sanic.response.html(responsestr)
 
 if __name__ == '__main__':
+    _dir_chk = 'record'
+    if not os.path.exists(_dir_chk):
+        os.makedirs(_dir_chk)
+    _dir_chk = 'recordok'
+    if not os.path.exists(_dir_chk):
+        os.makedirs(_dir_chk)
     USE_PROXY = True
     # LISTEN_PORT = 8888
     # listen_port = LISTEN_PORT
