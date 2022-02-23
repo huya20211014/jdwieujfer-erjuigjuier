@@ -105,10 +105,10 @@ async def index(request):
 
 if __name__ == '__main__':
     dir_chk = 'record'
-    if os.path.exists(_dir_chk):
+    if not os.path.exists(_dir_chk):
         os.makedirs(_dir_chk)
     _dir_chk = 'recordok'
-    if os.path.exists(_dir_chk):
+    if not os.path.exists(_dir_chk):
         os.makedirs(_dir_chk)
 
     USE_PROXY = True
