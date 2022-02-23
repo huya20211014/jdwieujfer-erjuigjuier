@@ -12,4 +12,3 @@ git add -A && git commit -m "add dyzb23" && git push origin dyzb23
 heroku container:push web -a mmiyotc3zdhjmzq && heroku container:release web -a mmiyotc3zdhjmzq
 heroku config:get luzhishichang -a mmiyotc3zdhjmzq >>heroku_config.ini
 heroku config:get ids_str -a mmiyotc3zdhjmzq >>heroku_config.ini
-heroku config:get luzhishichang -a mmiyotc3zdhjmzq >>heroku_config.ini
