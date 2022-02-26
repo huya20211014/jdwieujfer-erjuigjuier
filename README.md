@@ -110,3 +110,7 @@ heroku config:set luzhishichang=1800 ids="dlatmdaldlr=뚱미_胖美&ulsandodud=B
 git add -A && git commit -m "add afreecatv1" && git push origin afreecatv1
 heroku container:push web -a ztq2zja1zmjlzdc && heroku container:release web -a ztq2zja1zmjlzdc
 ```
+
+heroku config:get luzhishichang -a ztq2zja1zmjlzdc >heroku_config.ini
+heroku config:get ids_str -a ztq2zja1zmjlzdc >>heroku_config.ini
+git add -A && git commit -m "add afreecatv1" && git push origin afreecatv1
