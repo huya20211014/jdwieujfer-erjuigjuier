@@ -543,6 +543,7 @@ def getids():
             gameInfo_str = '${}.gameInfo'.format(iii)
             gameInfo_obj = graphqlServerClient[gameInfo_str]
             gameInfo_name = gameInfo_obj['name']
+            logger.info('{} {}'.format(author_nickname,gameInfo_name))
             if gameInfo_name != '购物':
                 logger.info('{} 跳过'.format(author_nickname))
                 continue
