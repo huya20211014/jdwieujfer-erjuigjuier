@@ -470,7 +470,7 @@ def get_rids():
 
 
 def getherokuargs(query_type):
-    h_url = 'https://YTc2NDg1YTNiMmJ.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://ytc2ndg1ytnimmj.herokuapp.com/api?query_type={}'.format(query_type)
 
     trytime = 0
     while True:
@@ -566,7 +566,8 @@ def getids():
             gameInfo_str = '${}.gameInfo'.format(iii)
             gameInfo_obj = graphqlServerClient[gameInfo_str]
             gameInfo_name = gameInfo_obj['name']
-            if gameInfo_name != '购物':
+            logger.info('{} {}'.format(author_nickname,gameInfo_name))
+            if gameInfo_name not in ['购物','其他']  :
                 logger.info('{} 跳过'.format(author_nickname))
                 continue
             else:
