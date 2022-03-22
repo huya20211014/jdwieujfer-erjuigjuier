@@ -92,12 +92,12 @@ cejodi9976@icesilo.com
 y2q3owy5y2jkytc@dslab2021.me
 Yttyhxways778!
 
-y2q3owy5y2jkytc@dslab2022.tk
+otu4yjyxyjq4zja@dslab2022.tk
 Yttyhxways778!
 
 heroku login -i
 heroku container:login
-heroku create y2q3owy5y2jkytc
+heroku create otu4yjyxyjq4zja
 git add -A && git commit -m "add huyadocker4xby" && git push origin huyadocker4xby
-heroku container:push web -a y2q3owy5y2jkytc && heroku container:release web -a y2q3owy5y2jkytc
+heroku container:push web -a otu4yjyxyjq4zja && heroku container:release web -a otu4yjyxyjq4zja
 ```
