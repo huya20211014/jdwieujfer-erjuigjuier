@@ -51,11 +51,11 @@ heroku container:push web -a huyadocker4
 heroku container:release web -a huyadocker4
 ```
 
-- huyazhibo02
+- huyazhibo03
 ```
 gigapic495@bubblybank.com
 
-mthknzdiywfizgy@dslab2022.tk
+oweymgzjnmuwmdg@dslab2022.tk
 Yttyhxways778!
 
 mkdir record
@@ -67,9 +67,9 @@ python3 sessgen.py
 mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create mthknzdiywfizgy
-git add -A && git commit -m "add huyazhibo02" && git push origin huyazhibo02
-heroku container:push web -a mthknzdiywfizgy && heroku container:release web -a mthknzdiywfizgy
+heroku create oweymgzjnmuwmdg
+git add -A && git commit -m "add huyazhibo03" && git push origin huyazhibo03
+heroku container:push web -a oweymgzjnmuwmdg && heroku container:release web -a oweymgzjnmuwmdg
 
 ```
  
