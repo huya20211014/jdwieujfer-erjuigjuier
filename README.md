@@ -78,14 +78,22 @@ heroku container:release web -a douyudocker1
 
 - cc
 ```
-ogq4n2i1mzezztm@dslab2021.me
+odvmytliztfkzge@dslab2022.tk
 Yttyhxways778!
 
+
+mkdir record
+mkdir recordok
+touch record/1.txt
+touch recordok/1.txt
+rm -rf sess/tgup*
+python3 sessgen.py
+mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create ogq4n2i1mzezztm
+heroku create odvmytliztfkzge
 
-heroku config:set luzhishichang=1800 ids="400943235=婉柔&248792635=梓陌&351456178=安扬&354537294=漫妮&357418610=千代子子&368291563=莱傲_富婆抖抖&406420197=丸子超凶的&373228525=九儿&389962614=艺禾&384796337=大幂幂&407875781=妹妹&403420927=7879帝儿&272060=大锤妹妹&408240559=酒儿&406478715=温婉&351299617=狗蛋&359326974=静儿&358424549=小野马&369910883=嗲琪&403890993=白妖妖&369281763=莱傲_梓妍&358575804=朴西卡&365156479=可儿&386599406=晚晚&403268807=甜妹儿&394869073=莱傲_迪丽扎扎&" -a ogq4n2i1mzezztm
-git add -A && git commit -m "add cc1" && git push origin cc1
-heroku container:push web -a ogq4n2i1mzezztm && heroku container:release web -a ogq4n2i1mzezztm
+heroku config:set luzhishichang=1800 ids="400943235=婉柔&248792635=梓陌&351456178=安扬&354537294=漫妮&357418610=千代子子&368291563=莱傲_富婆抖抖&406420197=丸子超凶的&373228525=九儿&389962614=艺禾&384796337=大幂幂&407875781=妹妹&403420927=7879帝儿&272060=大锤妹妹&408240559=酒儿&406478715=温婉&351299617=狗蛋&359326974=静儿&358424549=小野马&369910883=嗲琪&403890993=白妖妖&369281763=莱傲_梓妍&358575804=朴西卡&365156479=可儿&386599406=晚晚&403268807=甜妹儿&394869073=莱傲_迪丽扎扎&" -a odvmytliztfkzge
+git add -A && git commit -m "add ccxby01" && git push origin ccxby01
+heroku container:push web -a odvmytliztfkzge && heroku container:release web -a odvmytliztfkzge
 ```
