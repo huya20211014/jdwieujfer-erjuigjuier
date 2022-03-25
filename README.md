@@ -1,4 +1,4 @@
-oddiotyyztgwzjv@dslab2022.tk
+oddiotyyztgwzjv@dslab2021.me
 Yttyhxways778!
 
 mkdir record
