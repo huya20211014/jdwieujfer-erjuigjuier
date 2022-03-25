@@ -470,7 +470,7 @@ def get_rids():
 
 
 def getherokuargs(query_type):
-    h_url = 'https://ytc2ndg1ytnimmj.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://nmfmodlizti3mmu.herokuapp.com/api?query_type={}'.format(query_type)
 
     trytime = 0
     while True:
