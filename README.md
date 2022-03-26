@@ -263,3 +263,26 @@ git add -A && git commit -m "add kszbxby13" && git push origin kszbxby13
 heroku container:push web -a nmq5ymu2yzi4ztc && heroku container:release web -a nmq5ymu2yzi4ztc
     
 
+kszbxby14
+
+
+n2flmwi2mji1oti@dslab2022.tk
+Yttyhxways778!
+
+
+
+mkdir record
+mkdir recordok
+touch record/1.txt
+touch recordok/1.txt
+rm -rf sess/tgup*
+python3 sessgen.py
+mv tgup* sess
+heroku login -i
+heroku container:login
+heroku create n2flmwi2mji1oti
+heroku config:set ksmullive_idx=14 -a n2flmwi2mji1oti
+git add -A && git commit -m "add kszbxby14" && git push origin kszbxby14
+heroku container:push web -a n2flmwi2mji1oti && heroku container:release web -a n2flmwi2mji1oti
+    
+
