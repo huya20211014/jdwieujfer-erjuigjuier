@@ -152,10 +152,10 @@ mv tgup* sess
 heroku login -i
 heroku container:login
 heroku create {}
-heroku config:set ksmullive_idx={} -a y2mwmtyyy2jkmtg
+heroku config:set ksmullive_idx={} -a {}
 git add -A && git commit -m "add {}" && git push origin {}
 heroku container:push web -a {} && heroku container:release web -a {}
-    '''.format(ymret, idxxx, ym, ym, ymret, ymret)
+    '''.format(ymret, idxxx,ymret, ym, ym, ymret, ymret)
     print(prt_str)
     with open('../README.md',encoding='utf-8',mode='a+') as rdme:
         rdme.write('{}\n\n\n'.format(ym))
