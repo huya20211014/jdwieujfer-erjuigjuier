@@ -123,12 +123,12 @@ heroku create afreedocker2
 heroku container:push web -a afreedocker2 && heroku container:release web -a afreedocker2
 ```
 
-- kszbxby07
+- kszbxby08
 ```
 ksdocker1@outlook.com
 Yttyhxways778!
 
-mthmmwu4nge0zgu@dslab2022.tk
+y2mwmtyyy2jkmtg@dslab2022.tk
 Yttyhxways778!
 
 mkdir record
@@ -140,9 +140,9 @@ python3 sessgen.py
 mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create mthmmwu4nge0zgu
-heroku config:set ksmullive_idx=7 -a mthmmwu4nge0zgu
-git add -A && git commit -m "add mthmmwu4nge0zgu" && git push origin kszbxby07
-heroku container:push web -a mthmmwu4nge0zgu && heroku container:release web -a mthmmwu4nge0zgu
+heroku create y2mwmtyyy2jkmtg
+heroku config:set ksmullive_idx=8 -a y2mwmtyyy2jkmtg
+git add -A && git commit -m "add y2mwmtyyy2jkmtg" && git push origin kszbxby08
+heroku container:push web -a y2mwmtyyy2jkmtg && heroku container:release web -a y2mwmtyyy2jkmtg
 ```
 
