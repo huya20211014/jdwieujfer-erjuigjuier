@@ -537,3 +537,26 @@ git add -A && git commit -m "add kszb17" && git push origin kszb17
 heroku container:push web -a zdzinzhmymmzy2v && heroku container:release web -a zdzinzhmymmzy2v
     
 
+kszb18
+
+
+ymi2mzu2njbhotu@myr907.ml
+Yttyhxways778!
+
+
+
+mkdir record
+mkdir recordok
+touch record/1.txt
+touch recordok/1.txt
+rm -rf sess/tgup*
+python3 sessgen.py
+mv tgup* sess
+heroku login -i
+heroku container:login
+heroku create ymi2mzu2njbhotu
+heroku config:set ksmullive_idx=18 -a ymi2mzu2njbhotu
+git add -A && git commit -m "add kszb18" && git push origin kszb18
+heroku container:push web -a ymi2mzu2njbhotu && heroku container:release web -a ymi2mzu2njbhotu
+    
+
