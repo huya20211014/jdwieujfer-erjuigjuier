@@ -92,12 +92,19 @@ cejodi9976@icesilo.com
 y2q3owy5y2jkytc@dslab2021.me
 Yttyhxways778!
 
-otu4yjyxyjq4zja@dslab2022.tk
+ytrkzwvhowywodj@myr907.ml
 Yttyhxways778!
 
+mkdir record
+mkdir recordok
+touch record/1.txt
+touch recordok/1.txt
+rm -rf sess/tgup*
+python3 sessgen.py
+mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create otu4yjyxyjq4zja
-git add -A && git commit -m "add huyadocker4xby" && git push origin huyadocker4xby
-heroku container:push web -a otu4yjyxyjq4zja && heroku container:release web -a otu4yjyxyjq4zja
+heroku create ytrkzwvhowywodj
+git add -A && git commit -m "add hyzb04" && git push origin hyzb04
+heroku container:push web -a ytrkzwvhowywodj && heroku container:release web -a ytrkzwvhowywodj
 ```
