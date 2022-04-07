@@ -92,7 +92,7 @@ cejodi9976@icesilo.com
 y2q3owy5y2jkytc@dslab2021.me
 Yttyhxways778!
 
-otyyzwewnmm1yzl@myr907.ml
+ytnmzwjm@googlr.cf
 Yttyhxways778!
 
 mkdir record
@@ -104,7 +104,7 @@ python3 sessgen.py
 mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create otyyzwewnmm1yzl
+heroku create ytnmzwjm
 git add -A && git commit -m "add hyzb01" && git push origin hyzb01
-heroku container:push web -a otyyzwewnmm1yzl && heroku container:release web -a otyyzwewnmm1yzl
+heroku container:push web -a ytnmzwjm && heroku container:release web -a ytnmzwjm
 ```
