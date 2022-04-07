@@ -1466,3 +1466,465 @@ Yttyhxways778!
     heroku container:push web -a zmjjn2nimtb && heroku container:release web -a zmjjn2nimtb
         
 
+kszb01
+
+
+mwuwmge2mdq@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create mwuwmge2mdq
+    heroku config:set ksmullive_idx=1 -a mwuwmge2mdq
+    heroku container:push web -a mwuwmge2mdq && heroku container:release web -a mwuwmge2mdq
+        
+
+kszb02
+
+
+otm2yzg5ymu@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create otm2yzg5ymu
+    heroku config:set ksmullive_idx=2 -a otm2yzg5ymu
+    heroku container:push web -a otm2yzg5ymu && heroku container:release web -a otm2yzg5ymu
+        
+
+kszb03
+
+
+zjfhzdm2nzj@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create zjfhzdm2nzj
+    heroku config:set ksmullive_idx=3 -a zjfhzdm2nzj
+    heroku container:push web -a zjfhzdm2nzj && heroku container:release web -a zjfhzdm2nzj
+        
+
+kszb04
+
+
+nzaxzjm1nwq@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create nzaxzjm1nwq
+    heroku config:set ksmullive_idx=4 -a nzaxzjm1nwq
+    heroku container:push web -a nzaxzjm1nwq && heroku container:release web -a nzaxzjm1nwq
+        
+
+kszb05
+
+
+yjc2nza2ywj@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create yjc2nza2ywj
+    heroku config:set ksmullive_idx=5 -a yjc2nza2ywj
+    heroku container:push web -a yjc2nza2ywj && heroku container:release web -a yjc2nza2ywj
+        
+
+kszb05
+
+
+yjc2nza2ywj@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create yjc2nza2ywj
+    heroku config:set ksmullive_idx=5 -a yjc2nza2ywj
+    heroku container:push web -a yjc2nza2ywj && heroku container:release web -a yjc2nza2ywj
+        
+
+kszb06
+
+
+ytdimzviyzg@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create ytdimzviyzg
+    heroku config:set ksmullive_idx=6 -a ytdimzviyzg
+    heroku container:push web -a ytdimzviyzg && heroku container:release web -a ytdimzviyzg
+        
+
+kszb07
+
+
+m2vjmgm2nwi@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create m2vjmgm2nwi
+    heroku config:set ksmullive_idx=7 -a m2vjmgm2nwi
+    heroku container:push web -a m2vjmgm2nwi && heroku container:release web -a m2vjmgm2nwi
+        
+
+kszb08
+
+
+zdzkzgzmzmi@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create zdzkzgzmzmi
+    heroku config:set ksmullive_idx=8 -a zdzkzgzmzmi
+    heroku container:push web -a zdzkzgzmzmi && heroku container:release web -a zdzkzgzmzmi
+        
+
+kszb09
+
+
+ndiynwi1zjk@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create ndiynwi1zjk
+    heroku config:set ksmullive_idx=9 -a ndiynwi1zjk
+    heroku container:push web -a ndiynwi1zjk && heroku container:release web -a ndiynwi1zjk
+        
+
+kszb10
+
+
+zwi4nzcwnte@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create zwi4nzcwnte
+    heroku config:set ksmullive_idx=10 -a zwi4nzcwnte
+    heroku container:push web -a zwi4nzcwnte && heroku container:release web -a zwi4nzcwnte
+        
+
+kszb11
+
+
+ngu0mzm3y2y@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create ngu0mzm3y2y
+    heroku config:set ksmullive_idx=11 -a ngu0mzm3y2y
+    heroku container:push web -a ngu0mzm3y2y && heroku container:release web -a ngu0mzm3y2y
+        
+
+kszb12
+
+
+nwrinte1yjm@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create nwrinte1yjm
+    heroku config:set ksmullive_idx=12 -a nwrinte1yjm
+    heroku container:push web -a nwrinte1yjm && heroku container:release web -a nwrinte1yjm
+        
+
+kszb13
+
+
+ndc5ntezzjd@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create ndc5ntezzjd
+    heroku config:set ksmullive_idx=13 -a ndc5ntezzjd
+    heroku container:push web -a ndc5ntezzjd && heroku container:release web -a ndc5ntezzjd
+        
+
+kszb14
+
+
+oty4y2fjoty@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create oty4y2fjoty
+    heroku config:set ksmullive_idx=14 -a oty4y2fjoty
+    heroku container:push web -a oty4y2fjoty && heroku container:release web -a oty4y2fjoty
+        
+
+kszb15
+
+
+y2y2ywi1zdj@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create y2y2ywi1zdj
+    heroku config:set ksmullive_idx=15 -a y2y2ywi1zdj
+    heroku container:push web -a y2y2ywi1zdj && heroku container:release web -a y2y2ywi1zdj
+        
+
+kszb16
+
+
+nzc0mjkxowr@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create nzc0mjkxowr
+    heroku config:set ksmullive_idx=16 -a nzc0mjkxowr
+    heroku container:push web -a nzc0mjkxowr && heroku container:release web -a nzc0mjkxowr
+        
+
+kszb17
+
+
+mjq2mtc4zjk@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create mjq2mtc4zjk
+    heroku config:set ksmullive_idx=17 -a mjq2mtc4zjk
+    heroku container:push web -a mjq2mtc4zjk && heroku container:release web -a mjq2mtc4zjk
+        
+
+kszb18
+
+
+ywyyndk2mji@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create ywyyndk2mji
+    heroku config:set ksmullive_idx=18 -a ywyyndk2mji
+    heroku container:push web -a ywyyndk2mji && heroku container:release web -a ywyyndk2mji
+        
+
+kszb19
+
+
+mwjhmdrhmdn@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create mwjhmdrhmdn
+    heroku config:set ksmullive_idx=19 -a mwjhmdrhmdn
+    heroku container:push web -a mwjhmdrhmdn && heroku container:release web -a mwjhmdrhmdn
+        
+
+kszb20
+
+
+zmjjn2nimtb@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create zmjjn2nimtb
+    heroku config:set ksmullive_idx=20 -a zmjjn2nimtb
+    heroku container:push web -a zmjjn2nimtb && heroku container:release web -a zmjjn2nimtb
+        
+
