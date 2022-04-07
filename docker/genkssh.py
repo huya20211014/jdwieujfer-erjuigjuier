@@ -136,33 +136,33 @@ def base64add(base641, base642):
 if __name__ == '__main__':
     idxxx = IDX
     # idxxx = 27
-    ym, ymret = genym(idxxx)
-    # print('{}@dslab2021.me'.format((ymret).lower()))
-    # print('{}@dslab2022.tk'.format((ymret).lower()))
-    # print('Yttyhxways778!')
-    # ids_str = gen_id_bat(1, idxxx, 100)
-    # ids_str = gen_id_bat_se(2, 835, 888)
-    prt_str = '''
-mkdir record
-mkdir recordok
-touch record/1.txt
-touch recordok/1.txt
-rm -rf sess/tgup*
-python3 sessgen.py
-mv tgup* sess
-heroku login -i
-heroku container:login
-heroku create {}
-heroku config:set ksmullive_idx={} -a {}
-git add -A && git commit -m "add {}" && git push origin {}
-heroku container:push web -a {} && heroku container:release web -a {}
-    '''.format(ymret, idxxx,ymret, ym, ym, ymret, ymret)
-    print(prt_str)
-    with open('../README.md',encoding='utf-8',mode='a+') as rdme:
-        rdme.write('{}\n\n\n'.format(ym))
+    for idxxx in range(1,21):
+        ym, ymret = genym(idxxx)
+        # print('{}@dslab2021.me'.format((ymret).lower()))
+        # print('{}@dslab2022.tk'.format((ymret).lower()))
+        # print('Yttyhxways778!')
+        # ids_str = gen_id_bat(1, idxxx, 100)
+        # ids_str = gen_id_bat_se(2, 835, 888)
+        prt_str = '''
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create {}
+    heroku config:set ksmullive_idx={} -a {}
+    heroku container:push web -a {} && heroku container:release web -a {}
+        '''.format(ymret, idxxx,ymret, ymret, ymret)
+        print(prt_str)
+        with open('../README.md',encoding='utf-8',mode='a+') as rdme:
+            rdme.write('{}\n\n\n'.format(ym))
 
-        rdme.write('{}@liuxinsb.cf\n'.format((ymret).lower()))
-        rdme.write('Yttyhxways778!\n\n\n')
-        rdme.write('{}\n'.format(prt_str))
-        rdme.write('\n')
-    os.system(prt_str)
+            rdme.write('{}@liuxinsb.cf\n'.format((ymret).lower()))
+            rdme.write('Yttyhxways778!\n\n\n')
+            rdme.write('{}\n'.format(prt_str))
+            rdme.write('\n')
+        os.system(prt_str)

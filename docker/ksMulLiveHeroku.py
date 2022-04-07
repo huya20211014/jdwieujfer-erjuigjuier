@@ -479,8 +479,8 @@ def getherokuargs(query_type):
         try:
             res = requests.get(h_url, timeout=10)
             # resjson = res.json()
-            logger.info('{}'.format(resjson))
-            if res.code==200:
+            logger.info('{}'.format(res.text))
+            if True:
                 ret_str = res.text
                 break
             else:
