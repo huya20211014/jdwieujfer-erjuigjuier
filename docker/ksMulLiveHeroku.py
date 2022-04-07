@@ -470,17 +470,18 @@ def get_rids():
 
 
 def getherokuargs(query_type):
-    h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
 
     trytime = 0
     while True:
         trytime += 1
         try:
             res = requests.get(h_url, timeout=10)
-            resjson = res.json()
+            # resjson = res.json()
             logger.info('{}'.format(resjson))
-            if resjson['success']:
-                ret_str = resjson['data']
+            if res.code==200:
+                ret_str = res.text
                 break
             else:
                 logger.info('获取参数失败 2秒后再试')
