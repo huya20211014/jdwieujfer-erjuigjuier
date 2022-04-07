@@ -92,7 +92,7 @@ cejodi9976@icesilo.com
 y2q3owy5y2jkytc@dslab2021.me
 Yttyhxways778!
 
-ngm3m2yzmzgxmtc@myr907.ml
+ztnmodfm@googlr.cf
 Yttyhxways778!
 
 mkdir record
@@ -104,7 +104,7 @@ python3 sessgen.py
 mv tgup* sess
 heroku login -i
 heroku container:login
-heroku create ngm3m2yzmzgxmtc
+heroku create ztnmodfm
 git add -A && git commit -m "add hyzb03" && git push origin hyzb03
-heroku container:push web -a ngm3m2yzmzgxmtc && heroku container:release web -a ngm3m2yzmzgxmtc
+heroku container:push web -a ztnmodfm && heroku container:release web -a ztnmodfm
 ```
