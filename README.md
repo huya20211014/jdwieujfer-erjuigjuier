@@ -150,7 +150,7 @@ heroku container:push web -a douyindocker1 && heroku container:release web -a do
 - mguyzdg3ntc1m
 ```
 
-mguyzdg3ntc1m@kingosb.gq
+ztnhmzrjmte0mdb@outlook.com
 Yttyhxways778!
 
 rm -rf sess/tgup*
