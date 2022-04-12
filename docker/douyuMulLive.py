@@ -287,7 +287,7 @@ class DouYu:
     hls1a-akm.douyucdn.cn
     """
     host = 'dyscdnali1.douyucdn.cn'
-
+    host = 'tx2play1.douyucdn.cn'
     def __init__(self, rid):
         """
         房间号通常为1~8位纯数字，浏览器地址栏中看到的房间号不一定是真实rid.
@@ -401,7 +401,7 @@ class DouYu:
 
         real_url["flv"] = "http://{}/live/{}.flv?uuid=".format(self.host, key)
         real_url["x-p2p"] = "http://{}/live/{}.xs?uuid=".format(self.host, key)
-        return real_url["flv"]
+        return real_url["x-p2p"]
 
 
 def get_real_url(rid):
