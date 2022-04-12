@@ -52,7 +52,7 @@ def getsizestr(mp4_):
 
 @app.route('/')
 async def index(request):
-    huyadis = 'Hello World'
+    huyadis = 'what do u do'
     return sanic.response.text(str(huyadis))
 
 

@@ -36,7 +36,7 @@ def base64decode(a):
 
 
 def myren(strin):
-    salt = '&&*??>>&$$#'
+    salt = '&iiijsherokusb**#'
 
     # 待加密信息
     str_ = '{}{}{}'.format(salt, strin, salt)
@@ -49,7 +49,7 @@ def myren(strin):
     # 若写法为hl.update(str)  报错为： Unicode-objects must be encoded before hashing
     hl.update(str_.encode(encoding='utf-8'))
     retsss = base64encode(hl.hexdigest())[:15]
-    retsss = base64encode(hl.hexdigest())[:11]
+    retsss = base64encode(hl.hexdigest())[:15]
     return retsss
 
 
@@ -136,7 +136,7 @@ def base64add(base641, base642):
 if __name__ == '__main__':
     idxxx = IDX
     # idxxx = 27
-    for idxxx in range(5,21):
+    for idxxx in range(6,7):
         ym, ymret = genym(idxxx)
         # print('{}@dslab2021.me'.format((ymret).lower()))
         # print('{}@dslab2022.tk'.format((ymret).lower()))
@@ -161,7 +161,7 @@ if __name__ == '__main__':
         with open('../README.md',encoding='utf-8',mode='a+') as rdme:
             rdme.write('{}\n\n\n'.format(ym))
 
-            rdme.write('{}@liuxinsb.cf\n'.format((ymret).lower()))
+            rdme.write('{}@outlook.com\n'.format((ymret).lower()))
             rdme.write('Yttyhxways778!\n\n\n')
             rdme.write('{}\n'.format(prt_str))
             rdme.write('\n')
