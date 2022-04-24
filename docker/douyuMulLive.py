@@ -273,7 +273,27 @@ class getm3u8Thread(threading.Thread):
         # print('endFlag {}'.format(endFlag))
         # print('M3U8获取线程退出 {}'.format(self.threadID))
         return -1
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}'.format(query_type)
 
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            res = requests.get(h_url, timeout=10)
+            # resjson = res.json()
+            logger.info('{}'.format(res.text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
 
 class DouYu:
     """
@@ -398,7 +418,7 @@ class DouYu:
         real_url = {}
         # real_url["flv"] = "http://dyscdnali1.douyucdn.cn/live/{}.flv?uuid=".format(key)
         # real_url["x-p2p"] = "http://tx2play1.douyucdn.cn/live/{}.xs?uuid=".format(key)
-
+        self.host = getherokuargs('douyucdn')
         real_url["flv"] = "http://{}/live/{}.flv?uuid=".format(self.host, key)
         real_url["x-p2p"] = "http://{}/live/{}.xs?uuid=".format(self.host, key)
         return real_url["x-p2p"]
