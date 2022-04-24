@@ -159,7 +159,7 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
-    max_thread_num_MAX = 15
+    max_thread_num_MAX = 2
     sess_path = 'sess'
     sess_total = 2
     config_path = 'up.ini'
