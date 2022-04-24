@@ -418,11 +418,11 @@ class DouYu:
         real_url = {}
         # real_url["flv"] = "http://dyscdnali1.douyucdn.cn/live/{}.flv?uuid=".format(key)
         # real_url["x-p2p"] = "http://tx2play1.douyucdn.cn/live/{}.xs?uuid=".format(key)
-        self.host = getherokuargs('douyucdn')
+        self.host = getherokuargs('douyucdn').replace('\n','')
         logger.info("{}".format(self.host))
         real_url["flv"] = "http://{}/live/{}.flv?uuid=".format(self.host, key)
         real_url["x-p2p"] = "http://{}/live/{}.xs?uuid=".format(self.host, key)
-        return real_url["x-p2p"]
+        return real_url["flv"]
 
 
 def get_real_url(rid):
