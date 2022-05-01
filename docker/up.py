@@ -159,9 +159,9 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    UPLOAD_PRE = 'Kuaishou_docker{}_kszb01'.format(ksmullive_idx)
+    UPLOAD_PRE = 'Kuaishou_docker{}_kszb{}'.format(ksmullive_idx,ksmullive_idx)
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
-    max_thread_num_MAX = 15
+    max_thread_num_MAX = 2
     sess_path = 'sess'
     sess_total = 2
     config_path = 'up.ini'
