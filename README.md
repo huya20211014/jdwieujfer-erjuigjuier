@@ -328,3 +328,25 @@ Yttyhxways778!
     heroku container:push web -a mtjinzczmwjiyjj && heroku container:release web -a mtjinzczmwjiyjj
         
 
+kszb20
+
+
+zgq4nmnhnwexntr@outlook.com
+Yttyhxways778!
+
+
+
+    mkdir record
+    mkdir recordok
+    touch record/1.txt
+    touch recordok/1.txt
+    rm -rf sess/tgup*
+    python3 sessgen.py
+    mv tgup* sess
+    heroku login -i
+    heroku container:login
+    heroku create zgq4nmnhnwexntr
+    heroku config:set ksmullive_idx=20 -a zgq4nmnhnwexntr
+    heroku container:push web -a zgq4nmnhnwexntr && heroku container:release web -a zgq4nmnhnwexntr
+        
+
