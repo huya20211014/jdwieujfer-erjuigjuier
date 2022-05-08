@@ -56,7 +56,7 @@ async def index(request):
     return sanic.response.text(str(huyadis))
 
 
-@app.route('/bilibili')
+@app.route('/record')
 async def index(request):
     huyadis = [mp4_ for mp4_ in os.listdir('record') if '.mp4' in mp4_]
     huyalen = len(huyadis)

@@ -583,7 +583,7 @@ if __name__ == '__main__':
     hrids = []
     notlivings = []
 
-    d_time = 1800
+    d_time = 360
     LOOP_IDX = 0
     downEndFlag = True
     # rid = input('输入虎牙直播房间号：\n')
