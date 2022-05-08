@@ -159,12 +159,12 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
-    max_thread_num_MAX = 15
+    max_thread_num_MAX = 2
     sess_path = 'sess'
     sess_total = 2
     config_path = 'up.ini'
     # proxy = 'socks5://127.0.0.1:1080'
-    telegram_upload = 'telegram-upload'
+    telegram_upload = 'liuxinsbkingosb'
     max_thread_num = max_thread_num_MAX
 
     # rmsesscmd = 'rm -rf {}/*mp4*'.format(sess_path)
