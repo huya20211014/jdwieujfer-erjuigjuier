@@ -4,6 +4,10 @@ Yttyhxways778!
 ngqwmjm0mwyymdgzz@liuxinsb.cf
 Yttyhxways778!
 
+
+odliztg4zda2ngiwmtg1n@outlook.com
+Yttyhxways778!
+
 mkdir record
 mkdir recordok
 touch record/1.txt
