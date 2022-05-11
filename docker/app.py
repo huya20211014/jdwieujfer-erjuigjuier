@@ -43,22 +43,22 @@ def sleep_dis(sleep_time):
         time.sleep(1)
 
 
-class upThread(threading.Thread):
-    def __init__(self, upID, upthreadIDX):
+class xxxxThread(threading.Thread):
+    def __init__(self, xxxxID, xxxxthreadIDX):
         threading.Thread.__init__(self)
-        self.upID = upID
-        self.upthreadIDX = upthreadIDX
-        self.configf = os.path.join(sess_path, '{}.json'.format(self.upID))
-        self.UID = self.upID.split('_')[0]
+        self.xxxxID = xxxxID
+        self.xxxxthreadIDX = xxxxthreadIDX
+        self.configf = os.path.join(sess_path, '{}.json'.format(self.xxxxID))
+        self.UID = self.xxxxID.split('_')[0]
 
-        logger.info('Thread {} init'.format(self.upID))
+        logger.info('Thread {} init'.format(self.xxxxID))
 
     def gen_session(self):
-        f = self.upID
+        f = self.xxxxID
         src_p = sess_path
         dst_p = sess_path
-        jsonf = os.path.join(src_p, 'tg.json')
-        sessf = os.path.join(src_p, 'tgup{}.session'.format(self.upthreadIDX % sess_total))
+        jsonf = os.path.join(src_p, 'whynotlove.json')
+        sessf = os.path.join(src_p, 'whynotlovexxxx{}.session'.format(self.xxxxthreadIDX % sess_total))
         jsonf1 = os.path.join(dst_p, '{}.json'.format(f))
         sessf1 = os.path.join(dst_p, '{}.session'.format(f))
         shutil.copy(jsonf, jsonf1)
@@ -74,40 +74,40 @@ class upThread(threading.Thread):
             jf1.write(jfstr1)
 
     def del_session(self):
-        f = self.upID
+        f = self.xxxxID
         src_p = sess_path
         dst_p = sess_path
-        jsonf = os.path.join(src_p, 'tg.json')
-        sessf = os.path.join(src_p, 'tg.session')
+        jsonf = os.path.join(src_p, 'whynotlove.json')
+        sessf = os.path.join(src_p, 'whynotlove.session')
         jsonf1 = os.path.join(dst_p, '{}.json'.format(f))
         sessf1 = os.path.join(dst_p, '{}.session'.format(f))
         os.remove(jsonf1)
         os.remove(sessf1)
 
     # def movefile2OK(self, mp4fname):
-    #     shutil.move(mp4fname, 'upok/')
+    #     shutil.move(mp4fname, 'xxxxok/')
 
     def run(self):
-        logger.info('Thread {} started'.format(self.upID))
+        logger.info('Thread {} started'.format(self.xxxxID))
         try:
             if self.UID in config_dic:
                 self.to_channel = config_dic[self.UID]
 
                 if not os.path.exists(self.configf):
                     self.gen_session()
-                upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
-                upload_caption = '{}_HerokuUP_{}'.format(upload_caption,UPLOAD_PRE)
-                cmd = '{} -d --to {} --config "{}" --caption "{}" "luzhichenggong/{}"'.format(telegram_upload,
+                xxxxload_caption = self.xxxxID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
+                xxxxload_caption = '{}_Herokuxxxx_{}'.format(xxxxload_caption,xxxxLOAD_PRE)
+                cmd = '{} -d --to {} --config "{}" --caption "{}" "luzhichenggong/{}"'.format(telegram_xxxxload,
                                                                                      self.to_channel,
-                                                                                     self.configf, upload_caption,
-                                                                                     self.upID)
-                logger.info('Thread {}: {}'.format(self.upID, cmd))
+                                                                                     self.configf, xxxxload_caption,
+                                                                                     self.xxxxID)
+                logger.info('Thread {}: {}'.format(self.xxxxID, cmd))
                 os.system(cmd)
-                logger.info('Thread {} upload finished!'.format(self.upID))
+                logger.info('Thread {} xxxxload finished!'.format(self.xxxxID))
                 # time.sleep(1)
                 sleep_dis(1)
-                logger.info('Thread {} clean'.format(self.upID))
-                # self.movefile2OK(self.upID)
+                logger.info('Thread {} clean'.format(self.xxxxID))
+                # self.movefile2OK(self.xxxxID)
                 self.del_session()
         except Exception as e:
             logger.info('{}'.format(e))
@@ -115,9 +115,9 @@ class upThread(threading.Thread):
                 self.del_session()
             except Exception as e:
                 logger.info('{}'.format(e))
-        global upthreads
-        upthreads.remove(self.upID)
-        logger.info('Thread {} exit'.format(self.upID))
+        global xxxxthreads
+        xxxxthreads.remove(self.xxxxID)
+        logger.info('Thread {} exit'.format(self.xxxxID))
 
 
 def getmp4file(dir_in):
@@ -159,14 +159,14 @@ def get_now_uids(mp4files):
 
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    UPLOAD_PRE = 'Douyin_dyzb41'
+    xxxxLOAD_PRE = 'Douyin_dyzb41'
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     max_thread_num_MAX = 2
     sess_path = 'sess'
     sess_total = 2
     config_path = 'app.exe'
     # proxy = 'socks5://127.0.0.1:1080'
-    telegram_upload = 'neofetch'
+    telegram_xxxxload = 'neofetch'
     max_thread_num = max_thread_num_MAX
 
     # rmsesscmd = 'rm -rf {}/*mp4*'.format(sess_path)
@@ -179,27 +179,27 @@ if __name__ == '__main__':
     loop_times = 0
     while True:
         loop_times += 1
-        logger.info('循环次数 {}'.format(loop_times))
-        logger.info('循环次数 {}'.format(loop_times))
+        logger.info('xhcs {}'.format(loop_times))
+        logger.info('xhcs {}'.format(loop_times))
         max_thread_num = max_thread_num_MAX
         mp4files = getmp4file('luzhichenggong')
-        logger.info('本次上传视频数 {}'.format(len(mp4files)))
-        logger.info('本次上传视频数 {}'.format(len(mp4files)))
+        logger.info('xxxx num {}'.format(len(mp4files)))
+        logger.info('xxxx num {}'.format(len(mp4files)))
         config_dic = getconfig(config_path)
         # time.sleep(5)
         sleep_dis(2)
 
-        upthreads = []
+        xxxxthreads = []
 
         uids_idx = 0
         if max_thread_num > len(mp4files):
             max_thread_num = len(mp4files)
         for i in range(max_thread_num):
-            # upt = upThread(mp4files[uids_idx])
-            upthreads.append(mp4files[uids_idx])
-            upthreadidx = upthreads.index(mp4files[uids_idx])
-            upt = upThread(mp4files[uids_idx], upthreadidx)
-            upt.start()
+            # xxxxt = xxxxThread(mp4files[uids_idx])
+            xxxxthreads.append(mp4files[uids_idx])
+            xxxxthreadidx = xxxxthreads.index(mp4files[uids_idx])
+            xxxxt = xxxxThread(mp4files[uids_idx], xxxxthreadidx)
+            xxxxt.start()
             uids_idx += 1
             # time.sleep(2)
             sleep_dis(1)
@@ -221,22 +221,22 @@ if __name__ == '__main__':
 
                 # logger.info('\nmp4 num {}'.format(len(mp4files)))
                 config_dic = getconfig(config_path)
-                # mp4files = [mp4file_ for mp4file_ in mp4files if mp4file_ not in upthreads]
+                # mp4files = [mp4file_ for mp4file_ in mp4files if mp4file_ not in xxxxthreads]
 
-                upthreadlen = len(upthreads)
-                logger.info('uploading [{}/{} | {}] threads:'.format(threading.active_count() - 1, len(mp4files),
+                xxxthlll = len(xxxxthreads)
+                logger.info('xxx [{}/{} | {}]:'.format(threading.active_count() - 1, len(mp4files),
                                                                  len(mp4filestmp)))
-                for i in range(upthreadlen):
-                    logger.info("[ {} / {} ]{}".format(mp4files.index(upthreads[i]) + 1, len(mp4files), upthreads[i]))
+                for i in range(xxxthlll):
+                    logger.info("[ {} / {} ]{}".format(mp4files.index(xxxxthreads[i]) + 1, len(mp4files), xxxxthreads[i]))
                     
-                if upthreadlen < max_thread_num_MAX and uids_idx < len(mp4files):
-                    logger.info('upthreadlen < max_thread_num_MAX and uids_idx < len(mp4files)')
+                if xxxthlll < max_thread_num_MAX and uids_idx < len(mp4files):
+                    logger.info('xxxthlll < max_thread_num_MAX and uids_idx < len(mp4files)')
                     iiii = 0
-                    while iiii < max_thread_num_MAX - upthreadlen and iiii < len(mp4files) - uids_idx:
-                        upthreads.append(mp4files[uids_idx])
-                        upthreadidx = upthreads.index(mp4files[uids_idx])
-                        upt = upThread(mp4files[uids_idx], upthreadidx)
-                        upt.start()
+                    while iiii < max_thread_num_MAX - xxxthlll and iiii < len(mp4files) - uids_idx:
+                        xxxxthreads.append(mp4files[uids_idx])
+                        xxxxthreadidx = xxxxthreads.index(mp4files[uids_idx])
+                        xxxxt = xxxxThread(mp4files[uids_idx], xxxxthreadidx)
+                        xxxxt.start()
                         uids_idx += 1
                         iiii += 1
                 elif uids_idx >= len(mp4files) and threading.active_count() == 1:

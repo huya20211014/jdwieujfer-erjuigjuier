@@ -251,7 +251,7 @@ class KuaiShou:
         cookies = {
             'did': 'web_ba32bf2706abc579db6ac28405c3970c',
             'userId': '647446218',
-            'kuaishou.live.web_st': 'ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAd4C-es0wDjangqbe_vZzXuTaO0HgB9sB2MDD85iv82otSHSYLev30Hq14AZM6q3N-KcG04K1uirdgPYVo2tDHpWXnXdIZBlKG_BpwW38mauPY2iCRPjj7lFuxC_4opw5nX_0CLb7ERq9PCSYCLTWuYxLW6LIrDYTr_CZxRCkoSITyJ16KeUmD13cHYYbk01pwFoOGf9V0ptM9a3NHKUBjwaEiWGLfbrnUkCqTgL7M-vFrp6OSIgjQmt32ve90PgAvfAzOcBE45X8UrD6O1gQdOFHHKTc9ooBTAB',
+            'kuaishou.live.web_st': 'ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAd4C-es0wDjangqbe_vZzXuTaO0HgB9sB2MDD85iv82otSHSYLev30Hq14AZM6q3N-KcG04K1uirdgPYVo2tDHpWXnXdIZBlKG_BpwW38mauPY2iCRPjj7lFuxC_4opw5nX_0CLb7ERq9PCSYCLTWuYxLW6LIrDYTr_CZxRCkoSITyJ16KeUmD13cHYYbk01pwFoOGf9V0ptM9a3NHKUBjwaEiWGLfbrnUkCqwhynotloveL7M-vFrp6OSIgjQmt32ve90PgAvfAzOcBE45X8UrD6O1gQdOFHHKTc9ooBTAB',
         }
 
         headers = {
