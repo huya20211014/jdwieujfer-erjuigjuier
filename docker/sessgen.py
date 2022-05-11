@@ -8,7 +8,7 @@ api_id = 3955576
 api_hash = '16fa452f9283489c4a1045bb2b4eb4a8'
 
 
-config_path = 'up.ini'
+config_path = 'app.exe'
 import shutil
 import time
 import asyncio

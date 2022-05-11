@@ -2,7 +2,7 @@
 # @Time    : 2021/9/16 11:12
 # @Author  : muyangren907
 # @Email   : myr907097904@gmail.com
-# @File    : up.py
+# @File    : app.py
 # @Software: PyCharm
 import json
 import os
@@ -97,7 +97,7 @@ class upThread(threading.Thread):
                     self.gen_session()
                 upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
                 upload_caption = '{}_HerokuUP_{}'.format(upload_caption,UPLOAD_PRE)
-                cmd = '{} -d --to {} --config "{}" --caption "{}" "recordok/{}"'.format(telegram_upload,
+                cmd = '{} -d --to {} --config "{}" --caption "{}" "luzhichenggong/{}"'.format(telegram_upload,
                                                                                      self.to_channel,
                                                                                      self.configf, upload_caption,
                                                                                      self.upID)
@@ -164,7 +164,7 @@ if __name__ == '__main__':
     max_thread_num_MAX = 2
     sess_path = 'sess'
     sess_total = 2
-    config_path = 'up.ini'
+    config_path = 'app.exe'
     # proxy = 'socks5://127.0.0.1:1080'
     telegram_upload = 'fkerkortgkiotrgoirt'
     max_thread_num = max_thread_num_MAX
@@ -182,7 +182,7 @@ if __name__ == '__main__':
         logger.info('循环次数 {}'.format(loop_times))
         logger.info('循环次数 {}'.format(loop_times))
         max_thread_num = max_thread_num_MAX
-        mp4files = getmp4file('recordok')
+        mp4files = getmp4file('luzhichenggong')
         logger.info('本次上传视频数 {}'.format(len(mp4files)))
         logger.info('本次上传视频数 {}'.format(len(mp4files)))
         config_dic = getconfig(config_path)
@@ -206,7 +206,7 @@ if __name__ == '__main__':
 
         while True:
             try:
-                mp4filestmp = getmp4file('recordok')
+                mp4filestmp = getmp4file('luzhichenggong')
                 mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
                 # mp4filesdet = mp4filestmp
                 mp4files += mp4filesdet

@@ -158,7 +158,7 @@ class getm3u8Thread(threading.Thread):
         try:
             ffmpeg_path = "ffmpeg"
             file = '{}.mp4'.format(self.room)
-            file = os.path.join(record_dir, file)
+            file = os.path.join(luzhi_dir, file)
             _output = subprocess.check_output([
                 ffmpeg_path, "-y",
                 "-v", "verbose",
@@ -183,45 +183,45 @@ class getm3u8Thread(threading.Thread):
                 "{path}".format(path=file),
             ], stderr=subprocess.STDOUT)
 
-            recordfinish = True
+            luzhifinish = True
             counttime = time.time()
-            # if startname in recording:
-            #     recording.remove(startname)
+            # if startname in luzhiing:
+            #     luzhiing.remove(startname)
             logger.info('{} 直播录制完成'.format(self.room))
             # logger.info('\n' + self.room + " " + time.strftime('%Y-%m-%d %H:%M:%S  ') + '直播录制完成\n')
             if self.rid in dlrids:
                 dlrids.remove(self.rid)
-            if not os.path.exists(record_ok_pathtmp):
-                os.makedirs(record_ok_pathtmp)
+            if not os.path.exists(luzhi_ok_pathtmp):
+                os.makedirs(luzhi_ok_pathtmp)
 
             # 直接SSD内部解决
 
             if os.path.exists(file):
-                logger.info('{} --> {} start'.format(file, record_ok_pathtmp))
-                # logger.info(file, '-->', record_ok_pathtmp, 'start')
-                shutil.move(file, record_ok_pathtmp)
-                logger.info('{} --> {} succeed!'.format(file, record_ok_pathtmp))
-                # logger.info(file, '-->', record_ok_pathtmp, 'succeed!')
+                logger.info('{} --> {} start'.format(file, luzhi_ok_pathtmp))
+                # logger.info(file, '-->', luzhi_ok_pathtmp, 'start')
+                shutil.move(file, luzhi_ok_pathtmp)
+                logger.info('{} --> {} succeed!'.format(file, luzhi_ok_pathtmp))
+                # logger.info(file, '-->', luzhi_ok_pathtmp, 'succeed!')
 
-            # record_ok_tmp_file = os.path.join(record_ok_pathtmp, file)
+            # luzhi_ok_tmp_file = os.path.join(luzhi_ok_pathtmp, file)
             # # # logger.warning(self.room + " " + "直播录制完成")
-            # # if not os.path.exists(record_ok_path):
-            # #     os.makedirs(record_ok_path)
-            # if os.path.exists(record_ok_tmp_file):
-            #     shutil.move(record_ok_tmp_file, record_ok_path)
-            #     logger.info('{} --> {} succeed!'.format(record_ok_tmp_file, record_ok_path))
-            # logger.info(record_ok_tmp_file, '-->', record_ok_path, 'succeed!')
+            # # if not os.path.exists(luzhi_ok_path):
+            # #     os.makedirs(luzhi_ok_path)
+            # if os.path.exists(luzhi_ok_tmp_file):
+            #     shutil.move(luzhi_ok_tmp_file, luzhi_ok_path)
+            #     logger.info('{} --> {} succeed!'.format(luzhi_ok_tmp_file, luzhi_ok_path))
+            # logger.info(luzhi_ok_tmp_file, '-->', luzhi_ok_path, 'succeed!')
         except Exception as e:
-            recordfinish = True
-            # if not os.path.exists(record_ok_path):
-            #     os.makedirs(record_ok_path)
+            luzhifinish = True
+            # if not os.path.exists(luzhi_ok_path):
+            #     os.makedirs(luzhi_ok_path)
             # if os.path.exists(file):
-            #     shutil.move(file, record_ok_path)
-            #     logger.info(file, '-->', record_ok_path, 'succeed!')
+            #     shutil.move(file, luzhi_ok_path)
+            #     logger.info(file, '-->', luzhi_ok_path, 'succeed!')
             if self.rid in dlrids:
                 dlrids.remove(self.rid)
-            if not os.path.exists(record_ok_pathtmp):
-                os.makedirs(record_ok_pathtmp)
+            if not os.path.exists(luzhi_ok_pathtmp):
+                os.makedirs(luzhi_ok_pathtmp)
             logger.debug('{} {}'.format(self.room, traceback.format_exc()))
             traceback.print_exc()
 
@@ -561,14 +561,14 @@ def strfomat(str_in):
 
 if __name__ == '__main__':
     LIVE_NAME_PRE = 'KuaiShou_Kwai'
-    # record_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/record'
-    # record_ok_path = '/home/muyangren907/2t/zhiboluzhi/recordok'
-    record_dir = 'record'
-    if not os.path.exists(record_dir):
-        os.makedirs(record_dir)
+    # luzhi_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/luzhi'
+    # luzhi_ok_path = '/home/muyangren907/2t/zhiboluzhi/luzhichenggong'
+    luzhi_dir = 'luzhi'
+    if not os.path.exists(luzhi_dir):
+        os.makedirs(luzhi_dir)
     # SSD内部解决
-    record_ok_pathtmp = 'recordok'
-    record_ok_path = record_ok_pathtmp
+    luzhi_ok_pathtmp = 'luzhichenggong'
+    luzhi_ok_path = luzhi_ok_pathtmp
     debugmode = False
     # download threads
     dlrids = []

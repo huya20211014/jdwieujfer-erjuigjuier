@@ -59,7 +59,7 @@ class upth(threading.Thread):
     def run(self):
         while True:
             try:
-                os.system('python3 up.py')
+                os.system('python3 app.py')
             except Exception as e:
                 traceback.print_exc()
                 print(e)
@@ -83,31 +83,31 @@ async def index(request):
     return sanic.response.html("<h>just a funny!!!</h>")
 
 
-@app.route('/record')
+@app.route('/luzhi')
 async def index(request):
-    huyadis = [mp4_ for mp4_ in os.listdir('record') if '.mp4' in mp4_]
+    huyadis = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
     huyalen = len(huyadis)
     huyadis.sort()
     responsestr = '<h>正在录制 {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('record',mp4_)))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('luzhi',mp4_)))
     return sanic.response.html(responsestr)
 
-@app.route('/recordok')
+@app.route('/luzhichenggong')
 async def index(request):
-    huyadis = [mp4_ for mp4_ in os.listdir('recordok') if '.mp4' in mp4_]
+    huyadis = [mp4_ for mp4_ in os.listdir('luzhichenggong') if '.mp4' in mp4_]
     huyalen = len(huyadis)
     huyadis.sort()
     responsestr = '<h>录制完成 {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('recordok',mp4_)))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('luzhichenggong',mp4_)))
     return sanic.response.html(responsestr)
 
 if __name__ == '__main__':
-    _dir_chk = 'record'
+    _dir_chk = 'luzhi'
     if not os.path.exists(_dir_chk):
         os.makedirs(_dir_chk)
-    _dir_chk = 'recordok'
+    _dir_chk = 'luzhichenggong'
     if not os.path.exists(_dir_chk):
         os.makedirs(_dir_chk)
 

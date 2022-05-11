@@ -278,7 +278,7 @@ async def main():
     # global proxies2ip
     global luzhishichang
     global videopath
-    global record_ok_path
+    global luzhi_ok_path
     while True:
         ids_dic = await get_ids()
 
@@ -289,9 +289,9 @@ async def main():
             # proxies2ip = config.get('1', '代理ip')
             # luzhishichang = config.get('1', 'luzhishichang')
             # videopath = config.get('1', '直播保存路径')
-            # record_ok_path = config.get('1', 'record_ok_path')
+            # luzhi_ok_path = config.get('1', 'luzhi_ok_path')
             logger.info('录制保存路径 {}'.format(videopath))
-            logger.info('录制成功保存路径 {}'.format(record_ok_path))
+            logger.info('录制成功保存路径 {}'.format(luzhi_ok_path))
             proxies2 = ''
             proxiesn = proxies2
 
@@ -354,9 +354,9 @@ class DLThread(threading.Thread):
                         self.res_urls, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
                 trytime = 1
-                if not os.path.exists(record_ok_path):
-                    os.makedirs(record_ok_path)
-                shutil.move(file, record_ok_path)
+                if not os.path.exists(luzhi_ok_path):
+                    os.makedirs(luzhi_ok_path)
+                shutil.move(file, luzhi_ok_path)
                 logger.info('分段录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
             except Exception as e:
                 # traceback.print_exc()
@@ -372,22 +372,22 @@ if __name__ == '__main__':
     '''
     ids_str heroku读取
     luzhishichang 1800
-    videopath record
-    record_ok_path recordok
+    videopath luzhi
+    luzhi_ok_path luzhichenggong
     '''
     # ids_gen = os.environ.get("ids_str")
     # proxies2 = config.get('1', '代理端口')
     # proxies2ip = config.get('1', '代理ip')
     luzhishichang = os.environ.get("luzhishichang")
-    videopath = 'record'
-    record_ok_path = "recordok"
+    videopath = 'luzhi'
+    luzhi_ok_path = "luzhichenggong"
     logger.info('luzhishichang {}'.format(luzhishichang))
 
     ids_dic = {}
     ids_running = {}
     proxies2 = {}
     # videopath = ''
-    # record_ok_path = ''
+    # luzhi_ok_path = ''
     # luzhishichang = 1800
     # ids_file_path = 'URL_config.ini'
     # ids_file_path = 'ids.txt'
