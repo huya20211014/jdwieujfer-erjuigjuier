@@ -58,7 +58,7 @@ class xxxxThread(threading.Thread):
         src_p = sess_path
         dst_p = sess_path
         jsonf = os.path.join(src_p, 'whynotlove.json')
-        sessf = os.path.join(src_p, 'whynotlovexxxx{}.session'.format(self.xxxxthreadIDX % sess_total))
+        sessf = os.path.join(src_p, 'whynotlovexxxxxx{}.session'.format(self.xxxxthreadIDX % sess_total))
         jsonf1 = os.path.join(dst_p, '{}.json'.format(f))
         sessf1 = os.path.join(dst_p, '{}.session'.format(f))
         shutil.copy(jsonf, jsonf1)
