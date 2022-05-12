@@ -157,6 +157,16 @@ def get_now_uids(mp4files):
     return uids
 
 
+def get_uflag():
+    uflag = False
+    res = requests.get('https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/dyini.ini')
+    restext = res.text
+    if restext=='no':
+        uflag = False
+    elif restext=='yes':
+        uflag = True
+    return uflag
+
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
     xxxxLOAD_PRE = 'Douyin_dyzb41'
@@ -177,7 +187,13 @@ if __name__ == '__main__':
         os.makedirs(config_path)
 
     loop_times = 0
+    
     while True:
+        uflag = get_uflag()
+        if not uflag:
+            logger.info('uflag {}'.format(uflag))
+            sleep_dis(120)
+            continue
         loop_times += 1
         logger.info('xhcs {}'.format(loop_times))
         logger.info('xhcs {}'.format(loop_times))
@@ -194,6 +210,7 @@ if __name__ == '__main__':
         uids_idx = 0
         if max_thread_num > len(mp4files):
             max_thread_num = len(mp4files)
+        
         for i in range(max_thread_num):
             # xxxxt = xxxxThread(mp4files[uids_idx])
             xxxxthreads.append(mp4files[uids_idx])
