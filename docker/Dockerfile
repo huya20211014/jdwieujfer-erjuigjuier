@@ -20,8 +20,7 @@ RUN apt-get update && \
     apt-get install -q -y --no-install-recommends --reinstall ca-certificates
 RUN add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
     && add-apt-repository ppa:deadsnakes/ppa -y
-RUN apt-get update && apt install -y ffmpeg python3.8 \
-    
+RUN apt-get update && apt install -y ffmpeg python3.8
 RUN rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3 && apt-get update && apt install -y python3-pip python3.8-dev nodejs
 
 
