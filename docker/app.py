@@ -11,7 +11,10 @@ import threading
 import time
 import requests
 import logging  # 引入logging模块
-
+import base64
+def base64decode(a):
+    de = base64.b64decode(a)
+    return de.decode('utf-8')
 
 # 第一步，创建一个logger
 logger = logging.getLogger()
@@ -95,7 +98,8 @@ class xxxxThread(threading.Thread):
 
                 if not os.path.exists(self.configf):
                     self.gen_session()
-                xxxxload_caption = self.xxxxID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
+                
+                xxxxload_caption = base64decode(self.xxxxID.replace('.tt','')).replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
                 xxxxload_caption = '{}_Herokuxxxx_{}'.format(xxxxload_caption,xxxxLOAD_PRE)
                 cmd = '{} -d --to {} --config "{}" --caption "{}" "luzhichenggong/{}"'.format(telegram_xxxxload,
                                                                                      self.to_channel,
@@ -171,6 +175,7 @@ if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
     xxxxLOAD_PRE = 'Douyin_dyzb41'
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
+    post_global = ['.tt']
     max_thread_num_MAX = 2
     sess_path = 'huihua'
     sess_total = 2
