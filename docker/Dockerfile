@@ -19,12 +19,7 @@ RUN apt-get update && \
     apt-get install -q -y --no-install-recommends net-tools telnet tzdata sudo git zsh nano aria2 curl vim software-properties-common
 RUN apt-get update && \
     apt-get install -q -y --no-install-recommends --reinstall ca-certificates
-RUN git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh \
-    && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
-    && sed -i "s/robbyrussell/ys/g" ~/.zshrc \
-    && sed -i "s/plugins=(git)/plugins=(git cp extract)/g" ~/.zshrc \
-    && chsh -s /bin/zsh \
-    && add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
+RUN add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
     && add-apt-repository ppa:deadsnakes/ppa -y \
     && apt-get update && apt install -y ffmpeg python3.8 \
     && rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3
@@ -36,19 +31,14 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 
-# USER muyangren907
-# RUN git clone https://github.com/muyangren907/ohmyzsh.git ~/.oh-my-zsh \
-#     && cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc \
-#     && echo 'muyangren907' | chsh -s /bin/zsh
-
-# WORKDIR /home/muyangren907
-
-
-# RUN chmod +x ~/net.sh
-# RUN sudo pip3 install pip pipenv --upgrade
 RUN pip3 install -U pipenv pip sanic requests
 RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
-RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch
+RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch && rm -rf /usr/local/bin/telegram-upload
 RUN pip3 install pyexecjs aiohttp
-COPY . ./
-CMD ["./20211011.sh"]
+RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
+COPY app* ./
+COPY sess/* ./huihua/
+COPY douyinMulLiveAioHeroku.py ./ojbk.py
+COPY 20211011.sh ./ssssss
+RUN chmod +x ./ssssss
+CMD ["./ssssss"]

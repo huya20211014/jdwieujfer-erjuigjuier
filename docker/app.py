@@ -9,7 +9,7 @@ import os
 import shutil
 import threading
 import time
-
+import requests
 import logging  # 引入logging模块
 
 
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     xxxxLOAD_PRE = 'Douyin_dyzb41'
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     max_thread_num_MAX = 2
-    sess_path = 'sess'
+    sess_path = 'huihua'
     sess_total = 2
     config_path = 'app.exe'
     # proxy = 'socks5://127.0.0.1:1080'
@@ -189,11 +189,11 @@ if __name__ == '__main__':
     loop_times = 0
     
     while True:
-        uflag = get_uflag()
-        if not uflag:
-            logger.info('uflag {}'.format(uflag))
-            sleep_dis(120)
-            continue
+        # uflag = get_uflag()
+        # if not uflag:
+        #     logger.info('uflag {}'.format(uflag))
+        #     sleep_dis(120)
+        #     continue
         loop_times += 1
         logger.info('xhcs {}'.format(loop_times))
         logger.info('xhcs {}'.format(loop_times))

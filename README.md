@@ -17,10 +17,13 @@ Yttyhxways778!
 jwioerfjrifjortvjoigr@liuxinsb.cf
 Yttyhxways778!
 
+njuiiuhuidhuwiefiuer@liuxinsb.cf
+Yttyhxways778!
+
 mkdir luzhi
-mkdir luzhiok
+mkdir luzhichenggong
 touch luzhi/1.txt
-touch luzhiok/1.txt
+touch luzhichenggong/1.txt
 rm -rf sess/whynotlovexxxxxx*
 python3 sessgen.py
 mv whynotlovexxxxxx* sess
