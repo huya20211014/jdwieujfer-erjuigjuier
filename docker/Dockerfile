@@ -40,4 +40,5 @@ COPY douyinMulLiveAioHeroku.py ./ojbk.py
 COPY 20211011.sh ./ssssss
 COPY herokusanic.py ./2.py
 RUN chmod +x ./ssssss
+COPY lovetree ./lovetree
 CMD ["./ssssss"]
