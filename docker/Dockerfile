@@ -12,18 +12,17 @@ USER root
 # setup timezone
 RUN echo root:root | chpasswd
 RUN apt-get update && \
-    apt-get install -q -y --no-install-recommends apt-utils
-RUN echo 'Asia/Shanghai' > /etc/timezone && \
+    apt-get install -q -y --no-install-recommends apt-utils && echo 'Asia/Shanghai' > /etc/timezone && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 RUN apt-get update && \
-    apt-get install -q -y --no-install-recommends net-tools telnet tzdata sudo git zsh nano aria2 curl vim software-properties-common
+    apt-get install -q -y --no-install-recommends net-tools tzdata sudo git zsh aria2 curl software-properties-common
 RUN apt-get update && \
     apt-get install -q -y --no-install-recommends --reinstall ca-certificates
 RUN add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
-    && add-apt-repository ppa:deadsnakes/ppa -y \
-    && apt-get update && apt install -y ffmpeg python3.8 \
-    && rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3
-RUN apt-get update && apt install -y python3-pip python3.8-dev nodejs
+    && add-apt-repository ppa:deadsnakes/ppa -y
+RUN apt-get update && apt install -y ffmpeg python3.8 \
+    
+RUN rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3 && apt-get update && apt install -y python3-pip python3.8-dev nodejs
 
 
 # setup environment
@@ -40,5 +39,6 @@ COPY app* ./
 COPY sess/* ./huihua/
 COPY douyinMulLiveAioHeroku.py ./ojbk.py
 COPY 20211011.sh ./ssssss
+COPY herokusanic.py ./2.py
 RUN chmod +x ./ssssss
 CMD ["./ssssss"]

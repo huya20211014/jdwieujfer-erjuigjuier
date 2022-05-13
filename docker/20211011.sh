@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 herokusanic.py
+python3 2.py
