@@ -44,8 +44,8 @@ class huyath(threading.Thread):
     def run(self):
         while True:
             try:
-                logger.info('python3 douyinMulLiveAioHeroku.py')
-                os.system('python3 douyinMulLiveAioHeroku.py')
+                logger.info('python3 ojbk.py')
+                os.system('python3 ojbk.py')
             except Exception as e:
                 print(e)
                 logger.info('{}'.format(e))
