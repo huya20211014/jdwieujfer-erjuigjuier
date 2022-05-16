@@ -120,10 +120,10 @@ if __name__ == '__main__':
     # listen_port = LISTEN_PORT
 
     ####
-    # huyathth = huyath()
-    # huyathth.start()
-    # upthth = upth()
-    # upthth.start()
+    huyathth = huyath()
+    huyathth.start()
+    upthth = upth()
+    upthth.start()
     ####
 
     app.blueprint(bp)
