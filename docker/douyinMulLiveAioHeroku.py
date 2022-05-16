@@ -346,7 +346,7 @@ class DLThread(threading.Thread):
 
                 now = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
                 filename = '{}_{}_{}.mp4'.format(self.nickname_txt, self.res_nickname, now)
-                filename = '{}.mp4'.format(base64encode(filename))
+                # filename = '{}.mp4'.format(base64encode(filename))
                 file = os.path.join(videopath, filename)
                 if not os.path.exists(videopath):
                     os.makedirs(videopath)

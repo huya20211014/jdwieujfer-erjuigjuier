@@ -99,7 +99,7 @@ class xxxxThread(threading.Thread):
                 if not os.path.exists(self.configf):
                     self.gen_session()
                 
-                xxxxload_caption = base64decode(self.xxxxID.replace('.mp4','')).replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
+                xxxxload_caption = self.xxxxID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
                 xxxxload_caption = '{}_Herokuxxxx_{}'.format(xxxxload_caption,xxxxLOAD_PRE)
                 cmd = '{} -d --to {} --config "{}" --caption "{}" "luzhichenggong/{}"'.format(telegram_xxxxload,
                                                                                      self.to_channel,
