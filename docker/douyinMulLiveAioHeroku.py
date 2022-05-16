@@ -360,7 +360,7 @@ class DLThread(threading.Thread):
                 shutil.move(file, luzhi_ok_path)
                 logger.info('分段录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
             except Exception as e:
-                # traceback.print_exc()
+                traceback.print_exc()
                 trytime += 1
 
                 logger.info('遇到错误 录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
