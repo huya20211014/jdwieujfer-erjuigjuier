@@ -1,13 +1,13 @@
 ztvmmjy4ztlhzjq2mjaxzdziz@outlook.com
 Yttyhxways778!
 
-mkdir record
-mkdir recordok
-touch record/1.txt
-touch recordok/1.txt
-rm -rf sess/tgup*
+mkdir luzhi
+mkdir luzhichenggong
+touch luzhi/1.txt
+touch luzhichenggong/1.txt
+rm -rf sess/whynotlovexxxxxx*
 python3 sessgen.py
-mv tgup* sess
+mv whynotlovexxxxxx* sess
 heroku login -i
 heroku container:login
 heroku create ztvmmjy4ztlhzjq2mjaxzdziz
