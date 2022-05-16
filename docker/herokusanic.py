@@ -118,10 +118,14 @@ if __name__ == '__main__':
     USE_PROXY = True
     # LISTEN_PORT = 8888
     # listen_port = LISTEN_PORT
-    huyathth = huyath()
-    huyathth.start()
-    upthth = upth()
-    upthth.start()
+
+    ####
+    # huyathth = huyath()
+    # huyathth.start()
+    # upthth = upth()
+    # upthth.start()
+    ####
+
     app.blueprint(bp)
     app.run(host='0.0.0.0',
             port=int(os.environ.get('PORT', 8000)),
