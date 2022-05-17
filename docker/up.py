@@ -2,7 +2,7 @@
 # @Time    : 2021/9/16 11:12
 # @Author  : muyangren907
 # @Email   : myr907097904@gmail.com
-# @File    : up.py
+# @File    : app.py
 # @Software: PyCharm
 import json
 import os
@@ -58,7 +58,7 @@ class upThread(threading.Thread):
         src_p = sess_path
         dst_p = sess_path
         jsonf = os.path.join(src_p, 'tg.json')
-        sessf = os.path.join(src_p, 'tgup{}.session'.format(self.upthreadIDX % sess_total))
+        sessf = os.path.join(src_p, 'whynotlovexxxxxx{}.session'.format(self.upthreadIDX % sess_total))
         jsonf1 = os.path.join(dst_p, '{}.json'.format(f))
         sessf1 = os.path.join(dst_p, '{}.session'.format(f))
         shutil.copy(jsonf, jsonf1)
@@ -97,7 +97,7 @@ class upThread(threading.Thread):
                     self.gen_session()
                 upload_caption = self.upID.replace('[', ' ').replace(']', ' ').replace('(', ' ').replace(')', ' ')
                 upload_caption = '{}_HerokuUP_bzzb01'.format(upload_caption)
-                cmd = '{} -d --to {} --config "{}" --caption "{}" "recordok/{}"'.format(telegram_upload,
+                cmd = '{} -d --to {} --config "{}" --caption "{}" "luzhichenggong/{}"'.format(telegram_upload,
                                                                                      self.to_channel,
                                                                                      self.configf, upload_caption,
                                                                                      self.upID)
@@ -160,11 +160,11 @@ def get_now_uids(mp4files):
 if __name__ == '__main__':
     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     max_thread_num_MAX = 2
-    sess_path = 'sess'
+    sess_path = 'huihua'
     sess_total = 2
-    config_path = 'up.ini'
+    config_path = 'app.exe'
     # proxy = 'socks5://127.0.0.1:1080'
-    telegram_upload = 'liuxinsbkingosb'
+    telegram_upload = 'neofetch'
     max_thread_num = max_thread_num_MAX
 
     # rmsesscmd = 'rm -rf {}/*mp4*'.format(sess_path)
@@ -180,7 +180,7 @@ if __name__ == '__main__':
         logger.info('循环次数 {}'.format(loop_times))
         logger.info('循环次数 {}'.format(loop_times))
         max_thread_num = max_thread_num_MAX
-        mp4files = getmp4file('recordok')
+        mp4files = getmp4file('luzhichenggong')
         logger.info('本次上传视频数 {}'.format(len(mp4files)))
         logger.info('本次上传视频数 {}'.format(len(mp4files)))
         config_dic = getconfig(config_path)
@@ -204,7 +204,7 @@ if __name__ == '__main__':
 
         while True:
             try:
-                mp4filestmp = getmp4file('recordok')
+                mp4filestmp = getmp4file('luzhichenggong')
                 mp4filesdet = [m for m in mp4filestmp if m not in mp4files]
                 # mp4filesdet = mp4filestmp
                 mp4files += mp4filesdet

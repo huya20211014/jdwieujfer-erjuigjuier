@@ -8,7 +8,7 @@ api_id = 3955576
 api_hash = '16fa452f9283489c4a1045bb2b4eb4a8'
 
 
-config_path = 'up.ini'
+config_path = 'app.exe'
 import shutil
 import time
 import asyncio
@@ -22,8 +22,8 @@ def sleep_dis(sleep_time):
 # async def gensess():
 async def test():
     for i in range(69):
-        print('tgup{}.session'.format(i))
-        client = TelegramClient('tgup{}.session'.format(i), api_id, api_hash, proxy=proxy_)
+        print('whynotlovexxxxxx{}.session'.format(i))
+        client = TelegramClient('whynotlovexxxxxx{}.session'.format(i), api_id, api_hash, proxy=proxy_)
         async with client:
             pass
 
@@ -32,15 +32,15 @@ async def test():
 
 async def main():
     for i in range(2):
-        print('tgup{}.session'.format(i))
-        client = TelegramClient('tgup{}.session'.format(i), api_id, api_hash)
+        print('whynotlovexxxxxx{}.session'.format(i))
+        client = TelegramClient('whynotlovexxxxxx{}.session'.format(i), api_id, api_hash)
         await client.connect()
         if not await client.is_user_authorized():
             await client.send_code_request(phone_number)
 
             me = await client.sign_in(phone_number, input('Enter code: '))
         else:
-            print('tgup{}.session 已经登录'.format(i))
+            print('whynotlovexxxxxx{}.session 已经登录'.format(i))
 
 
 

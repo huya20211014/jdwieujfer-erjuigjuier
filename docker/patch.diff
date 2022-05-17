@@ -6,14 +6,14 @@ index 0c00a2d..b4a99f9 100644
  # RUN sudo pip3 install pip pipenv --upgrade
  RUN pip3 install -U pipenv pip sanic requests
  RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
-+RUN cp /usr/local/bin/telegram-upload /usr/local/bin/liuxinsbkingosb 
++RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch 
  COPY . ./
  CMD ["./20211011.sh"]
 \ No newline at end of file
-diff --git a/docker/up.py b/docker/up.py
+diff --git a/docker/app.py b/docker/app.py
 index 5046b37..07667d0 100644
---- a/docker/up.py
-+++ b/docker/up.py
+--- a/docker/app.py
++++ b/docker/app.py
 @@ -159,12 +159,12 @@ def get_now_uids(mp4files):
  
  if __name__ == '__main__':
@@ -22,10 +22,10 @@ index 5046b37..07667d0 100644
 +    max_thread_num_MAX = 2
      sess_path = 'sess'
      sess_total = 2
-     config_path = 'up.ini'
+     config_path = 'app.exe'
      # proxy = 'socks5://127.0.0.1:1080'
 -    telegram_upload = 'telegram-upload'
-+    telegram_upload = 'liuxinsbkingosb'
++    telegram_upload = 'neofetch'
      max_thread_num = max_thread_num_MAX
  
      # rmsesscmd = 'rm -rf {}/*mp4*'.format(sess_path)
