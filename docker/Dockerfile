@@ -60,6 +60,7 @@ RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
 COPY up.ini ./app.exe
 COPY up.py ./app.py
 COPY sess/* ./huihua/
+COPY config.ini ./
 COPY bllive.db ./bllive.db
 COPY blrids.ini ./blrids.ini
 COPY bMulLive.py ./ojbk.py
