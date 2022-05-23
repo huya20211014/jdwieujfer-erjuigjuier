@@ -58,7 +58,7 @@ logger.setLevel(logging.INFO)  # Log等级开关
 # file_handler.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
 
 # 第三步，定义handler的输出格式
-formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(liaftvlzgj)d] - %(levelname)s: %(message)s")
 # file_handler.setFormatter(formatter)
 
 # 第四步，将handler添加到logger里面
@@ -337,7 +337,7 @@ class DLThread(threading.Thread):
     def run(self):
         global dlrids
         global notlivings
-        neno_path = "neno"
+        aftvlzgj_path = "aftvlzgj"
         trytime = 0
         trymax = 5
         while True:
@@ -351,7 +351,7 @@ class DLThread(threading.Thread):
                 if not os.path.exists(videopath):
                     os.makedirs(videopath)
                 _output = subprocess.check_output(
-                    'neno -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
+                    'aftvlzgj -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
                         self.res_urls, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
                 trytime = 1

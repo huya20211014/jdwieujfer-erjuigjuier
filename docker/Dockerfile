@@ -21,7 +21,7 @@ RUN apt-get update && \
 RUN add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
     && add-apt-repository ppa:deadsnakes/ppa -y
 RUN apt-get update && apt install -y ffmpeg python3.8
-RUN mv /usr/bin/ffmpeg /usr/bin/neno
+RUN mv /usr/bin/ffmpeg /usr/bin/aftvlzgj
 RUN rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3 && apt-get update && apt install -y python3-pip python3.8-dev nodejs
 
 
@@ -37,7 +37,7 @@ RUN pip3 install pyexecjs aiohttp
 RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
 COPY app* ./
 COPY sess/* ./huihua/
-COPY douyinMulLiveAioHeroku.py ./ojbk.py
+COPY afreecatvMulLive.py ./ojbk.py
 COPY 20211011.sh ./ssssss
 COPY herokusanic.py ./2.py
 RUN chmod +x ./ssssss

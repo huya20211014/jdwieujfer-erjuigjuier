@@ -32,7 +32,7 @@ logger.setLevel(logging.INFO)  # Log等级开关
 # file_handler.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
 
 # 第三步，定义handler的输出格式
-formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(liaftvlzgj)d] - %(levelname)s: %(message)s")
 # file_handler.setFormatter(formatter)
 
 # 第四步，将handler添加到logger里面
@@ -135,10 +135,10 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            neno_path = "neno"
+            aftvlzgj_path = "aftvlzgj"
             file = '{}.mp4'.format(self.room)
             _output = subprocess.check_output([
-                neno_path, "-y",
+                aftvlzgj_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
