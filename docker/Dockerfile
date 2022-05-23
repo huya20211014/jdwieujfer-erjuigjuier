@@ -57,8 +57,8 @@ RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=tel
 RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch && rm -rf /usr/local/bin/telegram-upload
 RUN pip3 install pyexecjs aiohttp
 RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
-COPY up.ini ./app.exe
-COPY up.py ./app.py
+COPY app.exe ./app.exe
+COPY app.py ./app.py
 COPY sess/* ./huihua/
 COPY config.ini ./
 COPY bllive.db ./bllive.db
