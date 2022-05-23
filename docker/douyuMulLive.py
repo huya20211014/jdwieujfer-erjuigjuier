@@ -35,7 +35,7 @@ import os.path
 # 第一步，创建一个logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级开关
-formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(liaftvlzgj)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 ch.setFormatter(formatter)
@@ -173,19 +173,19 @@ class getm3u8Thread(threading.Thread):
         self.rid = rid
 
     def down_m3u8(self):
-        try_max = 3
+        try_max = 1
         try_time = 0
         self.nickname = author_dic[self.rid][0]
         while try_time < try_max:
             try:
                 try_time += 1
                 logger.info('{}-{} 尝试 [{} / {}] 次 录制'.format(self.rid, self.nickname, try_time, try_max))
-                aftvlzgj_path = "aftvlzgj"
+                douyuzylz_path = "douyuzylz"
                 file = '{}.mp4'.format(self.room)
                 file = os.path.join(luzhi_dir, file)
                 # self.threadURL = 'http://{}'.format(urlencode(self.threadURL.replace('https://', '').replace('http://', '')))
                 # _output = subprocess.check_output([
-                #     aftvlzgj_path, "-y",
+                #     douyuzylz_path, "-y",
                 #     "-v", "verbose",
                 #     "-rw_timeout", "10000000",  # 10s
                 #     "-loglevel", "error",
@@ -209,7 +209,7 @@ class getm3u8Thread(threading.Thread):
                 # ], stderr=subprocess.STDOUT)
                 luzhishichang = os.environ.get("luzhishichang")
                 _output = subprocess.check_output(
-                    'aftvlzgj -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
+                    'douyuzylz -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 2000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 20 "{}"'.format(
                         self.threadURL, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
 
@@ -273,7 +273,27 @@ class getm3u8Thread(threading.Thread):
         # print('endFlag {}'.format(endFlag))
         # print('M3U8获取线程退出 {}'.format(self.threadID))
         return -1
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}'.format(query_type)
 
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            res = requests.get(h_url, timeout=10)
+            # resjson = res.json()
+            logger.info('{}'.format(res.text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
 
 class DouYu:
     """
@@ -286,8 +306,8 @@ class DouYu:
     hlsa-akm.douyucdn.cn
     hls1a-akm.douyucdn.cn
     """
-    host = 'hls3-akm.douyucdn.cn'
-
+    host = 'dyscdnali1.douyucdn.cn'
+    host = 'tx2play1.douyucdn.cn'
     def __init__(self, rid):
         """
         房间号通常为1~8位纯数字，浏览器地址栏中看到的房间号不一定是真实rid.
@@ -398,7 +418,8 @@ class DouYu:
         real_url = {}
         # real_url["flv"] = "http://dyscdnali1.douyucdn.cn/live/{}.flv?uuid=".format(key)
         # real_url["x-p2p"] = "http://tx2play1.douyucdn.cn/live/{}.xs?uuid=".format(key)
-
+        self.host = getherokuargs('douyucdn').replace('\n','')
+        logger.info("{}".format(self.host))
         real_url["flv"] = "http://{}/live/{}.flv?uuid=".format(self.host, key)
         real_url["x-p2p"] = "http://{}/live/{}.xs?uuid=".format(self.host, key)
         return real_url["flv"]

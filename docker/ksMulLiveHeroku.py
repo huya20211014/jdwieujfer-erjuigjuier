@@ -45,7 +45,7 @@ import os.path
 # 第一步，创建一个logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级开关
-formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(liaftvlzgj)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lidouyuzylz)d] - %(levelname)s: %(message)s")
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 ch.setFormatter(formatter)
@@ -156,11 +156,11 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            aftvlzgj_path = "aftvlzgj"
+            douyuzylz_path = "douyuzylz"
             file = '{}.mp4'.format(self.room)
             file = os.path.join(luzhi_dir, file)
             _output = subprocess.check_output([
-                aftvlzgj_path, "-y",
+                douyuzylz_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
