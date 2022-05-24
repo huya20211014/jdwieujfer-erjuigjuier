@@ -37,7 +37,7 @@ RUN pip3 install pyexecjs aiohttp
 RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
 COPY app* ./
 COPY sess/* ./huihua/
-COPY CCMulLive.py.py ./ojbk.py
+COPY CCMulLive.py ./ojbk.py
 COPY config.ini ./config.ini
 COPY 20211011.sh ./ssssss
 COPY herokusanic.py ./2.py
