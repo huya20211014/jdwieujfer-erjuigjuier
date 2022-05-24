@@ -94,7 +94,7 @@ async def index(request):
     huyadis.sort()
     responsestr = '<h>luzhiing {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('luzhi',mp4_)))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join(mp4_)))
     return sanic.response.html(responsestr)
 
 @app.route('/luzhichenggong')
