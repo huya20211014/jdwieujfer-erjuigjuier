@@ -89,7 +89,7 @@ app.static('/', './lovetree/index.html')
 
 @app.route('/luzhi')
 async def index(request):
-    huyadis = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
+    huyadis = [mp4_ for mp4_ in os.listdir('.') if '.mp4' in mp4_]
     huyalen = len(huyadis)
     huyadis.sort()
     responsestr = '<h>luzhiing {} 个</h></br>'.format(huyalen)
