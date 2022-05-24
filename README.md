@@ -1,4 +1,4 @@
-yty2ntyymwi3ztg2ntdhytkxo@outlook.com
+mzk5ndm1y2i0ymnjzjg3mjgwm@outlook.com
 Yttyhxways778!
 
 mkdir luzhi
@@ -10,9 +10,9 @@ python3 sessgen.py
 mv whynotlovexxxxxx* sess
 heroku login -i
 heroku container:login
-heroku create yty2ntyymwi3ztg2ntdhytkxo
-git add -A && git commit -m "add huya02" && git push origin huya02
-heroku container:push web -a yty2ntyymwi3ztg2ntdhytkxo && heroku container:release web -a yty2ntyymwi3ztg2ntdhytkxo
+heroku create mzk5ndm1y2i0ymnjzjg3mjgwm
+git add -A && git commit -m "add huya03" && git push origin huya03
+heroku container:push web -a mzk5ndm1y2i0ymnjzjg3mjgwm && heroku container:release web -a mzk5ndm1y2i0ymnjzjg3mjgwm
 
 
 
