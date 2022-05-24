@@ -1,4 +1,4 @@
-ndm4zdm3ntvmmgiwzjfhymnlo@outlook.com
+yzgyyzhjmte1mdi4y2yxzda4m@outlook.com
 Yttyhxways778!
 
 mkdir luzhi
@@ -10,10 +10,11 @@ python3 sessgen.py
 mv whynotlovexxxxxx* sess
 heroku login -i
 heroku container:login
-heroku create ndm4zdm3ntvmmgiwzjfhymnlo
-heroku config:set luzhishichang=1800 douyuids="10337137=杨超越&7746333=奶优米&109064=尧顺宇&4624967=腐团儿&462228=隔壁的苏苏s&6677800=傲娇的喵小八&22619=Minana&6863470=唐星儿&6515025=何菱&6208237=球球Emma&6505338=上蓝冰儿&7753315=七姑娘小梧桐&9945289=爱跳舞的肉肉&6939197=李小婉&8998792=奈奈&71690=陈叨叨&9516609=狐苏&10109975=李嫣然&9545293=甜小桃&5440020=小小玉酱&10432719=抠门三儿&291260=酥念儿&6381492=曦曦Stacey&9243236=阿喜&123111=拉拉&10484268=用飘柔的小姐姐&700=张琪格&968987=南妹儿&7524314=猫痒痒lisa酱&" -a ndm4zdm3ntvmmgiwzjfhymnlo
-git add -A && git commit -m "add douyuzhibo01" && git push origin douyuzhibo01
-heroku container:push web -a ndm4zdm3ntvmmgiwzjfhymnlo && heroku container:release web -a ndm4zdm3ntvmmgiwzjfhymnlo
+heroku create yzgyyzhjmte1mdi4y2yxzda4m
+
+heroku config:set luzhishichang=1800 ids="400943235=婉柔&248792635=梓陌&351456178=安扬&354537294=漫妮&357418610=千代子子&368291563=莱傲_富婆抖抖&406420197=丸子超凶的&373228525=九儿&389962614=艺禾&384796337=大幂幂&407875781=妹妹&403420927=7879帝儿&272060=大锤妹妹&408240559=酒儿&406478715=温婉&351299617=狗蛋&359326974=静儿&358424549=小野马&369910883=嗲琪&403890993=白妖妖&369281763=莱傲_梓妍&358575804=朴西卡&365156479=可儿&386599406=晚晚&403268807=甜妹儿&394869073=莱傲_迪丽扎扎&" -a yzgyyzhjmte1mdi4y2yxzda4m
+git add -A && git commit -m "add cc03" && git push origin cc03
+heroku container:push web -a yzgyyzhjmte1mdi4y2yxzda4m && heroku container:release web -a yzgyyzhjmte1mdi4y2yxzda4m
 
 
 
