@@ -89,12 +89,12 @@ app.static('/', './lovetree/index.html')
 
 @app.route('/luzhi')
 async def index(request):
-    huyadis = [mp4_ for mp4_ in os.listdir('.') if '.mp4' in mp4_]
+    huyadis = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
     huyalen = len(huyadis)
     huyadis.sort()
     responsestr = '<h>luzhiing {} 个</h></br>'.format(huyalen)
     for mp4_ in huyadis:
-        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join(mp4_)))
+        responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('luzhi',mp4_)))
     return sanic.response.html(responsestr)
 
 @app.route('/luzhichenggong')

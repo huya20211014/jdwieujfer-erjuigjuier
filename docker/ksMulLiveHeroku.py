@@ -74,6 +74,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def sleep_dis(sleep_time):
     for i in range(sleep_time, -1, -1):
+        # logger.info('休眠 %5s s' % i)
         print('休眠 %5s s' % i, end='\r')
         time.sleep(1)
 
@@ -156,11 +157,11 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            cczylz_path = "cczylz"
+            kszylzgj_path = "kszylzgj"
             file = '{}.mp4'.format(self.room)
             file = os.path.join(luzhi_dir, file)
             _output = subprocess.check_output([
-                cczylz_path, "-y",
+                kszylzgj_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
@@ -212,6 +213,7 @@ class getm3u8Thread(threading.Thread):
             #     logger.info('{} --> {} succeed!'.format(luzhi_ok_tmp_file, luzhi_ok_path))
             # logger.info(luzhi_ok_tmp_file, '-->', luzhi_ok_path, 'succeed!')
         except Exception as e:
+            traceback.print_exc()
             luzhifinish = True
             # if not os.path.exists(luzhi_ok_path):
             #     os.makedirs(luzhi_ok_path)
@@ -222,7 +224,7 @@ class getm3u8Thread(threading.Thread):
                 dlrids.remove(self.rid)
             if not os.path.exists(luzhi_ok_pathtmp):
                 os.makedirs(luzhi_ok_pathtmp)
-            logger.debug('{} {}'.format(self.room, traceback.format_exc()))
+            logger.info('{} {}'.format(self.room, traceback.format_exc()))
             traceback.print_exc()
 
     def run(self):
@@ -251,7 +253,7 @@ class KuaiShou:
         cookies = {
             'did': 'web_ba32bf2706abc579db6ac28405c3970c',
             'userId': '647446218',
-            'kuaishou.live.web_st': 'ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAd4C-es0wDjangqbe_vZzXuTaO0HgB9sB2MDD85iv82otSHSYLev30Hq14AZM6q3N-KcG04K1uirdgPYVo2tDHpWXnXdIZBlKG_BpwW38mauPY2iCRPjj7lFuxC_4opw5nX_0CLb7ERq9PCSYCLTWuYxLW6LIrDYTr_CZxRCkoSITyJ16KeUmD13cHYYbk01pwFoOGf9V0ptM9a3NHKUBjwaEiWGLfbrnUkCqwhynotloveL7M-vFrp6OSIgjQmt32ve90PgAvfAzOcBE45X8UrD6O1gQdOFHHKTc9ooBTAB',
+            'kuaishou.live.web_st': 'ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAd4C-es0wDjangqbe_vZzXuTaO0HgB9sB2MDD85iv82otSHSYLev30Hq14AZM6q3N-KcG04K1uirdgPYVo2tDHpWXnXdIZBlKG_BpwW38mauPY2iCRPjj7lFuxC_4opw5nX_0CLb7ERq9PCSYCLTWuYxLW6LIrDYTr_CZxRCkoSITyJ16KeUmD13cHYYbk01pwFoOGf9V0ptM9a3NHKUBjwaEiWGLfbrnUkCqTgL7M-vFrp6OSIgjQmt32ve90PgAvfAzOcBE45X8UrD6O1gQdOFHHKTc9ooBTAB',
         }
 
         headers = {
@@ -283,7 +285,8 @@ class KuaiShou:
                 else:
                     raise Exception('直播间不存在或未开播')
             except:
-                logger.debug('{} {}'.format(self.rid, traceback.format_exc()))
+                traceback.print_exc()
+                logger.info('{} {}'.format(self.rid, traceback.format_exc()))
                 return -1
 
 
@@ -292,6 +295,7 @@ def get_real_url(rid):
         ks = KuaiShou(rid)
         return ks.get_real_url()
     except Exception as e:
+        traceback.print_exc()
         logger.info('Exception：{}'.format(e))
         return -1
 
@@ -377,6 +381,7 @@ def main(rid):
     except Exception as e:
         # logger.info('链接不对劲')
         # logger.info('解析链接中')
+        traceback.print_exc()
         logging.error(e)
         if rid in dlrids:
             dlrids.remove(rid)
@@ -464,8 +469,32 @@ def get_rids():
     return rids_dic
 
 
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            res = requests.get(h_url, timeout=10)
+            # resjson = res.json()
+            logger.info('{}'.format(res.text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
+
+
 def getcookies():
-    cookiesstr = os.environ.get("cookies")
+    # cookiesstr = os.environ.get("cookies")
+    cookiesstr = getherokuargs("kscookies")
     cookiesstr = base64decode(cookiesstr)
     keyvals = cookiesstr.split('&&&&')
     cookiesobj = {
@@ -491,29 +520,34 @@ def getids():
     #     'kuaishou.live.web_ph': 'de40498a4ecf5070ab1921e381edb81dadc1',
     # }
     cookies = getcookies()
+    logger.info("{}".format(cookies))
     headers = {
-        'Connection': 'keep-alive',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
         'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
+        'Connection': 'keep-alive',
+        # Requests sorts cookies= alphabetically
+        # 'Cookie': 'did=web_2077198417aebfbbc48949437bff73f5; clientid=3; client_key=65890b29; kpn=GAME_ZONE; didv=1641916157000; ksliveShowClipTip=true; userId=647446218; kuaishou.live.bfb1s=3e261140b0cf7444a0ba411c6f227d88; userId=647446218; showFollowRedIcon=1; kuaishou.live.web_st=ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAcp1lRwRFDe9OOnryLl6g2i0-IO1XO0szbkHj4GWscXEqn5roJCHS0rmhDy4q5aefhD6Dt2SZpr-knb85vcn4HTkIBBS6TFJAauSVa9oSToRfwH6_l2ylPcXu_jWRffUqhMDHjQdBI0ah_7snVo5HejKk_mz7hxNh3YxA7VJ6Js6fhiziTK6idVi1JaDbr8vaRZI3f4daTC-zH9TzKOJXbUaEsvpGUru20c-iIt7T0W8MQrXwiIgeEWQf48IeT7NmHAU-qHwTAIzC7jL8BbAqJrNA1Qs6ycoBTAB; kuaishou.live.web_ph=897684368a5195394d27a8b7e275892e1ce3',
+        'DNT': '1',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'none',
+        'Sec-Fetch-User': '?1',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36',
+        'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="101", "Google Chrome";v="101"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
-        'DNT': '1',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-User': '?1',
-        'Sec-Fetch-Dest': 'document',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
     }
     response = requests.get('https://live.kuaishou.com/my-follow/living', headers=headers, cookies=cookies, timeout=10)
     restext = response.text
+    # logger.info('{}'.format(restext))
     sposstr = '<script>window.__APOLLO_STATE__='
     eposstr = ';(function(){var'
     spos = restext.index(sposstr) + len(sposstr)
     epos = restext[spos:].index(eposstr)
     resjsonstr = restext[spos:spos + epos]
+    # logger.info('{}'.format(resjsonstr))
     # print(resjsonstr)
     resjson = json.loads(resjsonstr)
     clients = resjson['clients']
@@ -532,6 +566,15 @@ def getids():
             author_live_url = author_live_url_obj['url']
             author_live_url_quality = author_live_url_obj['quality']
 
+            gameInfo_str = '${}.gameInfo'.format(iii)
+            gameInfo_obj = graphqlServerClient[gameInfo_str]
+            gameInfo_name = gameInfo_obj['name']
+            logger.info('{} {}'.format(author_nickname,gameInfo_name))
+            if gameInfo_name in ['游戏']  :
+                logger.info('{} 跳过'.format(author_nickname))
+                continue
+            else:
+                logger.info('{} 加入'.format(author_nickname))
             # id_, eid_, name_, avatar_, principalId_, description_, sex_
             id_ = author_id
             avatar_ = iii_obj_user_obj['avatar']
@@ -543,10 +586,13 @@ def getids():
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    ksmullive_tot = int(os.environ.get("ksmullive_tot"))
-    split_len = author_id_len // ksmullive_tot + 1
+    ksmullive_tot_str = getherokuargs('ksmullive_tot')
+    ksmullive_tot = int(ksmullive_tot_str)
+    split_len = author_id_len // ksmullive_tot
     author_id_start = split_len * (ksmullive_idx - 1)
-    author_id_end = min(split_len * ksmullive_idx, author_id_len)
+    author_id_end = split_len * ksmullive_idx
+    if ksmullive_idx == ksmullive_tot:
+        author_id_end = author_id_len
     author_ids_fin = author_ids[author_id_start:author_id_end]
     author_dic_tmp = {}
     for author_id_fin in author_ids_fin:
@@ -589,6 +635,7 @@ if __name__ == '__main__':
         try:
             logger.info('获取直播列表')
             author_dic = getids()
+            logger.info('{}'.format(author_dic))
             logger.info('更新主播信息')
             for author_id in author_dic:
                 author_list = author_dic[author_id]
@@ -601,7 +648,7 @@ if __name__ == '__main__':
                 principalId_ = ''
                 description_ = ''
                 sex_ = ''
-                insert_db(id_, eid_, name_, avatar_, principalId_, description_, sex_)
+                # insert_db(id_, eid_, name_, avatar_, principalId_, description_, sex_)
         except:
             traceback.print_exc()
             sleep_dis(100)
