@@ -578,7 +578,8 @@ def getids():
             gameInfo_name = gameInfo_obj['name']
             logger.info('{} {}'.format(author_nickname,gameInfo_name))
             # "followStatus": "UN_FOLLOWED",
-            if gameInfo_name not in ['音乐','其他','颜值','脱口秀','汽车','舞蹈','购物']  :
+            # if gameInfo_name not in ['音乐','其他','颜值','脱口秀','汽车','舞蹈','购物']  :
+            if gameInfo_name in ['']  :
                 logger.info('{} 跳过'.format(author_nickname))
                 continue
             else:
