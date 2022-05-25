@@ -173,7 +173,9 @@ def get_uflag():
 
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    xxxxLOAD_PRE = 'huya04'
+    # xxxxLOAD_PRE = 'huya04'
+    ksmullive_idx = int(os.environ.get("ksmullive_idx"))
+    xxxxLOAD_PRE = 'Kuaishou_docker{}_kszb{}'.format(ksmullive_idx,ksmullive_idx)
     post_global = ['.tt','.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     # post_global = []
     max_thread_num_MAX = 2

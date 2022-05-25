@@ -562,6 +562,13 @@ def getids():
             iii_obj_user_obj = graphqlServerClient[iii_obj_user_obj_id]
             author_id = iii_obj_user_obj['id']
             author_nickname = strfomat(iii_obj_user_obj['name'])
+            if 'followStatus' in iii_obj_user_obj:
+                if iii_obj_user_obj['followStatus']=="UN_FOLLOWED":
+                    logger.info('未关注的傻逼用户 {} 跳过'.format(author_nickname))
+                    continue
+
+            # author_id = iii_obj_user_obj['id']
+            # author_nickname = strfomat(iii_obj_user_obj['name'])
             author_live_url_obj = graphqlServerClient['{}.playUrls.0'.format(iii)]
             author_live_url = author_live_url_obj['url']
             author_live_url_quality = author_live_url_obj['quality']
@@ -570,7 +577,8 @@ def getids():
             gameInfo_obj = graphqlServerClient[gameInfo_str]
             gameInfo_name = gameInfo_obj['name']
             logger.info('{} {}'.format(author_nickname,gameInfo_name))
-            if gameInfo_name in ['游戏']  :
+            # "followStatus": "UN_FOLLOWED",
+            if gameInfo_name not in ['音乐','其他','颜值','脱口秀','汽车','舞蹈','购物']  :
                 logger.info('{} 跳过'.format(author_nickname))
                 continue
             else:
