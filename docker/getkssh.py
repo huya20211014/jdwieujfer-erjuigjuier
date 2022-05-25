@@ -143,7 +143,7 @@ if __name__ == '__main__':
     # idxxx = 27
     email_ym = 'outlook.com'
     # email_ym = 'hotmail.com'
-    for idxxx in range(4,5):
+    for idxxx in range(3,4):
         ym, ymret = genym(idxxx)
         # print('{}@dslab2021.me'.format((ymret).lower()))
         # print('{}@dslab2022.tk'.format((ymret).lower()))
@@ -162,8 +162,9 @@ if __name__ == '__main__':
     heroku container:login
     heroku create {}
     heroku config:set ksmullive_idx={} -a {}
+    git add -A && git commit -m "add kszb{}" && git push origin kszb
     heroku container:push web -a {} && heroku container:release web -a {}
-        '''.format(ymret, idxxx,ymret, ymret, ymret)
+        '''.format(ymret, idxxx,ymret, idxxx,ymret, ymret)
         print(prt_str)
         with open('../README.md',encoding='utf-8',mode='a+') as rdme:
             rdme.write('{}\n\n\n'.format(ym))
