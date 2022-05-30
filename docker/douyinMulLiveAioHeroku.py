@@ -29,6 +29,7 @@ import subprocess
 import threading
 import time
 import traceback
+import requests
 
 import aiohttp
 import base64
@@ -254,10 +255,50 @@ async def get(session,queue):
         dlthread.start()
 
 
-async def get_ids():
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            res = requests.get(h_url, timeout=10)
+            # resjson = res.json()
+            res_text = res.text()
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
+
+
+# async def getcookies():
+#     # cookiesstr = os.environ.get("cookies")
+#     cookiesstr = getherokuargs("kscookies")
+#     cookiesstr = base64decode(cookiesstr)
+#     keyvals = cookiesstr.split('&&&&')
+#     cookiesobj = {
+#     }
+#     for keyval in keyvals:
+#         if '&&&' not in keyval:
+#             continue
+#         key, val = keyval.split('&&&')
+#         cookiesobj[key] = val
+#     return cookiesobj
+#修改
+def get_ids():
     # 特定id文件特定处理
     ids_dic = {}
-    ids_gen = os.environ.get("ids_str")
+    # ids_gen = await session.get(jsurl, headers=Modelheaders, timeout=10)
+    ids_gen = getherokuargs('douyinzhibo42_ids_str')
+    # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
     #     ids_str = ids_f.read()
@@ -280,7 +321,7 @@ async def main():
     global videopath
     global luzhi_ok_path
     while True:
-        ids_dic = await get_ids()
+        ids_dic = get_ids()
 
         try:
             # config = configparser.ConfigParser()
@@ -337,7 +378,7 @@ class DLThread(threading.Thread):
     def run(self):
         global dlrids
         global notlivings
-        neno_path = "neno"
+        dynjmvzylz_path = "dynjmvzylz"
         trytime = 0
         trymax = 5
         while True:
@@ -351,7 +392,7 @@ class DLThread(threading.Thread):
                 if not os.path.exists(videopath):
                     os.makedirs(videopath)
                 _output = subprocess.check_output(
-                    'neno -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
+                    'dynjmvzylz -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
                         self.res_urls, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
                 trytime = 1
