@@ -263,9 +263,11 @@ def getherokuargs(query_type):
     while True:
         trytime += 1
         try:
+            logger.info('{}'.format(h_url))
             res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
             # resjson = res.json()
-            res_text = res.text()
+            res_text = res.text
             logger.info('{}'.format(res_text))
             if True:
                 ret_str = res.text
@@ -297,7 +299,7 @@ def get_ids():
     # 特定id文件特定处理
     ids_dic = {}
     # ids_gen = await session.get(jsurl, headers=Modelheaders, timeout=10)
-    ids_gen = getherokuargs('douyinzhibo42_ids_str')
+    ids_gen = getherokuargs('douyinzhibo43_ids_str')
     # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
