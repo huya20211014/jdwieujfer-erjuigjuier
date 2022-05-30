@@ -263,9 +263,11 @@ def getherokuargs(query_type):
     while True:
         trytime += 1
         try:
+            logger.info('{}'.format(h_url))
             res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
             # resjson = res.json()
-            res_text = res.text()
+            res_text = res.text
             logger.info('{}'.format(res_text))
             if True:
                 ret_str = res.text
