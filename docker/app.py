@@ -12,6 +12,7 @@ import time
 import requests
 import logging  # 引入logging模块
 import base64
+import traceback
 def base64decode(a):
     de = base64.b64decode(a)
     return de.decode('utf-8')
