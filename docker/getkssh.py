@@ -143,7 +143,7 @@ if __name__ == '__main__':
     # idxxx = 27
     email_ym = 'outlook.com'
     # email_ym = 'hotmail.com'
-    for idxxx in range(3,5):
+    for idxxx in range(6,20):
         ym, ymret = genym(idxxx)
         if email_ym=='hotmail.com':
             ymret='edwio{}'.format(ymret)
