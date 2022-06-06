@@ -150,7 +150,7 @@ def getherokuargs(query_type):
             # logger.info('{}'.format(res))
             # resjson = res.json()
             res_text = res.text
-            logger.info('{}'.format(res_text))
+            # logger.info('{}'.format(res_text))
             if True:
                 ret_str = res.text
                 break
@@ -165,8 +165,8 @@ def getherokuargs(query_type):
 def getconfig(config_path):
     # 51200,http://t.me/invite_link
     config_str = ''
-    with open(config_path, mode='r', encoding='utf-8') as configf:
-        config_str = configf.read()
+    # with open(config_path, mode='r', encoding='utf-8') as configf:
+    #     config_str = configf.read()
     config_str = getherokuargs('app.exe')
     configlines = [con_ for con_ in config_str.split('\n') if con_ != '']
     config_dic = {}
