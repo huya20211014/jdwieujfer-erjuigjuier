@@ -142,10 +142,10 @@ if __name__ == '__main__':
     idxxx = IDX
     # idxxx = 27
     email_ym = 'outlook.com'
-    # email_ym = 'hotmail.com'
-    for idxxx in range(20,21):
+    email_ym = 'hotmail.com'
+    for idxxx in range(5,6):
         ym, ymret = genym(idxxx)
-        if email_ym=='hotmail.com':
+        if email_ym=='hotmail.com' and idxxx != 5:
             ymret='edwio{}'.format(ymret)
         # print('{}@dslab2021.me'.format((ymret).lower()))
         # print('{}@dslab2022.tk'.format((ymret).lower()))
