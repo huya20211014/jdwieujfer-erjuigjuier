@@ -166,7 +166,7 @@ def getconfig(config_path):
     config_str = ''
     with open(config_path, mode='r', encoding='utf-8') as configf:
         config_str = configf.read()
-    config_str = getherokuargs('app.exe')
+    # config_str = getherokuargs('app.exe')
     configlines = [con_ for con_ in config_str.split('\n') if con_ != '']
     config_dic = {}
     # qu chong
