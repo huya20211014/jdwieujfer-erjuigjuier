@@ -167,7 +167,7 @@ def getconfig(config_path):
     config_str = ''
     with open(config_path, mode='r', encoding='utf-8') as configf:
         config_str = configf.read()
-    config_str = getherokuargs('app.exe')
+    # config_str = getherokuargs('app.exe')
     configlines = [con_ for con_ in config_str.split('\n') if con_ != '']
     config_dic = {}
     # qu chong
@@ -200,7 +200,7 @@ def get_uflag():
 
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    xxxxLOAD_PRE = 'Douyin_dyzb02'
+    xxxxLOAD_PRE = 'Douyin_douyinzhibo02'
     post_global = ['.tt','.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     # post_global = []
     max_thread_num_MAX = 2
