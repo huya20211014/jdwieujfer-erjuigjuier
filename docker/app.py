@@ -46,30 +46,6 @@ def sleep_dis(sleep_time):
         print('休眠 %5s s' % i, end='\r')
         time.sleep(1)
 
-def getherokuargs(query_type):
-    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
-    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}'.format(query_type)
-
-    trytime = 0
-    while True:
-        trytime += 1
-        try:
-            logger.info('{}'.format(h_url))
-            res = requests.get(h_url, timeout=10)
-            # logger.info('{}'.format(res))
-            # resjson = res.json()
-            res_text = res.text
-            logger.info('{}'.format(res_text))
-            if True:
-                ret_str = res.text
-                break
-            else:
-                logger.info('获取参数失败 2秒后再试')
-                sleep_dis(2)
-        except Exception as e:
-            traceback.print_exc()
-            time.sleep(5)
-    return ret_str
 
 class xxxxThread(threading.Thread):
     def __init__(self, xxxxID, xxxxthreadIDX):
@@ -160,6 +136,30 @@ def getmp4file(dir_in):
     mp4files.sort()
     return mp4files
 
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            logger.info('{}'.format(h_url))
+            res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
+            # resjson = res.json()
+            res_text = res.text
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
 
 def getconfig(config_path):
     # 51200,http://t.me/invite_link
@@ -199,7 +199,7 @@ def get_uflag():
 
 if __name__ == '__main__':
     #ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    xxxxLOAD_PRE = 'Douyin_dyzb41'
+    xxxxLOAD_PRE = 'Douyin_dyzb01'
     post_global = ['.tt','.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     # post_global = []
     max_thread_num_MAX = 2
