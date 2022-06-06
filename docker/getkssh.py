@@ -141,9 +141,9 @@ def base64add(base641, base642):
 if __name__ == '__main__':
     idxxx = IDX
     # idxxx = 27
-    # email_ym = 'outlook.com'
-    email_ym = 'hotmail.com'
-    for idxxx in range(2,3):
+    email_ym = 'outlook.com'
+    # email_ym = 'hotmail.com'
+    for idxxx in range(3,5):
         ym, ymret = genym(idxxx)
         if email_ym=='hotmail.com':
             ymret='edwio{}'.format(ymret)
