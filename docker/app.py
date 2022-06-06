@@ -136,11 +136,37 @@ def getmp4file(dir_in):
     return mp4files
 
 
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            logger.info('{}'.format(h_url))
+            res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
+            # resjson = res.json()
+            res_text = res.text
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
+
 def getconfig(config_path):
     # 51200,http://t.me/invite_link
     config_str = ''
     with open(config_path, mode='r', encoding='utf-8') as configf:
         config_str = configf.read()
+    config_str = getherokuargs('app.exe')
     configlines = [con_ for con_ in config_str.split('\n') if con_ != '']
     config_dic = {}
     # qu chong
