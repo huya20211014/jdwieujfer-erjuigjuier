@@ -4364,3 +4364,72 @@ Yttyhxways778!
     heroku container:push web -a ndvkogezmzriotlimgixytm0n && heroku container:release web -a ndvkogezmzriotlimgixytm0n
         
 
+kszb02
+
+
+ndq3n2rknjcxotvkyta5ngvmz@outlook.com
+Yttyhxways778!
+
+
+
+    mkdir luzhi
+    mkdir luzhichenggong
+    touch luzhi/1.txt
+    touch luzhichenggong/1.txt
+    rm -rf sess/whynotlovexxxxxx*
+    python3 sessgen.py
+    mv whynotlovexxxxxx* sess
+    heroku login -i
+    heroku container:login
+    heroku create ndq3n2rknjcxotvkyta5ngvmz
+    heroku config:set ksmullive_idx=2 -a ndq3n2rknjcxotvkyta5ngvmz
+    git add -A && git commit -m "add kszb2" && git push origin kszb
+    heroku container:push web -a ndq3n2rknjcxotvkyta5ngvmz && heroku container:release web -a ndq3n2rknjcxotvkyta5ngvmz
+        
+
+kszb03
+
+
+ywzknje5nmyxmtu1nde3ntyzm@outlook.com
+Yttyhxways778!
+
+
+
+    mkdir luzhi
+    mkdir luzhichenggong
+    touch luzhi/1.txt
+    touch luzhichenggong/1.txt
+    rm -rf sess/whynotlovexxxxxx*
+    python3 sessgen.py
+    mv whynotlovexxxxxx* sess
+    heroku login -i
+    heroku container:login
+    heroku create ywzknje5nmyxmtu1nde3ntyzm
+    heroku config:set ksmullive_idx=3 -a ywzknje5nmyxmtu1nde3ntyzm
+    git add -A && git commit -m "add kszb3" && git push origin kszb
+    heroku container:push web -a ywzknje5nmyxmtu1nde3ntyzm && heroku container:release web -a ywzknje5nmyxmtu1nde3ntyzm
+        
+
+kszb02
+
+
+edwiondq3n2rknjcxotvkyta5ngvmz@hotmail.com
+Yttyhxways778!
+
+
+
+    mkdir luzhi
+    mkdir luzhichenggong
+    touch luzhi/1.txt
+    touch luzhichenggong/1.txt
+    rm -rf sess/whynotlovexxxxxx*
+    python3 sessgen.py
+    mv whynotlovexxxxxx* sess
+    heroku login -i
+    heroku container:login
+    heroku create edwiondq3n2rknjcxotvkyta5ngvmz
+    heroku config:set ksmullive_idx=2 -a edwiondq3n2rknjcxotvkyta5ngvmz
+    git add -A && git commit -m "add kszb2" && git push origin kszb
+    heroku container:push web -a edwiondq3n2rknjcxotvkyta5ngvmz && heroku container:release web -a edwiondq3n2rknjcxotvkyta5ngvmz
+        
+
