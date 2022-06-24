@@ -489,7 +489,7 @@ def get_rids():
     idsstr = getherokuargs('aftv')
     ids = idsstr.split('&')
     for id__ in ids:
-        print(id__)
+        logger.info('{}'.format(id__))
         if id__ != "":
             id_, nickname_ = id__.split('=')
             nickname_now = ''
