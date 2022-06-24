@@ -82,7 +82,31 @@ LOOP_F = FLAGS.l
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
 
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            logger.info('{}'.format(h_url))
+            res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
+            # resjson = res.json()
+            res_text = res.text
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
+    
 def sleep_dis(sleep_time):
     for i in range(sleep_time, -1, -1):
         print('休眠 %5s s' % i, end='\r')
@@ -461,7 +485,8 @@ class DLThread(threading.Thread):
 
 def get_rids():
     rids_dic = {}
-    idsstr = os.environ.get("ids")
+    # idsstr = os.environ.get("ids")
+    idsstr = getherokuargs('aftv')
     ids = idsstr.split('&')
     for id__ in ids:
         if id__ != "":
