@@ -29,6 +29,7 @@ import subprocess
 import threading
 import time
 import traceback
+import requests
 
 import aiohttp
 import base64
@@ -253,11 +254,36 @@ async def get(session,queue):
         dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls)
         dlthread.start()
 
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            logger.info('{}'.format(h_url))
+            res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
+            # resjson = res.json()
+            res_text = res.text
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
 
 async def get_ids():
     # 特定id文件特定处理
     ids_dic = {}
-    ids_gen = os.environ.get("ids_str")
+    # ids_gen = os.environ.get("ids_str")
+    ids_gen = getherokuargs('douyinzhibo41_ids_str')
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
     #     ids_str = ids_f.read()
