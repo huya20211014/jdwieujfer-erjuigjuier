@@ -50,7 +50,7 @@ import os.path
 # 第一步，创建一个logger
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级开关
-formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(liaftvlzgj)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 ch.setFormatter(formatter)
