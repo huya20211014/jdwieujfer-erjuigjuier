@@ -492,7 +492,7 @@ def get_rids():
         
         if id__ != "":
             try:
-                id_, nickname_ = id__.split('=')
+                id_, nickname_ = id__.split('-')
                 nickname_now = ''
                 rids_dic[id_] = [nickname_, nickname_now]
             except Exception as e:
