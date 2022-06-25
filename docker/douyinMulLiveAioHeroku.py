@@ -299,7 +299,7 @@ def get_ids():
     # 特定id文件特定处理
     ids_dic = {}
     # ids_gen = await session.get(jsurl, headers=Modelheaders, timeout=10)
-    ids_gen = getherokuargs('douyinzhibo03_ids_str')
+    ids_gen = getherokuargs('douyinzhibo04_ids_str')
     # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
