@@ -17,6 +17,21 @@ import time
 import traceback
 
 import requests
+import asyncio
+import configparser
+import json
+import logging
+import os
+import re
+import shutil
+import subprocess
+import threading
+import time
+import traceback
+import requests
+
+import aiohttp
+import base64
 
 # from multiprocessing import Process, Lock
 timeOut = 10
@@ -56,6 +71,31 @@ URL = FLAGS.url
 LOOP_F = FLAGS.l
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
+
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            logger.info('{}'.format(h_url))
+            res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
+            # resjson = res.json()
+            res_text = res.text
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
+
 
 
 def sleep_dis(sleep_time):
@@ -170,12 +210,12 @@ class getm3u8Thread(threading.Thread):
             try:
                 try_time += 1
                 logger.info('{}-{} 尝试 [{} / {}] 次 录制'.format(self.rid, self.nickname, try_time, try_max))
-                dynjmvzylz_path = "dynjmvzylz"
+                ffmpeg_path = "ffmpeg"
                 file = '{}.mp4'.format(self.room)
-                file = os.path.join(luzhi_dir, file)
+                file = os.path.join(record_dir, file)
                 # self.threadURL = 'http://{}'.format(urlencode(self.threadURL.replace('https://', '').replace('http://', '')))
                 # _output = subprocess.check_output([
-                #     dynjmvzylz_path, "-y",
+                #     ffmpeg_path, "-y",
                 #     "-v", "verbose",
                 #     "-rw_timeout", "10000000",  # 10s
                 #     "-loglevel", "error",
@@ -197,49 +237,50 @@ class getm3u8Thread(threading.Thread):
                 #     '-max_muxing_queue_size', '2048',
                 #     "{path}".format(path=file),
                 # ], stderr=subprocess.STDOUT)
+                luzhishichang = os.environ.get("luzhishichang")
                 _output = subprocess.check_output(
-                    'dynjmvzylz -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t 1800 -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(self.threadURL,file),
+                    'ffmpeg -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(self.threadURL,luzhishichang,file),
                     stderr=subprocess.STDOUT, shell=True)
 
-                luzhifinish = True
+                recordfinish = True
                 counttime = time.time()
-                # if startname in luzhiing:
-                #     luzhiing.remove(startname)
+                # if startname in recording:
+                #     recording.remove(startname)
                 logger.info('{} 直播录制完成'.format(self.room))
                 # logger.info('\n' + self.room + " " + time.strftime('%Y-%m-%d %H:%M:%S  ') + '直播录制完成\n')
                 # if self.rid in dlrids:
                 #     dlrids.remove(self.rid)
-                if not os.path.exists(luzhi_ok_pathtmp):
-                    os.makedirs(luzhi_ok_pathtmp)
+                if not os.path.exists(record_ok_pathtmp):
+                    os.makedirs(record_ok_pathtmp)
 
                 # 直接SSD内部解决
 
                 if os.path.exists(file):
-                    logger.info('{} --> {} start'.format(file, luzhi_ok_pathtmp))
-                    # logger.info(file, '-->', luzhi_ok_pathtmp, 'start')
-                    shutil.move(file, luzhi_ok_pathtmp)
-                    logger.info('{} --> {} succeed!'.format(file, luzhi_ok_pathtmp))
-                    # logger.info(file, '-->', luzhi_ok_pathtmp, 'succeed!')
+                    logger.info('{} --> {} start'.format(file, record_ok_pathtmp))
+                    # logger.info(file, '-->', record_ok_pathtmp, 'start')
+                    shutil.move(file, record_ok_pathtmp)
+                    logger.info('{} --> {} succeed!'.format(file, record_ok_pathtmp))
+                    # logger.info(file, '-->', record_ok_pathtmp, 'succeed!')
                 break
-                # luzhi_ok_tmp_file = os.path.join(luzhi_ok_pathtmp, file)
+                # record_ok_tmp_file = os.path.join(record_ok_pathtmp, file)
                 # # # logger.warning(self.room + " " + "直播录制完成")
-                # # if not os.path.exists(luzhi_ok_path):
-                # #     os.makedirs(luzhi_ok_path)
-                # if os.path.exists(luzhi_ok_tmp_file):
-                #     shutil.move(luzhi_ok_tmp_file, luzhi_ok_path)
-                #     logger.info('{} --> {} succeed!'.format(luzhi_ok_tmp_file, luzhi_ok_path))
-                # logger.info(luzhi_ok_tmp_file, '-->', luzhi_ok_path, 'succeed!')
+                # # if not os.path.exists(record_ok_path):
+                # #     os.makedirs(record_ok_path)
+                # if os.path.exists(record_ok_tmp_file):
+                #     shutil.move(record_ok_tmp_file, record_ok_path)
+                #     logger.info('{} --> {} succeed!'.format(record_ok_tmp_file, record_ok_path))
+                # logger.info(record_ok_tmp_file, '-->', record_ok_path, 'succeed!')
             except Exception as e:
-                luzhifinish = True
-                # if not os.path.exists(luzhi_ok_path):
-                #     os.makedirs(luzhi_ok_path)
+                recordfinish = True
+                # if not os.path.exists(record_ok_path):
+                #     os.makedirs(record_ok_path)
                 # if os.path.exists(file):
-                #     shutil.move(file, luzhi_ok_path)
-                #     logger.info(file, '-->', luzhi_ok_path, 'succeed!')
+                #     shutil.move(file, record_ok_path)
+                #     logger.info(file, '-->', record_ok_path, 'succeed!')
                 # if self.rid in dlrids:
                 #     dlrids.remove(self.rid)
-                if not os.path.exists(luzhi_ok_pathtmp):
-                    os.makedirs(luzhi_ok_pathtmp)
+                if not os.path.exists(record_ok_pathtmp):
+                    os.makedirs(record_ok_pathtmp)
                 logger.info('{} {}'.format(self.room, traceback.format_exc()))
                 traceback.print_exc()
                 slpt = 3
@@ -520,15 +561,25 @@ class ksDLThread(threading.Thread):
 def get_rids():
     hridstr = ''
     rids_dic = {}
-    with open('blrids.ini', mode='r', encoding='utf-8') as hridsf:
-        hridstr = hridsf.read()
-    hrids = [hrid for hrid in hridstr.split('\n') if hrid != '']
-    for hrid in hrids:
-        rid, nickname = hrid.split(' ')
-        if rid not in rids_dic:
-            # nickname_now = get_nickname(rid)
+    # with open('blrids.ini', mode='r', encoding='utf-8') as hridsf:
+    #     hridstr = hridsf.read()
+    # hrids = [hrid for hrid in hridstr.split('\n') if hrid != '']
+    # for hrid in hrids:
+    #     rid, nickname = hrid.split(' ')
+    #     if rid not in rids_dic:
+    #         # nickname_now = get_nickname(rid)
+    #         nickname_now = ''
+    #         rids_dic[rid] = [nickname, nickname_now]
+    # return rids_dic
+
+    # douyuidsstr = os.environ.get("blrids")
+    douyuidsstr = getherokuargs('bzzb_ids_str')
+    douyuids = douyuidsstr.split('&')
+    for douyuid in douyuids:
+        if douyuid != "":
+            id_, nickname_ = douyuid.split('=')
             nickname_now = ''
-            rids_dic[rid] = [nickname, nickname_now]
+            rids_dic[id_] = [nickname_, nickname_now]
     return rids_dic
 
 
@@ -555,15 +606,15 @@ def get_nickname(vmid):
 
 
 if __name__ == '__main__':
-    # luzhi_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/luzhi'
-    # luzhi_ok_path = '/home/muyangren907/2t/zhiboluzhi/luzhichenggong'
+    # record_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/record'
+    # record_ok_path = '/home/muyangren907/2t/zhiboluzhi/recordok'
     author_dic = {}
-    luzhi_dir = 'luzhi'
-    if not os.path.exists(luzhi_dir):
-        os.makedirs(luzhi_dir)
+    record_dir = 'luzhi'
+    if not os.path.exists(record_dir):
+        os.makedirs(record_dir)
     # SSD内部解决
-    luzhi_ok_pathtmp = 'luzhichenggong'
-    luzhi_ok_path = luzhi_ok_pathtmp
+    record_ok_pathtmp = 'luzhichenggong'
+    record_ok_path = record_ok_pathtmp
     debugmode = False
     # download threads
     dlrids = []
