@@ -635,7 +635,7 @@ if __name__ == '__main__':
         try:
             config = configparser.ConfigParser()
             config.read('config.ini', encoding='utf-8-sig')
-            if_proxy = config.get('1', '是否使用代理')
+            if_proxy = '0'
             proxies2 = ''
             if if_proxy == '0':
                 logger.info('不使用代理')
@@ -662,7 +662,7 @@ if __name__ == '__main__':
                 principalId_ = ''
                 description_ = ''
                 sex_ = ''
-                insert_db(id_, name_, name_now)
+                # insert_db(id_, name_, name_now)
                 # insert_db(id_, eid_, name_, avatar_, principalId_, description_, sex_)
         except:
             traceback.print_exc()
