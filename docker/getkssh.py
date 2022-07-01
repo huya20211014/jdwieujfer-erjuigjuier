@@ -36,7 +36,7 @@ def base64decode(a):
 
 
 def myren(strin):
-    salt = 'ndeuierhfiurhgitrhguirtfffffur8r8943aisdAA**#'
+    salt = '*（&&*……&*&%%…………&￥*&……**&……%&**#'
 
     # 待加密信息
     str_ = '{}{}{}'.format(salt, strin, salt)
@@ -142,8 +142,8 @@ if __name__ == '__main__':
     idxxx = IDX
     # idxxx = 27
     email_ym = 'outlook.com'
-    email_ym = 'hotmail.com'
-    for idxxx in range(5,6):
+    # email_ym = 'hotmail.com'
+    for idxxx in range(16,17):
         ym, ymret = genym(idxxx)
         if email_ym=='hotmail.com' and idxxx != 5:
             ymret='edwio{}'.format(ymret)
