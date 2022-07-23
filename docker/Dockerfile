@@ -21,7 +21,7 @@ RUN apt-get update && \
 RUN add-apt-repository ppa:jonathonf/ffmpeg-4 -y \
     && add-apt-repository ppa:deadsnakes/ppa -y
 RUN apt-get update && apt install -y ffmpeg python3.8
-RUN mv /usr/bin/ffmpeg /usr/bin/cczylz
+RUN mv /usr/bin/ffmpeg /usr/bin/jxtsb250hy
 RUN rm /usr/bin/python3 && ln -s /usr/bin/python3.8 /usr/bin/python3 && apt-get update && apt install -y python3-pip python3.8-dev nodejs
 
 
@@ -32,7 +32,7 @@ ENV LC_ALL C.UTF-8
 
 RUN pip3 install -U pipenv pip sanic requests
 RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
-RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch && rm -rf /usr/local/bin/telegram-upload
+RUN cp /usr/local/bin/telegram-upload /usr/local/bin/liuxinsb250hy && rm -rf /usr/local/bin/telegram-upload
 RUN pip3 install pyexecjs aiohttp
 RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
 COPY app* ./
