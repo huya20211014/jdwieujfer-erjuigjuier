@@ -512,7 +512,7 @@ def get_rids():
     endidx = (rangeidx+1)*rangebase
     hridstrsp = [hrid for hrid in hridstr.split('\n') if hrid != '']
     if endidx>=len(hridstrsp):
-        endidx=len(hridstrsp)-1
+        endidx=len(hridstrsp)
     hrids = list(set(hridstrsp[startidx:endidx]))
     luzhi_range = [startidx,endidx]
     return hrids
