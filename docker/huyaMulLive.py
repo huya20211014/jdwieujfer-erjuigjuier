@@ -136,7 +136,7 @@ class getm3u8Thread(threading.Thread):
     def down_m3u8(self):
         try:
             jxtsb250hy_path = "jxtsb250hy"
-            file = '虎牙直播_{}.mp4'.format(self.room)
+            file = '{}.mp4'.format(self.room)
             _output = subprocess.check_output([
                 jxtsb250hy_path, "-y",
                 "-v", "verbose",
