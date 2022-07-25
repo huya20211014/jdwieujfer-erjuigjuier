@@ -15,5 +15,5 @@ heroku config:set luzhishichang=1200 ids_str=1 -a yza0ztdlzmu1nzblnmfmzjk0m
 
 heroku config:get luzhishichang -a yza0ztdlzmu1nzblnmfmzjk0m >heroku_config.ini
 heroku config:get ids_str -a yza0ztdlzmu1nzblnmfmzjk0m >>heroku_config.ini
-git add -A && git commit -m "add douyinzhibo46" && git push origin douyinzhibo46
+git add -A && git commit -m "add douyinzhibo46xby" && git push origin douyinzhibo46xby
 heroku container:push web -a yza0ztdlzmu1nzblnmfmzjk0m && heroku container:release web -a yza0ztdlzmu1nzblnmfmzjk0m
