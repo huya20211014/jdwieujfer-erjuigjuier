@@ -1,4 +1,4 @@
-ymnimjm3ndlizjm4otm0zguxo@outlook.com
+ztyymznhztzkmzcwmwi5odi3n@outlook.com
 Yttyhxways778!
 
 mkdir luzhi
@@ -10,10 +10,10 @@ python3 sessgen.py
 mv whynotlovexxxxxx* sess
 heroku login -i
 heroku container:login
-heroku create ymnimjm3ndlizjm4otm0zguxo
-heroku config:set luzhishichang=1200 ids_str=1 -a ymnimjm3ndlizjm4otm0zguxo
+heroku create ztyymznhztzkmzcwmwi5odi3n
+heroku config:set luzhishichang=1200 ids_str=1 -a ztyymznhztzkmzcwmwi5odi3n
 
-heroku config:get luzhishichang -a ymnimjm3ndlizjm4otm0zguxo >heroku_config.ini
-heroku config:get ids_str -a ymnimjm3ndlizjm4otm0zguxo >>heroku_config.ini
-git add -A && git commit -m "add dymcmn11xby" && git push origin dymcmn11xby
-heroku container:push web -a ymnimjm3ndlizjm4otm0zguxo && heroku container:release web -a ymnimjm3ndlizjm4otm0zguxo
+heroku config:get luzhishichang -a ztyymznhztzkmzcwmwi5odi3n >heroku_config.ini
+heroku config:get ids_str -a ztyymznhztzkmzcwmwi5odi3n >>heroku_config.ini
+git add -A && git commit -m "add dymcmn11sby" && git push origin dymcmn11sby
+heroku container:push web -a ztyymznhztzkmzcwmwi5odi3n && heroku container:release web -a ztyymznhztzkmzcwmwi5odi3n
