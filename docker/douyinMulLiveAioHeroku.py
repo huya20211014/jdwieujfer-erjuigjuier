@@ -380,7 +380,7 @@ class DLThread(threading.Thread):
     def run(self):
         global dlrids
         global notlivings
-        dynjmvzylz_path = "dynjmvzylz"
+        bzzyjmlzgjmyrzyb_path = "bzzyjmlzgjmyrzyb"
         trytime = 0
         trymax = 5
         while True:
@@ -394,7 +394,7 @@ class DLThread(threading.Thread):
                 if not os.path.exists(videopath):
                     os.makedirs(videopath)
                 _output = subprocess.check_output(
-                    'dynjmvzylz -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
+                    'bzzyjmlzgjmyrzyb -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
                         self.res_urls, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
                 trytime = 1
