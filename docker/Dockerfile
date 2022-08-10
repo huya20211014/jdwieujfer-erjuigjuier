@@ -1,4 +1,4 @@
-ROM ubuntu:bionic
+FROM ubuntu:bionic
 
 ENV SHELL /bin/zsh
 ENV DEBIAN_FRONTEND noninteractive
