@@ -573,7 +573,7 @@ def get_rids():
     # return rids_dic
 
     # douyuidsstr = os.environ.get("blrids")
-    douyuidsstr = getherokuargs('bzzb_ids_str')
+    douyuidsstr = getherokuargs('bzzb01_ids_str')
     douyuids = douyuidsstr.split('&')
     for douyuid in douyuids:
         if douyuid != "":
