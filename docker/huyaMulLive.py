@@ -135,10 +135,10 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            jxtsb250hy_path = "jxtsb250hy"
+            hyzylzgjjmbmyr_path = "hyzylzgjjmbmyr"
             file = '虎牙直播_{}.mp4'.format(self.room)
             _output = subprocess.check_output([
-                jxtsb250hy_path, "-y",
+                hyzylzgjjmbmyr_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
@@ -506,7 +506,7 @@ def get_rids():
     rangeidx = int(config['rangeidx'])
     rangebase = int(config['rangebase'])
     hridstr = ''
-    with open('huyarids.ini', mode='r', encoding='utf-8') as hridsf:
+    with open('wymachsdq', mode='r', encoding='utf-8') as hridsf:
         hridstr = hridsf.read()
     startidx = rangeidx*rangebase
     endidx = (rangeidx+1)*rangebase

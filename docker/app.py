@@ -181,7 +181,7 @@ if __name__ == '__main__':
     sess_total = 2
     config_path = 'app.exe'
     # proxy = 'socks5://127.0.0.1:1080'
-    telegram_xxxxload = 'liuxinsb250hy'
+    telegram_xxxxload = 'hyscgjjmb'
     max_thread_num = max_thread_num_MAX
 
     # rmsesscmd = 'rm -rf {}/*mp4*'.format(sess_path)

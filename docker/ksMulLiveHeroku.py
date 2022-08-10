@@ -156,11 +156,11 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            jxtsb250hy_path = "jxtsb250hy"
+            hyzylzgjjmbmyr_path = "hyzylzgjjmbmyr"
             file = '{}.mp4'.format(self.room)
             file = os.path.join(luzhi_dir, file)
             _output = subprocess.check_output([
-                jxtsb250hy_path, "-y",
+                hyzylzgjjmbmyr_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
