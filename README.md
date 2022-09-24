@@ -1,4 +1,4 @@
-mziwyzm3zwniymjmmdexm2rjm@outlook.com
+jefjeriogjroigjtrgtr@outlook.com
 Yttyhxways778!
 
 mkdir luzhi
@@ -10,10 +10,10 @@ python3 sessgen.py
 mv whynotlovexxxxxx* sess
 heroku login -i
 heroku container:login
-heroku create mziwyzm3zwniymjmmdexm2rjm
-heroku config:set luzhishichang=1200 ids_str=1 -a mziwyzm3zwniymjmmdexm2rjm
+heroku create jefjeriogjroigjtrgtr
+heroku config:set luzhishichang=1200 ids_str=1 -a jefjeriogjroigjtrgtr
 
-heroku config:get luzhishichang -a mziwyzm3zwniymjmmdexm2rjm >heroku_config.ini
-heroku config:get ids_str -a mziwyzm3zwniymjmmdexm2rjm >>heroku_config.ini
+heroku config:get luzhishichang -a jefjeriogjroigjtrgtr >heroku_config.ini
+heroku config:get ids_str -a jefjeriogjroigjtrgtr >>heroku_config.ini
 git add -A && git commit -m "add bzzb02sby" && git push origin bzzb02sby
-heroku container:push web -a mziwyzm3zwniymjmmdexm2rjm && heroku container:release web -a mziwyzm3zwniymjmmdexm2rjm
+heroku container:push web -a jefjeriogjroigjtrgtr && heroku container:release web -a jefjeriogjroigjtrgtr
