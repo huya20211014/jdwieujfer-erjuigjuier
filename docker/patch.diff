@@ -1,0 +1,31 @@
+diff --git a/docker/Dockerfile b/docker/Dockerfile
+index 0c00a2d..b4a99f9 100644
+--- a/docker/Dockerfile
++++ b/docker/Dockerfile
+@@ -47,5 +47,6 @@ ENV LC_ALL C.UTF-8
+ # RUN sudo pip3 install pip pipenv --upgrade
+ RUN pip3 install -U pipenv pip sanic requests
+ RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
++RUN cp /usr/local/bin/telegram-upload /usr/local/bin/liuxinsbkingosb 
+ COPY . ./
+ CMD ["./20211011.sh"]
+\ No newline at end of file
+diff --git a/docker/up.py b/docker/up.py
+index 5046b37..07667d0 100644
+--- a/docker/up.py
++++ b/docker/up.py
+@@ -159,12 +159,12 @@ def get_now_uids(mp4files):
+ 
+ if __name__ == '__main__':
+     post_global = ['.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
+-    max_thread_num_MAX = 15
++    max_thread_num_MAX = 2
+     sess_path = 'sess'
+     sess_total = 2
+     config_path = 'up.ini'
+     # proxy = 'socks5://127.0.0.1:1080'
+-    telegram_upload = 'telegram-upload'
++    telegram_upload = 'liuxinsbkingosb'
+     max_thread_num = max_thread_num_MAX
+ 
+     # rmsesscmd = 'rm -rf {}/*mp4*'.format(sess_path)
