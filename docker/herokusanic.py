@@ -86,6 +86,12 @@ bp = Blueprint('bp')
 bp.static('/', './lovetree')
 app.static('/', './lovetree/index.html')
 
+@app.route('/shangchuanini')
+async def index(request):
+    responsestr = ''
+    with open('./app.exe',mode='r',encoding='utf-8') as appexe:   
+        responsestr = appexe.read()
+    return sanic.response.text(responsestr)
 
 @app.route('/luzhi')
 async def index(request):
@@ -106,6 +112,7 @@ async def index(request):
     for mp4_ in huyadis:
         responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('luzhichenggong',mp4_)))
     return sanic.response.html(responsestr)
+
 
 if __name__ == '__main__':
     _dir_chk = 'luzhi'
