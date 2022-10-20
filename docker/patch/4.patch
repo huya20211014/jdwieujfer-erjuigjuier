@@ -1,0 +1,57 @@
+From 3cc46f5b1bbb858aa7674d7a05c73f18d84f4e78 Mon Sep 17 00:00:00 2001
+From: muyangren907 <907097904@qq.com>
+Date: Sun, 9 Oct 2022 09:30:04 +0000
+Subject: [PATCH 3/3] add douyinzhibo48xby
+
+---
+ docker/douyinMulLiveAioHeroku.py | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/docker/douyinMulLiveAioHeroku.py b/docker/douyinMulLiveAioHeroku.py
+index d914a99..f806204 100644
+--- a/docker/douyinMulLiveAioHeroku.py
++++ b/docker/douyinMulLiveAioHeroku.py
+@@ -180,9 +180,9 @@ async def get(session,queue):
+                 res = await session.get(share_url, headers=Modelheaders, timeout=10)
+                 resurl = str(res.url)
+                 roomid = ((resurl).split('/')[-1]).split('?')[0]
+-                print(resurl)
+-                print('{}'.format(roomid))
+-                print('{}'.format(res.history))
++                # print(resurl)
++                # print('{}'.format(roomid))
++                # print('{}'.format(res.history))
+ 
+                 res_html = await res.text()
+                 logger.info(share_url)
+@@ -202,7 +202,7 @@ async def get(session,queue):
+                 logger.info(res.url)
+                 resurl = str(res.url)
+                 roomid = ((resurl).split('/')[-1]).split('?')[0]
+-                print('{}'.format(roomid))
++                # print('{}'.format(roomid))
+                 
+                 jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
+                 logger.info(jsurl)
+@@ -250,7 +250,7 @@ async def get(session,queue):
+         # res_status = await get_status(res_html)
+         # res_urls = await get_urls(res_html)
+         # room_url = 'https://webcast.amemv.com/webcast/reflow/{}'.format(res_roomid)
+-        room_url = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id={}&app_id=1128".format(res_roomid)
++        room_url = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id={}&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra".format(res_roomid)
+         # res = await session.get(room_url, headers=Modelheaders, proxy=proxies2, timeout=30)
+         # res_html = await res.text()
+ 
+@@ -264,7 +264,9 @@ async def get(session,queue):
+                 res_html = await res.text()
+                 # res_html = await res_js.text()
+                 res_html = str(res_html)
++                # exit(0)
+                 # print(res_html)
++                logger.info("{}".format(room_url))
+                 res_html = json.loads(res_html)
+                 if res_html != '':
+                     break
+-- 
+2.30.2
+
