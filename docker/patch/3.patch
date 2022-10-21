@@ -1,0 +1,19 @@
+From dca3274ae6b9980d8848584ee6ee74a25955af75 Mon Sep 17 00:00:00 2001
+From: muyangren907 <907097904@qq.com>
+Date: Sun, 9 Oct 2022 09:11:20 +0000
+Subject: [PATCH 2/3] add douyinzhibo48xby
+
+---
+ docker/heroku_config.ini | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/docker/heroku_config.ini b/docker/heroku_config.ini
+index e69de29..64d7155 100644
+--- a/docker/heroku_config.ini
++++ b/docker/heroku_config.ini
+@@ -0,0 +1,2 @@
++1200
++1
+-- 
+2.30.2
+
