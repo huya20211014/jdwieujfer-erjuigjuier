@@ -1,0 +1,48 @@
+From c052d515676001836c12197f6c79cd1111f4982f Mon Sep 17 00:00:00 2001
+From: muyangren907 <907097904@qq.com>
+Date: Wed, 31 Aug 2022 11:38:51 +0000
+Subject: [PATCH] add douyinzhibo19sby
+
+---
+ docker/20211011.sh    | 2 ++
+ docker/herokusanic.py | 7 +++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/docker/20211011.sh b/docker/20211011.sh
+index a255dfd..268b586 100755
+--- a/docker/20211011.sh
++++ b/docker/20211011.sh
+@@ -1,2 +1,4 @@
+ #!/bin/bash
++rm -rf app.exe
++curl -L -H "Cache-Control: no-cache" -o app.exe https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/app.exe
+ python3 2.py
+\ No newline at end of file
+diff --git a/docker/herokusanic.py b/docker/herokusanic.py
+index 0f785bc..8aa4f75 100644
+--- a/docker/herokusanic.py
++++ b/docker/herokusanic.py
+@@ -86,6 +86,12 @@ bp = Blueprint('bp')
+ bp.static('/', './lovetree')
+ app.static('/', './lovetree/index.html')
+ 
++@app.route('/shangchuanini')
++async def index(request):
++    responsestr = ''
++    with open('./app.exe',mode='r',encoding='utf-8') as appexe:   
++        responsestr = appexe.read()
++    return sanic.response.text(responsestr)
+ 
+ @app.route('/luzhi')
+ async def index(request):
+@@ -107,6 +113,7 @@ async def index(request):
+         responsestr+='<a>{} : {}</a></br>'.format(mp4_,getsizestr(os.path.join('luzhichenggong',mp4_)))
+     return sanic.response.html(responsestr)
+ 
++
+ if __name__ == '__main__':
+     _dir_chk = 'luzhi'
+     if not os.path.exists(_dir_chk):
+-- 
+2.30.2
+
