@@ -1,0 +1,4 @@
+diff a/docker/heroku_config.ini b/docker/heroku_config.ini	(rejected hunks)
+@@ -0,0 +1,2 @@
++1200
++1
