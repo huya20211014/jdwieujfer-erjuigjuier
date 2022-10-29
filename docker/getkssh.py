@@ -143,7 +143,7 @@ if __name__ == '__main__':
     # idxxx = 27
     email_ym = 'liuxinsb.cf'
     # email_ym = 'hotmail.com'
-    for idxxx in range(1,21):
+    for idxxx in range(2,21):
         ym, ymret = genym(idxxx)
         # if email_ym=='hotmail.com' and idxxx != 5:
         #     ymret='edwio{}'.format(ymret)
@@ -164,9 +164,9 @@ if __name__ == '__main__':
     heroku container:login
     heroku create {}
     heroku config:set ksmullive_idx={} -a {}
-    git add -A && git commit -m "add kszbxby{}" && git push origin kszbxby{}
+    git add -A && git commit -m "add kszbxby{}" && git push origin kszb
     heroku container:push web -a {} && heroku container:release web -a {}
-        '''.format(ymret, idxxx,ymret, idxxx,idxxx,ymret, ymret)
+        '''.format(ymret, idxxx,ymret, idxxx,ymret, ymret)
         print(prt_str)
         with open('../README.md',encoding='utf-8',mode='a+') as rdme:
             rdme.write('{}\n\n\n'.format(ym))
