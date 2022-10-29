@@ -36,8 +36,8 @@ def base64decode(a):
 
 
 def myren(strin):
+    salt = '&&&hhj*（&&*……&*&%%…………&￥*&……**&……%&**#'
     salt = 'iijsjaksjkakjs&&&hhj*（&&*……&*&%%…………&￥*&……**&……%&**#'
-
     # 待加密信息
     str_ = '{}{}{}'.format(salt, strin, salt)
     # print(str_)
@@ -59,7 +59,7 @@ def myren(strin):
 
 
 def genym(i):
-    ym = 'kszb%02d' % int(i)
+    ym = 'kszbxby%02d' % int(i)
     # ym = 'dymcmm%02d' % (i)
     ymret = myren(ym).lower()
     # print(ym, ymret)
@@ -143,10 +143,10 @@ if __name__ == '__main__':
     # idxxx = 27
     email_ym = 'liuxinsb.cf'
     # email_ym = 'hotmail.com'
-    for idxxx in range(16,17):
+    for idxxx in range(1,21):
         ym, ymret = genym(idxxx)
-        if email_ym=='hotmail.com' and idxxx != 5:
-            ymret='edwio{}'.format(ymret)
+        # if email_ym=='hotmail.com' and idxxx != 5:
+        #     ymret='edwio{}'.format(ymret)
         # print('{}@dslab2021.me'.format((ymret).lower()))
         # print('{}@dslab2022.tk'.format((ymret).lower()))
         # print('Yttyhxways778!')
@@ -164,9 +164,9 @@ if __name__ == '__main__':
     heroku container:login
     heroku create {}
     heroku config:set ksmullive_idx={} -a {}
-    git add -A && git commit -m "add kszb{}" && git push origin kszb
+    git add -A && git commit -m "add kszbxby{}" && git push origin kszbxby{}
     heroku container:push web -a {} && heroku container:release web -a {}
-        '''.format(ymret, idxxx,ymret, idxxx,ymret, ymret)
+        '''.format(ymret, idxxx,ymret, idxxx,idxxx,ymret, ymret)
         print(prt_str)
         with open('../README.md',encoding='utf-8',mode='a+') as rdme:
             rdme.write('{}\n\n\n'.format(ym))

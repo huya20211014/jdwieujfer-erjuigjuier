@@ -1,7 +1,7 @@
-kszb16
+kszbxby01
 
 
-ztyznthlytnhnzi5mmqxoti5z@liuxinsb.cf
+n2m4ytdhmwjimmvmodq3mzmxm@liuxinsb.cf
 Yttyhxways778!
 
 
@@ -15,9 +15,9 @@ Yttyhxways778!
     mv whynotlovexxxxxx* sess
     heroku login -i
     heroku container:login
-    heroku create ztyznthlytnhnzi5mmqxoti5z
-    heroku config:set ksmullive_idx=16 -a ztyznthlytnhnzi5mmqxoti5z
-    git add -A && git commit -m "add kszb16" && git push origin kszb
-    heroku container:push web -a ztyznthlytnhnzi5mmqxoti5z && heroku container:release web -a ztyznthlytnhnzi5mmqxoti5z
+    heroku create n2m4ytdhmwjimmvmodq3mzmxm
+    heroku config:set ksmullive_idx=1 -a n2m4ytdhmwjimmvmodq3mzmxm
+    git add -A && git commit -m "add kszbxby1" && git push origin kszbxby1
+    heroku container:push web -a n2m4ytdhmwjimmvmodq3mzmxm && heroku container:release web -a n2m4ytdhmwjimmvmodq3mzmxm
         
 

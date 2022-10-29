@@ -8,9 +8,6 @@ api_id = 3955576
 api_hash = '16fa452f9283489c4a1045bb2b4eb4a8'
 
 
-api_id = 9979260
-api_hash = 'db8a0671931685bf7ac8a6d0c396b2c4'
-
 config_path = 'app.exe'
 import shutil
 import time
@@ -49,7 +46,7 @@ async def main():
 
 if __name__ == '__main__':
     phone_number = '+8613088719278'
-    phone_number = '+8618419513175'
+    # phone_number = '+8618419513175'
     loop = asyncio.get_event_loop()
     tasks = [main()]
     loop.run_until_complete(asyncio.wait(tasks))
