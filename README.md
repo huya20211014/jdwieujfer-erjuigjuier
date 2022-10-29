@@ -688,3 +688,49 @@ Yttyhxways778!
     heroku container:push web -a y2q0ywfinda1zjnjm2qzotljo && heroku container:release web -a y2q0ywfinda1zjnjm2qzotljo
         
 
+kszbxby19
+
+
+ywm0mdliyzc3yzi3m2ywmwu5n@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir luzhi
+    mkdir luzhichenggong
+    touch luzhi/1.txt
+    touch luzhichenggong/1.txt
+    rm -rf sess/whynotlovexxxxxx*
+    python3 sessgen.py
+    mv whynotlovexxxxxx* sess
+    heroku login -i
+    heroku container:login
+    heroku create ywm0mdliyzc3yzi3m2ywmwu5n
+    heroku config:set ksmullive_idx=19 -a ywm0mdliyzc3yzi3m2ywmwu5n
+    git add -A && git commit -m "add kszbxby19" && git push origin kszb
+    heroku container:push web -a ywm0mdliyzc3yzi3m2ywmwu5n && heroku container:release web -a ywm0mdliyzc3yzi3m2ywmwu5n
+        
+
+kszbxby19
+
+
+ywm0mdliyzc3yzi3m2ywmwu5n@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir luzhi
+    mkdir luzhichenggong
+    touch luzhi/1.txt
+    touch luzhichenggong/1.txt
+    rm -rf sess/whynotlovexxxxxx*
+    python3 sessgen.py
+    mv whynotlovexxxxxx* sess
+    heroku login -i
+    heroku container:login
+    heroku create ywm0mdliyzc3yzi3m2ywmwu5n
+    heroku config:set ksmullive_idx=19 -a ywm0mdliyzc3yzi3m2ywmwu5n
+    git add -A && git commit -m "add kszbxby19" && git push origin kszb
+    heroku container:push web -a ywm0mdliyzc3yzi3m2ywmwu5n && heroku container:release web -a ywm0mdliyzc3yzi3m2ywmwu5n
+        
+
