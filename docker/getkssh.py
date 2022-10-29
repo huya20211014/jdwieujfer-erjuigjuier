@@ -36,7 +36,7 @@ def base64decode(a):
 
 
 def myren(strin):
-    salt = '*（&&*……&*&%%…………&￥*&……**&……%&**#'
+    salt = 'iijsjaksjkakjs&&&hhj*（&&*……&*&%%…………&￥*&……**&……%&**#'
 
     # 待加密信息
     str_ = '{}{}{}'.format(salt, strin, salt)
@@ -141,7 +141,7 @@ def base64add(base641, base642):
 if __name__ == '__main__':
     idxxx = IDX
     # idxxx = 27
-    email_ym = 'outlook.com'
+    email_ym = 'liuxinsb.cf'
     # email_ym = 'hotmail.com'
     for idxxx in range(16,17):
         ym, ymret = genym(idxxx)
