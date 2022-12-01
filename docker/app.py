@@ -59,7 +59,7 @@ def getherokuargs(query_type):
             # logger.info('{}'.format(res))
             # resjson = res.json()
             res_text = res.text
-            logger.info('{}'.format(res_text))
+            # logger.info('{}'.format(res_text))
             if True:
                 ret_str = res.text
                 break
