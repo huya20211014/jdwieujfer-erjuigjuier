@@ -539,59 +539,78 @@ def getids():
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
     }
-    response = requests.get('https://live.kuaishou.com/my-follow/living', headers=headers, cookies=cookies, timeout=10)
+    # response = requests.get('https://live.kuaishou.com/my-follow/living', headers=headers, cookies=cookies, timeout=10)
+    live_get_url = 'https://live.kuaishou.com/live_api/follow/living'
+    response = requests.get(live_get_url, headers=headers, cookies=cookies, timeout=10)
     restext = response.text
-    # logger.info('{}'.format(restext))
-    sposstr = '<script>window.__APOLLO_STATE__='
-    eposstr = ';(function(){var'
-    spos = restext.index(sposstr) + len(sposstr)
-    epos = restext[spos:].index(eposstr)
-    resjsonstr = restext[spos:spos + epos]
+    # # logger.info('{}'.format(restext))
+    # sposstr = '<script>window.__APOLLO_STATE__='
+    # eposstr = ';(function(){var'
+    # spos = restext.index(sposstr) + len(sposstr)
+    # epos = restext[spos:].index(eposstr)
+    # resjsonstr = restext[spos:spos + epos]
     # logger.info('{}'.format(resjsonstr))
     # print(resjsonstr)
-    resjson = json.loads(resjsonstr)
-    clients = resjson['clients']
-    graphqlServerClient = clients['graphqlServerClient']
+    # resjson = json.loads(resjsonstr)
+    # clients = resjson['clients']
+    # graphqlServerClient = clients['graphqlServerClient']
+    resjson = json.loads(restext)
+    data_ = resjson['data']
+    list_ = data_['list']
     author_dic = {}
     author_ids = []
-    for iii in graphqlServerClient:
-        if 'LiveInfo' in iii and '.playUrls' not in iii and '.gameInfo' not in iii:
-            logger.info(iii)
-            iii_obj = graphqlServerClient[iii]
-            iii_obj_user_obj_id = iii_obj['user']['id']
-            iii_obj_user_obj = graphqlServerClient[iii_obj_user_obj_id]
-            author_id = iii_obj_user_obj['id']
-            author_nickname = strfomat(iii_obj_user_obj['name'])
-            if 'followStatus' in iii_obj_user_obj:
-                if iii_obj_user_obj['followStatus']=="UN_FOLLOWED":
-                    logger.info('未关注的傻逼用户 {} 跳过'.format(author_nickname))
-                    continue
+    for iii in list_:
+        author_obj = iii['author']
+        author_id = author_obj['id']
+        author_nickname = strfomat(author_obj['name'])
+        author_live_url_quality = iii['playUrls'][0]['adaptationSet']['representation'][0]['name']
+        author_live_url = iii['playUrls'][0]['adaptationSet']['representation'][0]['url']
+        avatar_ = author_obj['avatar']
+        name_ = strfomat(author_obj['name'])
 
-            # author_id = iii_obj_user_obj['id']
-            # author_nickname = strfomat(iii_obj_user_obj['name'])
-            author_live_url_obj = graphqlServerClient['{}.playUrls.0'.format(iii)]
-            author_live_url = author_live_url_obj['url']
-            author_live_url_quality = author_live_url_obj['quality']
 
-            gameInfo_str = '${}.gameInfo'.format(iii)
-            gameInfo_obj = graphqlServerClient[gameInfo_str]
-            gameInfo_name = gameInfo_obj['name']
-            logger.info('{} {}'.format(author_nickname,gameInfo_name))
-            # "followStatus": "UN_FOLLOWED",
-            # if gameInfo_name not in ['音乐','其他','颜值','脱口秀','汽车','舞蹈','购物']  :
-            if gameInfo_name in ['']  :
-                logger.info('{} 跳过'.format(author_nickname))
-                continue
-            else:
-                logger.info('{} 加入'.format(author_nickname))
-            # id_, eid_, name_, avatar_, principalId_, description_, sex_
-            id_ = author_id
-            avatar_ = iii_obj_user_obj['avatar']
-            name_ = iii_obj_user_obj['name']
 
-            logger.info('{} {} {} {}\n'.format(author_id, author_nickname, author_live_url_quality, author_live_url))
-            author_dic[author_id] = [author_nickname, author_live_url_quality, author_live_url, avatar_, name_]
-            author_ids.append(author_id)
+        logger.info('{} {} {} {}\n'.format(author_id, author_nickname, author_live_url_quality, author_live_url))
+        author_dic[author_id] = [author_nickname, author_live_url_quality, author_live_url, avatar_, name_]
+        author_ids.append(author_id)
+    # for iii in graphqlServerClient:
+    #     if 'LiveInfo' in iii and '.playUrls' not in iii and '.gameInfo' not in iii:
+    #         logger.info(iii)
+    #         iii_obj = graphqlServerClient[iii]
+    #         iii_obj_user_obj_id = iii_obj['user']['id']
+    #         iii_obj_user_obj = graphqlServerClient[iii_obj_user_obj_id]
+    #         author_id = iii_obj_user_obj['id']
+    #         author_nickname = strfomat(iii_obj_user_obj['name'])
+    #         if 'followStatus' in iii_obj_user_obj:
+    #             if iii_obj_user_obj['followStatus']=="UN_FOLLOWED":
+    #                 logger.info('未关注的傻逼用户 {} 跳过'.format(author_nickname))
+    #                 continue
+
+    #         # author_id = iii_obj_user_obj['id']
+    #         # author_nickname = strfomat(iii_obj_user_obj['name'])
+    #         author_live_url_obj = graphqlServerClient['{}.playUrls.0'.format(iii)]
+    #         author_live_url = author_live_url_obj['url']
+    #         author_live_url_quality = author_live_url_obj['quality']
+
+    #         gameInfo_str = '${}.gameInfo'.format(iii)
+    #         gameInfo_obj = graphqlServerClient[gameInfo_str]
+    #         gameInfo_name = gameInfo_obj['name']
+    #         logger.info('{} {}'.format(author_nickname,gameInfo_name))
+    #         # "followStatus": "UN_FOLLOWED",
+    #         # if gameInfo_name not in ['音乐','其他','颜值','脱口秀','汽车','舞蹈','购物']  :
+    #         if gameInfo_name in ['']  :
+    #             logger.info('{} 跳过'.format(author_nickname))
+    #             continue
+    #         else:
+    #             logger.info('{} 加入'.format(author_nickname))
+    #         # id_, eid_, name_, avatar_, principalId_, description_, sex_
+    #         id_ = author_id
+    #         avatar_ = iii_obj_user_obj['avatar']
+    #         name_ = iii_obj_user_obj['name']
+
+    #         logger.info('{} {} {} {}\n'.format(author_id, author_nickname, author_live_url_quality, author_live_url))
+    #         author_dic[author_id] = [author_nickname, author_live_url_quality, author_live_url, avatar_, name_]
+    #         author_ids.append(author_id)
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
