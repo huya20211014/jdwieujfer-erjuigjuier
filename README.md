@@ -182,3 +182,26 @@ Yttyhxways778!
     heroku container:push web -a nzq4mjk4odllymu1ytq3mdu0z && heroku container:release web -a nzq4mjk4odllymu1ytq3mdu0z
         
 
+kszbxby15
+
+
+nwi4ztdjntlhyzdintq4yjuwo@liuxinsb.cf
+Yttyhxways778!
+
+
+
+    mkdir luzhi
+    mkdir luzhichenggong
+    touch luzhi/1.txt
+    touch luzhichenggong/1.txt
+    rm -rf sess/whynotlovexxxxxx*
+    python3 sessgen.py
+    mv whynotlovexxxxxx* sess
+    heroku login -i
+    heroku container:login
+    heroku create nwi4ztdjntlhyzdintq4yjuwo
+    heroku config:set ksmullive_idx=15 -a nwi4ztdjntlhyzdintq4yjuwo
+    git add -A && git commit -m "add kszbxby15" && git push origin kszb
+    heroku container:push web -a nwi4ztdjntlhyzdintq4yjuwo && heroku container:release web -a nwi4ztdjntlhyzdintq4yjuwo
+        
+
