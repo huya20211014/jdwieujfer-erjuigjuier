@@ -143,7 +143,7 @@ if __name__ == '__main__':
     # idxxx = 27
     email_ym = 'liuxinsb.cf'
     # email_ym = 'hotmail.com'
-    for idxxx in range(9,21):
+    for idxxx in range(16,21):
         ym, ymret = genym(idxxx)
         # if email_ym=='hotmail.com' and idxxx != 5:
         #     ymret='edwio{}'.format(ymret)
