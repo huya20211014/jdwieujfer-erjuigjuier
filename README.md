@@ -199,9 +199,9 @@ python3 sessgen.py
 mv whynotlovexxxxxx* sess
 heroku login -i
 heroku container:login
-heroku create ffnwi4ztdjntlhyzdintq4yjuwo
-heroku config:set ksmullive_idx=15 -a ffnwi4ztdjntlhyzdintq4yjuwo
+heroku create bibilimuldown1
+heroku config:set ksmullive_idx=15 -a bibilimuldown1
 git add -A && git commit -m "add kszbxby15" && git push origin kszb
-heroku container:push web -a ffnwi4ztdjntlhyzdintq4yjuwo && heroku container:release web -a ffnwi4ztdjntlhyzdintq4yjuwo
+heroku container:push web -a bibilimuldown1 && heroku container:release web -a bibilimuldown1
         
 
