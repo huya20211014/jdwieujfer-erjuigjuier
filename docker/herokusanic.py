@@ -86,6 +86,15 @@ bp = Blueprint('bp')
 bp.static('/', './lovetree')
 app.static('/', './lovetree/index.html')
 
+@app.route('/sysinfo')
+async def index(request):
+    cmd = 'screenfetch > sysinfo.txt'
+    os.system(cmd)
+    ssss = ''
+    with open('sysinfo.txt',encoding='utf-8',mode='r') as sinfo:
+        ssss = sinfo.read()
+    responsestr = '<pre>{}</pre>'.format(ssss)
+    return sanic.response.html(responsestr)
 
 @app.route('/luzhi')
 async def index(request):
