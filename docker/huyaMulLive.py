@@ -52,6 +52,7 @@ def log_print(strin, end='\n'):
     print('[ %s ] %s' % (get_timenow(), strin), end=end)
 
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--url', type=str, default=None,
                     help='m3u8 url')
@@ -68,7 +69,30 @@ def sleep_dis(sleep_time):
     for i in range(sleep_time, -1, -1):
         print('休眠 %5s s' % i, end='\r')
         time.sleep(1)
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
 
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            logger.info('{}'.format(h_url))
+            res = requests.get(h_url, timeout=10)
+            # logger.info('{}'.format(res))
+            # resjson = res.json()
+            res_text = res.text
+            logger.info('{}'.format(res_text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
 
 class logThread(threading.Thread):
     def __init__(self):
@@ -508,6 +532,8 @@ def get_rids():
     hridstr = ''
     with open('huyarids.ini', mode='r', encoding='utf-8') as hridsf:
         hridstr = hridsf.read()
+    
+    hridstr = getherokuargs('huya_ids')
     startidx = rangeidx*rangebase
     endidx = (rangeidx+1)*rangebase
     hridstrsp = [hrid for hrid in hridstr.split('\n') if hrid != '']
