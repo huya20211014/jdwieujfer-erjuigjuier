@@ -157,11 +157,11 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            ffmpeg_path = "ffmpeg"
+            kszylzgj_path = "kszylzgj"
             file = '{}.mp4'.format(self.room)
-            file = os.path.join(record_dir, file)
+            file = os.path.join(luzhi_dir, file)
             _output = subprocess.check_output([
-                ffmpeg_path, "-y",
+                kszylzgj_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
@@ -184,46 +184,46 @@ class getm3u8Thread(threading.Thread):
                 "{path}".format(path=file),
             ], stderr=subprocess.STDOUT)
 
-            recordfinish = True
+            luzhifinish = True
             counttime = time.time()
-            # if startname in recording:
-            #     recording.remove(startname)
+            # if startname in luzhiing:
+            #     luzhiing.remove(startname)
             logger.info('{} 直播录制完成'.format(self.room))
             # logger.info('\n' + self.room + " " + time.strftime('%Y-%m-%d %H:%M:%S  ') + '直播录制完成\n')
             if self.rid in dlrids:
                 dlrids.remove(self.rid)
-            if not os.path.exists(record_ok_pathtmp):
-                os.makedirs(record_ok_pathtmp)
+            if not os.path.exists(luzhi_ok_pathtmp):
+                os.makedirs(luzhi_ok_pathtmp)
 
             # 直接SSD内部解决
 
             if os.path.exists(file):
-                logger.info('{} --> {} start'.format(file, record_ok_pathtmp))
-                # logger.info(file, '-->', record_ok_pathtmp, 'start')
-                shutil.move(file, record_ok_pathtmp)
-                logger.info('{} --> {} succeed!'.format(file, record_ok_pathtmp))
-                # logger.info(file, '-->', record_ok_pathtmp, 'succeed!')
+                logger.info('{} --> {} start'.format(file, luzhi_ok_pathtmp))
+                # logger.info(file, '-->', luzhi_ok_pathtmp, 'start')
+                shutil.move(file, luzhi_ok_pathtmp)
+                logger.info('{} --> {} succeed!'.format(file, luzhi_ok_pathtmp))
+                # logger.info(file, '-->', luzhi_ok_pathtmp, 'succeed!')
 
-            # record_ok_tmp_file = os.path.join(record_ok_pathtmp, file)
+            # luzhi_ok_tmp_file = os.path.join(luzhi_ok_pathtmp, file)
             # # # logger.warning(self.room + " " + "直播录制完成")
-            # # if not os.path.exists(record_ok_path):
-            # #     os.makedirs(record_ok_path)
-            # if os.path.exists(record_ok_tmp_file):
-            #     shutil.move(record_ok_tmp_file, record_ok_path)
-            #     logger.info('{} --> {} succeed!'.format(record_ok_tmp_file, record_ok_path))
-            # logger.info(record_ok_tmp_file, '-->', record_ok_path, 'succeed!')
+            # # if not os.path.exists(luzhi_ok_path):
+            # #     os.makedirs(luzhi_ok_path)
+            # if os.path.exists(luzhi_ok_tmp_file):
+            #     shutil.move(luzhi_ok_tmp_file, luzhi_ok_path)
+            #     logger.info('{} --> {} succeed!'.format(luzhi_ok_tmp_file, luzhi_ok_path))
+            # logger.info(luzhi_ok_tmp_file, '-->', luzhi_ok_path, 'succeed!')
         except Exception as e:
             traceback.print_exc()
-            recordfinish = True
-            # if not os.path.exists(record_ok_path):
-            #     os.makedirs(record_ok_path)
+            luzhifinish = True
+            # if not os.path.exists(luzhi_ok_path):
+            #     os.makedirs(luzhi_ok_path)
             # if os.path.exists(file):
-            #     shutil.move(file, record_ok_path)
-            #     logger.info(file, '-->', record_ok_path, 'succeed!')
+            #     shutil.move(file, luzhi_ok_path)
+            #     logger.info(file, '-->', luzhi_ok_path, 'succeed!')
             if self.rid in dlrids:
                 dlrids.remove(self.rid)
-            if not os.path.exists(record_ok_pathtmp):
-                os.makedirs(record_ok_pathtmp)
+            if not os.path.exists(luzhi_ok_pathtmp):
+                os.makedirs(luzhi_ok_pathtmp)
             logger.info('{} {}'.format(self.room, traceback.format_exc()))
             traceback.print_exc()
 
@@ -522,65 +522,95 @@ def getids():
     cookies = getcookies()
     logger.info("{}".format(cookies))
     headers = {
-        'Connection': 'keep-alive',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
         'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
+        'Connection': 'keep-alive',
+        # Requests sorts cookies= alphabetically
+        # 'Cookie': 'did=web_2077198417aebfbbc48949437bff73f5; clientid=3; client_key=65890b29; kpn=GAME_ZONE; didv=1641916157000; ksliveShowClipTip=true; userId=647446218; kuaishou.live.bfb1s=3e261140b0cf7444a0ba411c6f227d88; userId=647446218; showFollowRedIcon=1; kuaishou.live.web_st=ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAcp1lRwRFDe9OOnryLl6g2i0-IO1XO0szbkHj4GWscXEqn5roJCHS0rmhDy4q5aefhD6Dt2SZpr-knb85vcn4HTkIBBS6TFJAauSVa9oSToRfwH6_l2ylPcXu_jWRffUqhMDHjQdBI0ah_7snVo5HejKk_mz7hxNh3YxA7VJ6Js6fhiziTK6idVi1JaDbr8vaRZI3f4daTC-zH9TzKOJXbUaEsvpGUru20c-iIt7T0W8MQrXwiIgeEWQf48IeT7NmHAU-qHwTAIzC7jL8BbAqJrNA1Qs6ycoBTAB; kuaishou.live.web_ph=897684368a5195394d27a8b7e275892e1ce3',
+        'DNT': '1',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'none',
+        'Sec-Fetch-User': '?1',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36',
+        'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="101", "Google Chrome";v="101"',
         'sec-ch-ua-mobile': '?0',
         'sec-ch-ua-platform': '"Windows"',
-        'DNT': '1',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-User': '?1',
-        'Sec-Fetch-Dest': 'document',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
     }
-    response = requests.get('https://live.kuaishou.com/my-follow/living', headers=headers, cookies=cookies, timeout=10)
+    # response = requests.get('https://live.kuaishou.com/my-follow/living', headers=headers, cookies=cookies, timeout=10)
+    live_get_url = 'https://live.kuaishou.com/live_api/follow/living'
+    response = requests.get(live_get_url, headers=headers, cookies=cookies, timeout=10)
     restext = response.text
-    # logger.info('{}'.format(restext))
-    sposstr = '<script>window.__APOLLO_STATE__='
-    eposstr = ';(function(){var'
-    spos = restext.index(sposstr) + len(sposstr)
-    epos = restext[spos:].index(eposstr)
-    resjsonstr = restext[spos:spos + epos]
+    # # logger.info('{}'.format(restext))
+    # sposstr = '<script>window.__APOLLO_STATE__='
+    # eposstr = ';(function(){var'
+    # spos = restext.index(sposstr) + len(sposstr)
+    # epos = restext[spos:].index(eposstr)
+    # resjsonstr = restext[spos:spos + epos]
     # logger.info('{}'.format(resjsonstr))
     # print(resjsonstr)
-    resjson = json.loads(resjsonstr)
-    clients = resjson['clients']
-    graphqlServerClient = clients['graphqlServerClient']
+    # resjson = json.loads(resjsonstr)
+    # clients = resjson['clients']
+    # graphqlServerClient = clients['graphqlServerClient']
+    resjson = json.loads(restext)
+    data_ = resjson['data']
+    list_ = data_['list']
     author_dic = {}
     author_ids = []
-    for iii in graphqlServerClient:
-        if 'LiveInfo' in iii and '.playUrls' not in iii and '.gameInfo' not in iii:
-            logger.info(iii)
-            iii_obj = graphqlServerClient[iii]
-            iii_obj_user_obj_id = iii_obj['user']['id']
-            iii_obj_user_obj = graphqlServerClient[iii_obj_user_obj_id]
-            author_id = iii_obj_user_obj['id']
-            author_nickname = strfomat(iii_obj_user_obj['name'])
-            author_live_url_obj = graphqlServerClient['{}.playUrls.0'.format(iii)]
-            author_live_url = author_live_url_obj['url']
-            author_live_url_quality = author_live_url_obj['quality']
+    for iii in list_:
+        author_obj = iii['author']
+        author_id = author_obj['id']
+        author_nickname = strfomat(author_obj['name'])
+        author_live_url_quality = iii['playUrls'][0]['adaptationSet']['representation'][0]['name']
+        author_live_url = iii['playUrls'][0]['adaptationSet']['representation'][0]['url']
+        avatar_ = author_obj['avatar']
+        name_ = strfomat(author_obj['name'])
 
-            gameInfo_str = '${}.gameInfo'.format(iii)
-            gameInfo_obj = graphqlServerClient[gameInfo_str]
-            gameInfo_name = gameInfo_obj['name']
-            logger.info('{} {}'.format(author_nickname,gameInfo_name))
-            if gameInfo_name not in ['购物','其他']  :
-                logger.info('{} 跳过'.format(author_nickname))
-                continue
-            else:
-                logger.info('{} 加入'.format(author_nickname))
-            # id_, eid_, name_, avatar_, principalId_, description_, sex_
-            id_ = author_id
-            avatar_ = iii_obj_user_obj['avatar']
-            name_ = iii_obj_user_obj['name']
 
-            logger.info('{} {} {} {}\n'.format(author_id, author_nickname, author_live_url_quality, author_live_url))
-            author_dic[author_id] = [author_nickname, author_live_url_quality, author_live_url, avatar_, name_]
-            author_ids.append(author_id)
+
+        logger.info('{} {} {} {}\n'.format(author_id, author_nickname, author_live_url_quality, author_live_url))
+        author_dic[author_id] = [author_nickname, author_live_url_quality, author_live_url, avatar_, name_]
+        author_ids.append(author_id)
+    # for iii in graphqlServerClient:
+    #     if 'LiveInfo' in iii and '.playUrls' not in iii and '.gameInfo' not in iii:
+    #         logger.info(iii)
+    #         iii_obj = graphqlServerClient[iii]
+    #         iii_obj_user_obj_id = iii_obj['user']['id']
+    #         iii_obj_user_obj = graphqlServerClient[iii_obj_user_obj_id]
+    #         author_id = iii_obj_user_obj['id']
+    #         author_nickname = strfomat(iii_obj_user_obj['name'])
+    #         if 'followStatus' in iii_obj_user_obj:
+    #             if iii_obj_user_obj['followStatus']=="UN_FOLLOWED":
+    #                 logger.info('未关注的傻逼用户 {} 跳过'.format(author_nickname))
+    #                 continue
+
+    #         # author_id = iii_obj_user_obj['id']
+    #         # author_nickname = strfomat(iii_obj_user_obj['name'])
+    #         author_live_url_obj = graphqlServerClient['{}.playUrls.0'.format(iii)]
+    #         author_live_url = author_live_url_obj['url']
+    #         author_live_url_quality = author_live_url_obj['quality']
+
+    #         gameInfo_str = '${}.gameInfo'.format(iii)
+    #         gameInfo_obj = graphqlServerClient[gameInfo_str]
+    #         gameInfo_name = gameInfo_obj['name']
+    #         logger.info('{} {}'.format(author_nickname,gameInfo_name))
+    #         # "followStatus": "UN_FOLLOWED",
+    #         # if gameInfo_name not in ['音乐','其他','颜值','脱口秀','汽车','舞蹈','购物']  :
+    #         if gameInfo_name in ['']  :
+    #             logger.info('{} 跳过'.format(author_nickname))
+    #             continue
+    #         else:
+    #             logger.info('{} 加入'.format(author_nickname))
+    #         # id_, eid_, name_, avatar_, principalId_, description_, sex_
+    #         id_ = author_id
+    #         avatar_ = iii_obj_user_obj['avatar']
+    #         name_ = iii_obj_user_obj['name']
+
+    #         logger.info('{} {} {} {}\n'.format(author_id, author_nickname, author_live_url_quality, author_live_url))
+    #         author_dic[author_id] = [author_nickname, author_live_url_quality, author_live_url, avatar_, name_]
+    #         author_ids.append(author_id)
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
     ksmullive_idx = int(os.environ.get("ksmullive_idx"))
@@ -605,14 +635,14 @@ def strfomat(str_in):
 
 if __name__ == '__main__':
     LIVE_NAME_PRE = 'KuaiShou_Kwai'
-    # record_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/record'
-    # record_ok_path = '/home/muyangren907/2t/zhiboluzhi/recordok'
-    record_dir = 'record'
-    if not os.path.exists(record_dir):
-        os.makedirs(record_dir)
+    # luzhi_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/luzhi'
+    # luzhi_ok_path = '/home/muyangren907/2t/zhiboluzhi/luzhichenggong'
+    luzhi_dir = 'luzhi'
+    if not os.path.exists(luzhi_dir):
+        os.makedirs(luzhi_dir)
     # SSD内部解决
-    record_ok_pathtmp = 'recordok'
-    record_ok_path = record_ok_pathtmp
+    luzhi_ok_pathtmp = 'luzhichenggong'
+    luzhi_ok_path = luzhi_ok_pathtmp
     debugmode = False
     # download threads
     dlrids = []
