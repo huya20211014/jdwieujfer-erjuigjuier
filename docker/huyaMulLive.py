@@ -530,8 +530,8 @@ def get_rids():
     rangeidx = int(config['rangeidx'])
     rangebase = int(config['rangebase'])
     hridstr = ''
-    with open('huyarids.ini', mode='r', encoding='utf-8') as hridsf:
-        hridstr = hridsf.read()
+    # with open('huyarids.ini', mode='r', encoding='utf-8') as hridsf:
+    #     hridstr = hridsf.read()
     
     hridstr = getherokuargs('huya_ids')
     startidx = rangeidx*rangebase
