@@ -1,4 +1,5 @@
-FROM ubuntu:bionic
+# FROM ubuntu:bionic
+FROM muyangren907/hbase:hyzb
 
 ENV SHELL /bin/zsh
 ENV DEBIAN_FRONTEND noninteractive
