@@ -224,7 +224,7 @@
         this.height = height;
         this.opt = opt || {};
 
-        this.luzhi = {};
+        this.record = {};
         
         this.initSeed();
         this.initFooter();
@@ -278,7 +278,7 @@
 
         draw: function(k) {
             var s = this, ctx = s.ctx;
-            var rec = s.luzhi[k];
+            var rec = s.record[k];
             if (!rec) {
                 return ;
             }
@@ -371,7 +371,7 @@
         snapshot: function(k, x, y, width, height) {
             var ctx = this.ctx;
             var image = ctx.getImageData(x, y, width, height); 
-            this.luzhi[k] = {
+            this.record[k] = {
                 image: image,
                 point: new Point(x, y),
                 width: width,
@@ -379,11 +379,11 @@
             }
         },
         setSpeed: function(k, speed) {
-            this.luzhi[k || "move"].speed = speed;
+            this.record[k || "move"].speed = speed;
         },
         move: function(k, x, y) {
             var s = this, ctx = s.ctx;
-            var rec = s.luzhi[k || "move"];
+            var rec = s.record[k || "move"];
             var point = rec.point,
                 image = rec.image,
                 speed = rec.speed || 10,
