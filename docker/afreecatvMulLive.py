@@ -222,7 +222,8 @@ class getm3u8Thread(threading.Thread):
                 aftvlzgj_path = "aftvlzgj"
                 file = '{}.mp4'.format(self.room)
                 file = os.path.join(luzhi_dir, file)
-                luzhishichang = os.environ.get("luzhishichang")
+                # luzhishichang = os.environ.get("luzhishichang")
+                luzhishichang = 1200
                 _output = subprocess.check_output(
                     'aftvlzgj -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
                         self.threadURL, luzhishichang, file),
