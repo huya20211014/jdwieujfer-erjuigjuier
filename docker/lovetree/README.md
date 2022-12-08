@@ -1,18 +1,3 @@
-null47@null47.ml
-Yttyhxways778!
-
-heroku login -i
-heroku container:login
-heroku create null47
-
-heroku container:push web -a null47 && heroku container:release web -a null47
-
-heroku buildpacks:set heroku/HTML
-heroku buildpacks:set https://github.com/heroku/heroku-buildpack-static.git
-heroku buildpacks:set heroku/nodejs
-git push heroku master
-
-
 ## 爱情树
 
 > <b>修改config.js的配置就可以做一个属于自己的爱情树了,喜欢的话fork or star一下呗~</b>
