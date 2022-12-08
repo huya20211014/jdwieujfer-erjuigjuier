@@ -6,8 +6,8 @@ from telethon.errors import SessionPasswordNeededError
 
 api_id = 3955576
 api_hash = '16fa452f9283489c4a1045bb2b4eb4a8'
-api_id = 11577932
-api_hash = '7bce17be5b3cdd20eebb375964900b19'
+# api_id = 11577932
+# api_hash = '7bce17be5b3cdd20eebb375964900b19'
 # {"api_id": 11577932, "api_hash": "7bce17be5b3cdd20eebb375964900b19"}
 
 config_path = 'app.exe'
@@ -48,7 +48,7 @@ async def main():
 
 if __name__ == '__main__':
     phone_number = '+8613088719278'
-    phone_number = '+8615523530810'
+    # phone_number = '+8615523530810'
     # phone_number = '+8618419513175'
     loop = asyncio.get_event_loop()
     tasks = [main()]
