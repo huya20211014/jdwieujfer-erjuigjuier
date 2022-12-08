@@ -10,6 +10,7 @@ WORKDIR /root
 LABEL author="muyangren907"
 
 USER root
+# RUN apt-get update && apt install -y screenfetch
 # setup timezone
 # RUN echo root:root | chpasswd
 # RUN apt-get update && \
