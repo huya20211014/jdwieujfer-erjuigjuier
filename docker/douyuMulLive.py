@@ -173,19 +173,19 @@ class getm3u8Thread(threading.Thread):
         self.rid = rid
 
     def down_m3u8(self):
-        try_max = 3
+        try_max = 1
         try_time = 0
         self.nickname = author_dic[self.rid][0]
         while try_time < try_max:
             try:
                 try_time += 1
                 logger.info('{}-{} 尝试 [{} / {}] 次 录制'.format(self.rid, self.nickname, try_time, try_max))
-                ffmpeg_path = "ffmpeg"
+                kszylzgj_path = "kszylzgj"
                 file = '{}.mp4'.format(self.room)
-                file = os.path.join(record_dir, file)
+                file = os.path.join(luzhi_dir, file)
                 # self.threadURL = 'http://{}'.format(urlencode(self.threadURL.replace('https://', '').replace('http://', '')))
                 # _output = subprocess.check_output([
-                #     ffmpeg_path, "-y",
+                #     kszylzgj_path, "-y",
                 #     "-v", "verbose",
                 #     "-rw_timeout", "10000000",  # 10s
                 #     "-loglevel", "error",
@@ -209,49 +209,49 @@ class getm3u8Thread(threading.Thread):
                 # ], stderr=subprocess.STDOUT)
                 luzhishichang = os.environ.get("luzhishichang")
                 _output = subprocess.check_output(
-                    'ffmpeg -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
+                    'kszylzgj -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 2000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 20 "{}"'.format(
                         self.threadURL, luzhishichang, file),
                     stderr=subprocess.STDOUT, shell=True)
 
-                recordfinish = True
+                luzhifinish = True
                 counttime = time.time()
-                # if startname in recording:
-                #     recording.remove(startname)
+                # if startname in luzhiing:
+                #     luzhiing.remove(startname)
                 logger.info('{} 直播录制完成'.format(self.room))
                 # logger.info('\n' + self.room + " " + time.strftime('%Y-%m-%d %H:%M:%S  ') + '直播录制完成\n')
                 # if self.rid in dlrids:
                 #     dlrids.remove(self.rid)
-                if not os.path.exists(record_ok_pathtmp):
-                    os.makedirs(record_ok_pathtmp)
+                if not os.path.exists(luzhi_ok_pathtmp):
+                    os.makedirs(luzhi_ok_pathtmp)
 
                 # 直接SSD内部解决
 
                 if os.path.exists(file):
-                    logger.info('{} --> {} start'.format(file, record_ok_pathtmp))
-                    # logger.info(file, '-->', record_ok_pathtmp, 'start')
-                    shutil.move(file, record_ok_pathtmp)
-                    logger.info('{} --> {} succeed!'.format(file, record_ok_pathtmp))
-                    # logger.info(file, '-->', record_ok_pathtmp, 'succeed!')
+                    logger.info('{} --> {} start'.format(file, luzhi_ok_pathtmp))
+                    # logger.info(file, '-->', luzhi_ok_pathtmp, 'start')
+                    shutil.move(file, luzhi_ok_pathtmp)
+                    logger.info('{} --> {} succeed!'.format(file, luzhi_ok_pathtmp))
+                    # logger.info(file, '-->', luzhi_ok_pathtmp, 'succeed!')
                 break
-                # record_ok_tmp_file = os.path.join(record_ok_pathtmp, file)
+                # luzhi_ok_tmp_file = os.path.join(luzhi_ok_pathtmp, file)
                 # # # logger.warning(self.room + " " + "直播录制完成")
-                # # if not os.path.exists(record_ok_path):
-                # #     os.makedirs(record_ok_path)
-                # if os.path.exists(record_ok_tmp_file):
-                #     shutil.move(record_ok_tmp_file, record_ok_path)
-                #     logger.info('{} --> {} succeed!'.format(record_ok_tmp_file, record_ok_path))
-                # logger.info(record_ok_tmp_file, '-->', record_ok_path, 'succeed!')
+                # # if not os.path.exists(luzhi_ok_path):
+                # #     os.makedirs(luzhi_ok_path)
+                # if os.path.exists(luzhi_ok_tmp_file):
+                #     shutil.move(luzhi_ok_tmp_file, luzhi_ok_path)
+                #     logger.info('{} --> {} succeed!'.format(luzhi_ok_tmp_file, luzhi_ok_path))
+                # logger.info(luzhi_ok_tmp_file, '-->', luzhi_ok_path, 'succeed!')
             except Exception as e:
-                recordfinish = True
-                # if not os.path.exists(record_ok_path):
-                #     os.makedirs(record_ok_path)
+                luzhifinish = True
+                # if not os.path.exists(luzhi_ok_path):
+                #     os.makedirs(luzhi_ok_path)
                 # if os.path.exists(file):
-                #     shutil.move(file, record_ok_path)
-                #     logger.info(file, '-->', record_ok_path, 'succeed!')
+                #     shutil.move(file, luzhi_ok_path)
+                #     logger.info(file, '-->', luzhi_ok_path, 'succeed!')
                 # if self.rid in dlrids:
                 #     dlrids.remove(self.rid)
-                if not os.path.exists(record_ok_pathtmp):
-                    os.makedirs(record_ok_pathtmp)
+                if not os.path.exists(luzhi_ok_pathtmp):
+                    os.makedirs(luzhi_ok_pathtmp)
                 logger.info('{} {}'.format(self.room, traceback.format_exc()))
                 traceback.print_exc()
                 slpt = 3
@@ -273,7 +273,27 @@ class getm3u8Thread(threading.Thread):
         # print('endFlag {}'.format(endFlag))
         # print('M3U8获取线程退出 {}'.format(self.threadID))
         return -1
+def getherokuargs(query_type):
+    # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}'.format(query_type)
 
+    trytime = 0
+    while True:
+        trytime += 1
+        try:
+            res = requests.get(h_url, timeout=10)
+            # resjson = res.json()
+            logger.info('{}'.format(res.text))
+            if True:
+                ret_str = res.text
+                break
+            else:
+                logger.info('获取参数失败 2秒后再试')
+                sleep_dis(2)
+        except Exception as e:
+            traceback.print_exc()
+            time.sleep(5)
+    return ret_str
 
 class DouYu:
     """
@@ -286,8 +306,8 @@ class DouYu:
     hlsa-akm.douyucdn.cn
     hls1a-akm.douyucdn.cn
     """
-    host = 'hls3-akm.douyucdn.cn'
-
+    host = 'dyscdnali1.douyucdn.cn'
+    host = 'tx2play1.douyucdn.cn'
     def __init__(self, rid):
         """
         房间号通常为1~8位纯数字，浏览器地址栏中看到的房间号不一定是真实rid.
@@ -398,7 +418,8 @@ class DouYu:
         real_url = {}
         # real_url["flv"] = "http://dyscdnali1.douyucdn.cn/live/{}.flv?uuid=".format(key)
         # real_url["x-p2p"] = "http://tx2play1.douyucdn.cn/live/{}.xs?uuid=".format(key)
-
+        self.host = getherokuargs('douyucdn').replace('\n','')
+        logger.info("{}".format(self.host))
         real_url["flv"] = "http://{}/live/{}.flv?uuid=".format(self.host, key)
         real_url["x-p2p"] = "http://{}/live/{}.xs?uuid=".format(self.host, key)
         return real_url["flv"]
@@ -597,15 +618,15 @@ def get_nickname(vmid):
 
 
 if __name__ == '__main__':
-    # record_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/record'
-    # record_ok_path = '/home/muyangren907/2t/zhiboluzhi/recordok'
+    # luzhi_ok_pathtmp = '/home/muyangren907/2t/zhiboluzhi/kuaishou/luzhi'
+    # luzhi_ok_path = '/home/muyangren907/2t/zhiboluzhi/luzhichenggong'
     author_dic = {}
-    record_dir = 'record'
-    if not os.path.exists(record_dir):
-        os.makedirs(record_dir)
+    luzhi_dir = 'luzhi'
+    if not os.path.exists(luzhi_dir):
+        os.makedirs(luzhi_dir)
     # SSD内部解决
-    record_ok_pathtmp = 'recordok'
-    record_ok_path = record_ok_pathtmp
+    luzhi_ok_pathtmp = 'luzhichenggong'
+    luzhi_ok_path = luzhi_ok_pathtmp
     debugmode = False
     # download threads
     dlrids = []
