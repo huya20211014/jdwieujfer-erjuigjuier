@@ -2,7 +2,7 @@
 # @Time    : 2020/5/29 12:51
 # @Author  : muyangren907
 # @Email   : myr907097904@gmail.com
-# @File    : huyaLive_record.py
+# @File    : huyaLive_luzhi.py
 # @Software: PyCharm
 # 虎牙直播录制脚本
 import argparse
@@ -77,7 +77,7 @@ class logThread(threading.Thread):
     def run(self):
         while True:
             print()
-            logger.info('活跃线程数 {} 录制范围[ {} , {} ]\n'.format(threading.active_count(),record_range[0],record_range[1]))
+            logger.info('活跃线程数 {} 录制范围[ {} , {} ]\n'.format(threading.active_count(),luzhi_range[0],luzhi_range[1]))
             print('*' * 10)
             logger.info('共有主播 {}'.format(len(hrids)))
             # for hrid in hrids:
@@ -135,10 +135,10 @@ class getm3u8Thread(threading.Thread):
 
     def down_m3u8(self):
         try:
-            ffmpeg_path = "ffmpeg"
+            kszylzgj_path = "kszylzgj"
             file = '{}.mp4'.format(self.room)
             _output = subprocess.check_output([
-                ffmpeg_path, "-y",
+                kszylzgj_path, "-y",
                 "-v", "verbose",
                 "-rw_timeout", "10000000",  # 10s
                 "-loglevel", "error",
@@ -161,24 +161,24 @@ class getm3u8Thread(threading.Thread):
                 "{path}".format(path=file),
             ], stderr=subprocess.STDOUT)
 
-            recordfinish = True
+            luzhifinish = True
             counttime = time.time()
-            # if startname in recording:
-            #     recording.remove(startname)
+            # if startname in luzhiing:
+            #     luzhiing.remove(startname)
             print('\n' + self.room + " " + time.strftime('%Y-%m-%d %H:%M:%S  ') + '直播录制完成\n')
             # logger.warning(self.room + " " + "直播录制完成")
-            if not os.path.exists(record_ok_path):
-                os.makedirs(record_ok_path)
+            if not os.path.exists(luzhi_ok_path):
+                os.makedirs(luzhi_ok_path)
             if os.path.exists(file):
-                shutil.move(file, record_ok_path)
-                print(file, '-->', record_ok_path, 'succeed!')
+                shutil.move(file, luzhi_ok_path)
+                print(file, '-->', luzhi_ok_path, 'succeed!')
         except Exception as e:
-            recordfinish = True
-            if not os.path.exists(record_ok_path):
-                os.makedirs(record_ok_path)
+            luzhifinish = True
+            if not os.path.exists(luzhi_ok_path):
+                os.makedirs(luzhi_ok_path)
             if os.path.exists(file):
-                shutil.move(file, record_ok_path)
-                print(file, '-->', record_ok_path, 'succeed!')
+                shutil.move(file, luzhi_ok_path)
+                print(file, '-->', luzhi_ok_path, 'succeed!')
             logger.info('{} {}'.format(self.room, traceback.format_exc()))
             traceback.print_exc()
 
@@ -501,7 +501,7 @@ def get_config():
     return config['1']
 
 def get_rids():
-    global record_range
+    global luzhi_range
     config = get_config()
     rangeidx = int(config['rangeidx'])
     rangebase = int(config['rangebase'])
@@ -514,13 +514,13 @@ def get_rids():
     if endidx>=len(hridstrsp):
         endidx=len(hridstrsp)-1
     hrids = list(set(hridstrsp[startidx:endidx]))
-    record_range = [startidx,endidx]
+    luzhi_range = [startidx,endidx]
     return hrids
 
 
 if __name__ == '__main__':
-    record_ok_path = 'recordok'
-    record_range = [0,0]
+    luzhi_ok_path = 'luzhichenggong'
+    luzhi_range = [0,0]
     debugmode = False
     # download threads
     dlrids = []
