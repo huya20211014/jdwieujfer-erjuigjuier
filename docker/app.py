@@ -203,7 +203,7 @@ if __name__ == '__main__':
     xxxxLOAD_PRE = 'Douyin_dymcmn21xby'
     post_global = ['.tt','.mp4', '.jpg', '.jpeg', '.png', '.mov', '.MP4', '.JPG', '.JPEG', '.PNG', '.gif', '.GIF']
     # post_global = []
-    max_thread_num_MAX = 2
+    max_thread_num_MAX = 4
     sess_path = 'huihua'
     sess_total = 2
     config_path = 'app.exe'
