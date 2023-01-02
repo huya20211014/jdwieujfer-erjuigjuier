@@ -169,6 +169,7 @@ async def get_jiaodihuazhiurl(html):
 
 # 处理单个url的函数
 async def get(session, queue):
+    global ids_running
     Modelheaders = {
         # 'upgrade-insecure-requests':'1',
         # 'X-Forwarded-For': genip(),
@@ -462,11 +463,26 @@ async def main():
         queue = asyncio.Queue()
         # print(ids_dic)
         for id__ in ids_dic:
-            if id__ not in ids_running or ids_running[id__] == False:
+            if id__ not in ids_running:
+                logger.info('{} 加入录制'.format(ids_dic[id__]))
+                queue.put_nowait(id__)
+                ids_running[id__] = True
+            elif ids_running[id__] == False:
+                logger.info('{} 未在录制'.format(ids_dic[id__]))
                 queue.put_nowait(id__)
                 ids_running[id__] = True
             else:
-                logger.info('{} 已在录制'.format(ids_dic[id__]))
+                luzhimp4s = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
+                dlf = False
+                for ijk in luzhimp4s:
+                    if ids_dic[id__] in ijk:
+                        logger.info('{} 已在录制'.format(ids_dic[id__]))
+                        dlf = True
+                        break
+                if not dlf:
+                    queue.put_nowait(id__)
+                    ids_running[id__] = True
+                
         tasks = []
         async with aiohttp.ClientSession() as session:
             for _ in range(len(ids_dic)):
@@ -548,6 +564,6 @@ if __name__ == '__main__':
     # luzhishichang = 1800
     # ids_file_path = 'URL_config.ini'
     # ids_file_path = 'ids.txt'
-    SLEEP_TIME = 300
+    SLEEP_TIME = 60
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
