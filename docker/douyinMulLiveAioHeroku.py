@@ -463,7 +463,7 @@ async def main():
         queue = asyncio.Queue()
         # print(ids_dic)
         ids_diclen = len(ids_list)
-        perdnum = 200
+        perdnum = 50
         sidx = 0
         eidx = sidx+perdnum
         while True:
@@ -501,7 +501,7 @@ async def main():
                     tasks.append(task)
                 await asyncio.wait(tasks)
             logger.info("处理成功 {} - {} / {}".format(sidx,eidx,ids_diclen))
-            sleep_dis(10)
+            sleep_dis(5)
             sidx = eidx
             eidx = sidx+perdnum
         sleep_dis(SLEEP_TIME)
