@@ -471,7 +471,7 @@ async def main():
                 break
             if eidx > ids_diclen:
                 eidx = ids_diclen
-            logger.info("开始处理 {} - {} / {}".format(sid,eid,ids_diclen))
+            logger.info("开始处理 {} - {} / {}".format(sidx,eidx,ids_diclen))
             for id__ in ids_list[sidx:eidx]:
                 if id__ not in ids_running:
                     logger.info('{} 加入录制'.format(ids_dic[id__]))
@@ -500,7 +500,7 @@ async def main():
                     task = get(session, queue)
                     tasks.append(task)
                 await asyncio.wait(tasks)
-            logger.info("处理成功 {} - {} / {}".format(sid,eid,ids_diclen))
+            logger.info("处理成功 {} - {} / {}".format(sidx,eidx,ids_diclen))
             sleep_dis(10)
             sidx = eidx
             eidx = sidx+perdnum
