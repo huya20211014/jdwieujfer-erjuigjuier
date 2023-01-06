@@ -435,7 +435,7 @@ async def main():
     global luzhi_ok_path
     while True:
         ids_dic = get_ids()
-
+        ids_list = [kkk for kkk in ids_dic]
         try:
             # config = configparser.ConfigParser()
             # config.read('config.ini', encoding='utf-8-sig')
@@ -462,7 +462,7 @@ async def main():
 
         queue = asyncio.Queue()
         # print(ids_dic)
-        ids_diclen = len(ids_dic)
+        ids_diclen = len(ids_list)
         perdnum = 200
         sidx = 0
         eidx = sidx+perdnum
@@ -471,7 +471,8 @@ async def main():
                 break
             if eidx > ids_diclen:
                 eidx = ids_diclen
-            for id__ in ids_dic[sidx:eidx]:
+            logger.info("开始处理 {} - {} / {}".format(sid,eid,ids_diclen))
+            for id__ in ids_list[sidx:eidx]:
                 if id__ not in ids_running:
                     logger.info('{} 加入录制'.format(ids_dic[id__]))
                     queue.put_nowait(id__)
@@ -499,6 +500,7 @@ async def main():
                     task = get(session, queue)
                     tasks.append(task)
                 await asyncio.wait(tasks)
+            logger.info("处理成功 {} - {} / {}".format(sid,eid,ids_diclen))
             sleep_dis(10)
             sidx = eidx
             eidx = sidx+perdnum
