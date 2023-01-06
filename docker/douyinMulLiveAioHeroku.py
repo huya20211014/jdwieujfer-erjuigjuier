@@ -462,35 +462,47 @@ async def main():
 
         queue = asyncio.Queue()
         # print(ids_dic)
-        for id__ in ids_dic:
-            if id__ not in ids_running:
-                logger.info('{} 加入录制'.format(ids_dic[id__]))
-                queue.put_nowait(id__)
-                ids_running[id__] = True
-            elif ids_running[id__] == False:
-                logger.info('{} 未在录制'.format(ids_dic[id__]))
-                queue.put_nowait(id__)
-                ids_running[id__] = True
-            else:
-                luzhimp4s = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
-                dlf = False
-                for ijk in luzhimp4s:
-                    if ids_dic[id__] in ijk:
-                        logger.info('{} 已在录制'.format(ids_dic[id__]))
-                        dlf = True
-                        break
-                if not dlf:
+        ids_diclen = len(ids_dic)
+        perdnum = 200
+        sidx = 0
+        eidx = sidx+perdnum
+        while True:
+            if sidx > ids_diclen:
+                break
+            if eidx > ids_diclen:
+                eidx = ids_diclen
+            for id__ in ids_dic[sidx:eidx]:
+                if id__ not in ids_running:
+                    logger.info('{} 加入录制'.format(ids_dic[id__]))
                     queue.put_nowait(id__)
                     ids_running[id__] = True
-                
-        tasks = []
-        async with aiohttp.ClientSession() as session:
-            for _ in range(len(ids_dic)):
-                task = get(session, queue)
-                tasks.append(task)
-            await asyncio.wait(tasks)
-        sleep_dis(SLEEP_TIME)
+                elif ids_running[id__] == False:
+                    logger.info('{} 未在录制'.format(ids_dic[id__]))
+                    queue.put_nowait(id__)
+                    ids_running[id__] = True
+                else:
+                    luzhimp4s = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
+                    dlf = False
+                    for ijk in luzhimp4s:
+                        if ids_dic[id__] in ijk:
+                            logger.info('{} 已在录制'.format(ids_dic[id__]))
+                            dlf = True
+                            break
+                    if not dlf:
+                        queue.put_nowait(id__)
+                        ids_running[id__] = True
+                    
+            tasks = []
 
+            async with aiohttp.ClientSession() as session:
+                for _ in range(len(ids_dic)):
+                    task = get(session, queue)
+                    tasks.append(task)
+                await asyncio.wait(tasks)
+            sleep_dis(10)
+            sidx = eidx
+            eidx = sidx+perdnum
+        sleep_dis(SLEEP_TIME)
 
 # 关于同时录制
 class DLThread(threading.Thread):
