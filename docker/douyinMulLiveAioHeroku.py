@@ -249,36 +249,12 @@ async def get(session, queue):
         while True:
             try:
                 try_time += 1
-                # res = await session.get(share_url, headers=Modelheaders, timeout=10)
-                # resurl = str(res.url)
-                # roomid = ((resurl).split('/')[-1]).split('?')[0]
-                # print(resurl)
-                # print('{}'.format(roomid))
-                # print('{}'.format(res.history))
-
-                # res_html = await res.text()
-                # logger.info(share_url)
-                # exit(0)
-                # spos_str = 'type="application/json">%7B%22'
-                # epos_str = '</script>'
-                # spos_idx = res_html.index(spos_str)+len('type="application/json">')
-                # epos_idx = res_html[spos_idx:].index(epos_str)
-                # res_json_ec = res_html[spos_idx:spos_idx+epos_idx]
-                # res_json_str = urldecode(res_json_ec)
-                # res_json = json.loads(res_json_str)
-                # logger.info(res_json_str)
-                # time.sleep(90)
-
-                # logger.info(res.url)
-                # resurl = str(res.url)
-                # roomid = ((resurl).split('/')[-1]).split('?')[0]
-                # print('{}'.format(roomid))
                 web_rid = share_url
                 jsurl = 'https://live.douyin.com/webcast/web/enter/?aid=6383&web_rid={}'.format(web_rid)
                 # jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
                 logger.info(jsurl)
 
-                res_js = await session.get(jsurl, headers=Modelheaders,cookies=cookies, timeout=10)
+                res_js = await session.get(jsurl, headers=Modelheaders, cookies=cookies, timeout=10)
                 res_html = await res_js.text()
                 res_html = str(res_html)
                 # print('{}'.format(res_html))
@@ -292,6 +268,7 @@ async def get(session, queue):
                     if try_time == try_max:
                         logger.info('{}获取失败 退出'.format(ids_dic[share_url]))
                         ids_running[share_url] = False
+
                         return
                     sleep_dis(2)
             except Exception as e:
@@ -359,9 +336,11 @@ async def get(session, queue):
         res_status = await get_status(res_html)
         res_urls = await get_urls(res_html)
         logger.info(
-            '获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls))
+            '获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt, res_roomid, res_nickname, res_status,
+                                                res_urls))
         dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls)
         dlthread.start()
+
 
 def getherokuargs(query_type):
     # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
@@ -460,21 +439,23 @@ async def main():
             sleep_dis(SLEEP_TIME)
             continue
 
-        queue = asyncio.Queue()
+        # queue = asyncio.Queue()
+        # queue_run = asyncio.Queue()
         # print(ids_dic)
         ids_diclen = len(ids_list)
-        perdnum = 50
+        perdnum = 20
         sidx = 0
-        eidx = sidx+perdnum
+        eidx = sidx + perdnum
         while True:
             if sidx > ids_diclen:
                 break
             if eidx > ids_diclen:
                 eidx = ids_diclen
-            logger.info("开始处理 {} - {} / {}".format(sidx,eidx,ids_diclen))
+            logger.info("开始处理 {} - {} / {}".format(sidx, eidx, ids_diclen))
             for id__ in ids_list[sidx:eidx]:
                 if id__ not in ids_running:
                     logger.info('{} 加入录制'.format(ids_dic[id__]))
+
                     queue.put_nowait(id__)
                     ids_running[id__] = True
                 elif ids_running[id__] == False:
@@ -492,7 +473,7 @@ async def main():
                     if not dlf:
                         queue.put_nowait(id__)
                         ids_running[id__] = True
-                    
+
             tasks = []
 
             async with aiohttp.ClientSession() as session:
@@ -500,11 +481,13 @@ async def main():
                     task = get(session, queue)
                     tasks.append(task)
                 await asyncio.wait(tasks)
-            logger.info("处理成功 {} - {} / {}".format(sidx,eidx,ids_diclen))
+            logger.info("处理成功 {} - {} / {}".format(sidx, eidx, ids_diclen))
+            queue.join()
             sleep_dis(5)
             sidx = eidx
-            eidx = sidx+perdnum
+            eidx = sidx + perdnum
         sleep_dis(SLEEP_TIME)
+
 
 # 关于同时录制
 class DLThread(threading.Thread):
@@ -543,13 +526,15 @@ class DLThread(threading.Thread):
                     os.makedirs(luzhi_ok_path)
                 shutil.move(file, luzhi_ok_path)
                 logger.info(
-                    '分段录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
+                    '分段录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status,
+                                                      self.res_urls))
             except Exception as e:
                 traceback.print_exc()
                 trytime += 1
 
                 logger.info(
-                    '遇到错误 录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
+                    '遇到错误 录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status,
+                                                           self.res_urls))
                 if trytime == trymax:
                     ids_running[self.share_url] = False
                     return
@@ -569,7 +554,8 @@ if __name__ == '__main__':
     videopath = 'luzhi'
     luzhi_ok_path = "luzhichenggong"
     logger.info('luzhishichang {}'.format(luzhishichang))
-
+    queue = asyncio.Queue()
+    queue_run = asyncio.Queue()
     ids_dic = {}
     ids_running = {}
     proxies2 = {}
