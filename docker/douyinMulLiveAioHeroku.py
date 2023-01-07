@@ -395,7 +395,7 @@ def get_ids():
     # 'test_web'
     # ids_gen = getherokuargs('test_web')
     # ids_gen = 'ODM5NDA5MTgwNjQs5Li75pKtOiDljZbovabnvo7lpbNf5bCP5p2o5aa5'
-    ids_gen = getherokuargs('dymcmnsum_web')
+    ids_gen = getherokuargs('douyinzhibosum_web')
     # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
