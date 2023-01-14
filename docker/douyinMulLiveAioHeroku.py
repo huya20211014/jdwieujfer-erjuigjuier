@@ -259,9 +259,12 @@ async def get(session, queue):
                 res_html = str(res_html)
                 # print('{}'.format(res_html))
                 res_html = json.loads(res_html)
+                res_kk = [kkk for kkk in res_html]
+                if len(res_kk) != 0:
+
                 # exit(0)
 
-                if res_html != '':
+                # if res_html != '':
                     break
                 else:
                     logger.info('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
@@ -270,7 +273,7 @@ async def get(session, queue):
                         ids_running[share_url] = False
 
                         return
-                    sleep_dis(2)
+                    sleep_dis(1)
             except Exception as e:
                 # traceback.print_exc()
                 logger.info('{}'.format(traceback.format_exc()))
@@ -284,7 +287,10 @@ async def get(session, queue):
         # print('res_roomid {}'.format(res_roomid))
         # return
         # logger.info('{} 1111'.format(res_html))
-        res_nickname = await get_nickname(res_html)
+        try:
+            res_nickname = await get_nickname(res_html)
+        except Exception as e:
+            logger.info('res_html {}'.format(res_html))
         res_nickname = strfomat(res_nickname)
         if res_roomid == -1:
             logger.info('{} 未在直播'.format(res_nickname))
@@ -443,7 +449,7 @@ async def main():
         # queue_run = asyncio.Queue()
         # print(ids_dic)
         ids_diclen = len(ids_list)
-        perdnum = 20
+        perdnum = 1
         sidx = 0
         eidx = sidx + perdnum
         while True:
@@ -461,6 +467,7 @@ async def main():
                 elif ids_running[id__] == False:
                     logger.info('{} 未在录制'.format(ids_dic[id__]))
                     queue.put_nowait(id__)
+                    # queue_run.put_nowait(id__)
                     ids_running[id__] = True
                 else:
                     luzhimp4s = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
@@ -472,6 +479,7 @@ async def main():
                             break
                     if not dlf:
                         queue.put_nowait(id__)
+                        # queue_run.put_nowait(id__)
                         ids_running[id__] = True
 
             tasks = []
@@ -479,11 +487,14 @@ async def main():
             async with aiohttp.ClientSession() as session:
                 for _ in range(len(ids_dic)):
                     task = get(session, queue)
+
                     tasks.append(task)
                 await asyncio.wait(tasks)
             logger.info("处理成功 {} - {} / {}".format(sidx, eidx, ids_diclen))
-            queue.join()
-            sleep_dis(5)
+            logger.info("{}".format(queue.qsize()))
+            # await queue.join()
+            # await queue_run.join()
+            sleep_dis(2)
             sidx = eidx
             eidx = sidx + perdnum
         sleep_dis(SLEEP_TIME)
