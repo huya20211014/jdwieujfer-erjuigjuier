@@ -453,7 +453,7 @@ async def main():
         sidx = 0
         eidx = sidx + perdnum
         while True:
-            if sidx > ids_diclen:
+            if sidx >= ids_diclen:
                 break
             if eidx > ids_diclen:
                 eidx = ids_diclen
