@@ -5,6 +5,8 @@ for i in range(1,21):
     cmd += '&& git checkout kszb01 -- ksMulLiveHeroku.py'
     
     cmd += "&& sed -i 's/ksmullive_idx=1/ksmullive_idx={}/g' ksMulLiveHeroku.py".format(i)
+    cmd += '&& git checkout kszb01 -- app.py'
+    cmd += "&& sed -i 's/ksmullive_idx=1/ksmullive_idx={}/g' app.py".format(i)
     cmd +='&& git add -A && git commit -m "add {}" && git push origin {}'.format(keyy,keyy)
     
     print(cmd)

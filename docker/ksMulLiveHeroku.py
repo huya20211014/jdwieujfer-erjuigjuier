@@ -699,4 +699,4 @@ if __name__ == '__main__':
         #         ksdlthread.start()
         #         hrids.append(hrid)
         #         sleep_dis(1)
-        sleep_dis(100)
+        sleep_dis(300)
