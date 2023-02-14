@@ -170,7 +170,7 @@ class getm3u8Thread(threading.Thread):
                 "-probesize", "2147483647",
                 "-i", '%s' % self.threadURL,
                 "-fs", "800M",
-                "-t", "1200",
+                "-t", "600",
                 '-bufsize', '5000k',
                 "-map", "0",
                 "-sn", "-dn",
@@ -613,7 +613,8 @@ def getids():
     #         author_ids.append(author_id)
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
-    ksmullive_idx = int(os.environ.get("ksmullive_idx"))
+    # ksmullive_idx = int(os.environ.get("ksmullive_idx"))
+    ksmullive_idx=1
     ksmullive_tot_str = getherokuargs('ksmullive_tot')
     ksmullive_tot = int(ksmullive_tot_str)
     split_len = author_id_len // ksmullive_tot
