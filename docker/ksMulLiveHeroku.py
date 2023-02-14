@@ -614,7 +614,7 @@ def getids():
     author_ids = sorted(author_ids)
     author_id_len = len(author_ids)
     # ksmullive_idx = int(os.environ.get("ksmullive_idx"))
-    ksmullive_idx=1
+    ksmullive_idx=2
     ksmullive_tot_str = getherokuargs('ksmullive_tot')
     ksmullive_tot = int(ksmullive_tot_str)
     split_len = author_id_len // ksmullive_tot
@@ -699,4 +699,4 @@ if __name__ == '__main__':
         #         ksdlthread.start()
         #         hrids.append(hrid)
         #         sleep_dis(1)
-        sleep_dis(100)
+        sleep_dis(300)
