@@ -30,7 +30,7 @@ import threading
 import time
 import traceback
 import requests
-
+# import httpx
 import aiohttp
 import base64
 
@@ -281,6 +281,35 @@ async def get(session, queue):
         'user-agent':
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.34',
     }
+    cookies = {
+    'ttwid': '1%7CvlOGkSvedQk7SLeMoZCu1L4C3i-_xE1XO7UGJML0h7w%7C1676359082%7Cf05662c11167e554920c94fce989fc24ba39528e31fb6ef87afb553d658fe751',
+    'msToken': 'VHHCwH0A-XVX4NkWAmaV2w3QByJNV8DWy6IL_at-2IBVtjhagPqSHz5pojVHzm3yvbrQvpQHqZgoBVUvMdiKKoCHvYLBOn9jEjtH2__LWXA=',
+    }
+
+    headers = {
+        'authority': 'live.douyin.com',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'cache-control': 'max-age=0',
+        # 'cookie': 'ttwid=1%7CvlOGkSvedQk7SLeMoZCu1L4C3i-_xE1XO7UGJML0h7w%7C1676359082%7Cf05662c11167e554920c94fce989fc24ba39528e31fb6ef87afb553d658fe751; msToken=VHHCwH0A-XVX4NkWAmaV2w3QByJNV8DWy6IL_at-2IBVtjhagPqSHz5pojVHzm3yvbrQvpQHqZgoBVUvMdiKKoCHvYLBOn9jEjtH2__LWXA=',
+        'dnt': '1',
+        'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'none',
+        'sec-fetch-user': '?1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+    }
+
+    # params = {
+    #     'aid': '6383',
+    #     'web_rid': '994012764653',
+    # }
+
+    # response = requests.get('https://live.douyin.com/webcast/room/web/enter/', params=params, cookies=cookies, headers=headers)
     while True:
         try:
             share_url = queue.get_nowait()
@@ -290,7 +319,7 @@ async def get(session, queue):
         logger.info('{} {}'.format(nickname_txt, share_url))
         res_html = ''
         try_time = 0
-        try_max = 2
+        try_max = 10
         while True:
             try:
                 try_time += 1
@@ -321,19 +350,29 @@ async def get(session, queue):
                 web_rid = share_url
                 # jsurl = 'https://live.douyin.com/webcast/web/enter/?aid=6383&web_rid={}'.format(
                 #   web_rid)
+
                 jsurl = 'https://live.douyin.com/webcast/room/web/enter/?aid=6383&web_rid={}'.format(web_rid)
                 # jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
                 # jsurl = 'https://live.douyin.com/{}'.format(web_rid)
                 logger.info(jsurl)
-
+                # params = {
+                #     'aid': '6383',
+                #     'web_rid': '994012764653',
+                # }
+                # response = requests.get('https://live.douyin.com/webcast/room/web/enter/', params=params, cookies=cookies, headers=headers)
+                # res_js = await session.get(jsurl,
+                #                            headers=Modelheaders,
+                #                            cookies=cookies,
+                #                            timeout=10)
                 res_js = await session.get(jsurl,
-                                           headers=Modelheaders,
+                                           headers=headers,
                                            cookies=cookies,
                                            timeout=10)
                 res_html = await res_js.text()
                 res_html = str(res_html)
-                # print('{}'.format(res_html))
+                # logger.info('{}'.format(res_html))
                 res_html = json.loads(res_html)
+
                 # exit(0)
 
                 if res_html != '':
@@ -347,11 +386,14 @@ async def get(session, queue):
                     sleep_dis(2)
             except Exception as e:
                 # traceback.print_exc()
-                logger.info('{}'.format(traceback.format_exc()))
+                # logger.info('{}'.format(traceback.format_exc()))
                 if try_time == try_max:
-                    logger.info('{}获取错误 退出'.format(ids_dic[share_url]))
+                    logger.info('{} 错误上限 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
                     return
+                else:
+                    logger.info('{} 获取失败 1秒后重试'.format(ids_dic[share_url]))
+                    # sleep_dis(1)
         # print(res_html)
 
         res_roomid = await get_roomid(res_html)
@@ -360,10 +402,13 @@ async def get(session, queue):
         # logger.info('{} 1111'.format(res_html))
         res_nickname = await get_nickname(res_html)
         res_nickname = strfomat(res_nickname)
+        
         if res_roomid == -1:
             logger.info('{} 未在直播'.format(res_nickname))
             ids_running[share_url] = False
             return
+        else:
+            logger.info('获取次数 {} {} 获取成功  {} {}'.format(try_time,ids_dic[share_url],res_roomid,res_nickname))
         # print(res_roomid)
 
         # print(res_nickname)
