@@ -33,7 +33,28 @@ import requests
 # import httpx
 import aiohttp
 import base64
+from http.cookies import SimpleCookie
+import random
 
+def get_random_desktop_ua():
+    chrome_version = f"{random.randint(70, 96)}.0.{random.randint(1000, 9999)}.{random.randint(100, 999)}"
+    firefox_version = f"{random.randint(70, 85)}.0"
+    chrome_user_agent_template = "Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36"
+    firefox_user_agent_template = "Mozilla/5.0 ({os_info}; rv:{firefox_version}) Gecko/20100101 Firefox/{firefox_version}"
+    os_info_list = [
+        "Windows NT 10.0; Win64; x64",
+        "Windows NT 10.0; WOW64",
+        "Windows NT 6.1; Win64; x64",
+        "Windows NT 6.1; WOW64",
+        "Macintosh; Intel Mac OS X 10_15_7",
+        "X11; Ubuntu; Linux x86_64",
+    ]
+    os_info = random.choice(os_info_list)
+    if random.random() < 0.5:
+        user_agent = chrome_user_agent_template.format(os_info=os_info, chrome_version=chrome_version)
+    else:
+        user_agent = firefox_user_agent_template.format(os_info=os_info, firefox_version=firefox_version)
+    return user_agent
 
 def base64encode(s):
     en = base64.b64encode(s.encode('utf-8'))
@@ -293,9 +314,9 @@ async def get(session, queue):
         'cache-control': 'max-age=0',
         # 'cookie': 'ttwid=1%7CvlOGkSvedQk7SLeMoZCu1L4C3i-_xE1XO7UGJML0h7w%7C1676359082%7Cf05662c11167e554920c94fce989fc24ba39528e31fb6ef87afb553d658fe751; msToken=VHHCwH0A-XVX4NkWAmaV2w3QByJNV8DWy6IL_at-2IBVtjhagPqSHz5pojVHzm3yvbrQvpQHqZgoBVUvMdiKKoCHvYLBOn9jEjtH2__LWXA=',
         'dnt': '1',
-        'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
+        # 'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+        # 'sec-ch-ua-mobile': '?0',
+        # 'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'document',
         'sec-fetch-mode': 'navigate',
         'sec-fetch-site': 'none',
@@ -303,6 +324,8 @@ async def get(session, queue):
         'upgrade-insecure-requests': '1',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
     }
+    ua__ = get_random_desktop_ua()
+    headers['user-agent'] = ua__
 
     # params = {
     #     'aid': '6383',
@@ -319,7 +342,9 @@ async def get(session, queue):
         logger.info('{} {}'.format(nickname_txt, share_url))
         res_html = ''
         try_time = 0
-        try_max = 10
+        try_max = 100
+        html_set_cookie = None
+
         while True:
             try:
                 try_time += 1
@@ -364,10 +389,25 @@ async def get(session, queue):
                 #                            headers=Modelheaders,
                 #                            cookies=cookies,
                 #                            timeout=10)
-                res_js = await session.get(jsurl,
-                                           headers=headers,
-                                           cookies=cookies,
-                                           timeout=10)
+
+                if html_set_cookie is None:
+                    res_js = await session.get(jsurl,
+                                            headers=headers,
+                                            #    cookies=cookies,
+                                            timeout=10)
+                else:
+                    res_js = await session.get(jsurl,
+                                            headers=headers,
+                                            cookies=html_set_cookie,
+                                            timeout=10)
+                # print(type(res_js.cookies))
+                
+                html_set_cookie_ = SimpleCookie(res_js.cookies)
+                html_set_cookie = {i.key:i.value for i in html_set_cookie_.values()}
+                # html_set_cookie = requests.utils.dict_from_cookiejar()
+                html_set_cookie[
+                    'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
+                
                 res_html = await res_js.text()
                 res_html = str(res_html)
                 # logger.info('{}'.format(res_html))
@@ -392,7 +432,7 @@ async def get(session, queue):
                     ids_running[share_url] = False
                     return
                 else:
-                    logger.info('{} 获取失败 1秒后重试'.format(ids_dic[share_url]))
+                    logger.info('第 {} 次 {} 获取失败 1秒后重试'.format(try_time,ids_dic[share_url]))
                     # sleep_dis(1)
         # print(res_html)
 
@@ -454,7 +494,7 @@ async def get(session, queue):
         res_roomid = await get_roomid(res_html)
         res_status = await get_status(res_html)
         res_urls = await get_urls(res_html)
-        logger.info('获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt,
+        logger.info(' 获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt,
                                                         res_roomid, res_nickname,
                                                         res_status, res_urls))
         dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname,
@@ -513,7 +553,7 @@ def get_ids():
     if debugmode:
         ids_gen = getherokuargs('test_web')
     else:
-        ids_gen = getherokuargs('douyinzhibo33_web')
+        ids_gen = getherokuargs('douyinzhibo08_web')
     # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
