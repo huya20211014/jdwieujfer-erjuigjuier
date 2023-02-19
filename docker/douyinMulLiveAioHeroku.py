@@ -553,7 +553,7 @@ def get_ids():
     if debugmode:
         ids_gen = getherokuargs('test_web')
     else:
-        ids_gen = getherokuargs('douyinzhibo08_web')
+        ids_gen = getherokuargs('dymcmn14_web')
     # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
