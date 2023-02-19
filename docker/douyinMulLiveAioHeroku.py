@@ -30,10 +30,31 @@ import threading
 import time
 import traceback
 import requests
-
+# import httpx
 import aiohttp
 import base64
+from http.cookies import SimpleCookie
+import random
 
+def get_random_desktop_ua():
+    chrome_version = f"{random.randint(70, 96)}.0.{random.randint(1000, 9999)}.{random.randint(100, 999)}"
+    firefox_version = f"{random.randint(70, 85)}.0"
+    chrome_user_agent_template = "Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{chrome_version} Safari/537.36"
+    firefox_user_agent_template = "Mozilla/5.0 ({os_info}; rv:{firefox_version}) Gecko/20100101 Firefox/{firefox_version}"
+    os_info_list = [
+        "Windows NT 10.0; Win64; x64",
+        "Windows NT 10.0; WOW64",
+        "Windows NT 6.1; Win64; x64",
+        "Windows NT 6.1; WOW64",
+        "Macintosh; Intel Mac OS X 10_15_7",
+        "X11; Ubuntu; Linux x86_64",
+    ]
+    os_info = random.choice(os_info_list)
+    if random.random() < 0.5:
+        user_agent = chrome_user_agent_template.format(os_info=os_info, chrome_version=chrome_version)
+    else:
+        user_agent = firefox_user_agent_template.format(os_info=os_info, firefox_version=firefox_version)
+    return user_agent
 
 def base64encode(s):
     en = base64.b64encode(s.encode('utf-8'))
@@ -67,12 +88,12 @@ logger.setLevel(logging.INFO)  # Log等级开关
 # file_handler.setLevel(logging.DEBUG)  # 输出到file的log等级的开关
 
 # 第三步，定义handler的输出格式
-formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter(
+    "%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
 # file_handler.setFormatter(formatter)
 
 # 第四步，将handler添加到logger里面
 # logger.addHandler(file_handler)
-
 
 # 如果需要同時需要在終端上輸出，定義一個streamHandler
 p_handler = logging.StreamHandler()  # 往屏幕上输出
@@ -81,7 +102,8 @@ logger.addHandler(p_handler)
 
 
 def strfomat(str_in):
-    sub_str = re.sub(u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])", "", str_in)
+    sub_str = re.sub(
+        u"([^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a])", "", str_in)
     return sub_str
 
 
@@ -169,72 +191,148 @@ async def get_jiaodihuazhiurl(html):
 
 # 处理单个url的函数
 async def get(session, queue):
+    global ids_running
     Modelheaders = {
         # 'upgrade-insecure-requests':'1',
         # 'X-Forwarded-For': genip(),
         # 'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Mobile Safari/537.36'
         # 'User-Agent':'Mozilla/5.0 (Linux; U; Android 8.1.0; en-US; Nexus 6P Build/OPM7.181205.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/12.11.1.1197 Mobile Safari/537.36'
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.34',
-
+        'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.34',
     }
     Modelheaders = {
-        'authority': 'live.douyin.com',
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'accept-language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-        'cache-control': 'max-age=0',
+        'authority':
+            'live.douyin.com',
+        'accept':
+            'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-language':
+            'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+        'cache-control':
+            'max-age=0',
         # 'cookie': 'xgplayer_user_id=484396791271; session_secure=1; ttwid=1%7Cv70bMg0H26eflXmeq7YexUhnTLwoWLJClBtqIYPqZE8%7C1669296852%7C323fd8a92941d04abc8b14ea38553fa317b9462c7c474c6b98ac63fe1f5add70; d_ticket=687002b130aebc2c765d4d585ce9dccc34880; sso_auth_status=7f399ac96a5e4afdebee0d53002c61cb; sso_auth_status_ss=7f399ac96a5e4afdebee0d53002c61cb; csrf_session_id=0cb567954252b310166550749f7612ab; passport_fe_beating_status=true; passport_csrf_token=d59892d74c3ae2800954153ebf8a5aba; passport_csrf_token_default=d59892d74c3ae2800954153ebf8a5aba; n_mh=2awS99UZxOYCYMo9gqgsAxEu-NVaJYeU5MIm8TrCZRY; passport_assist_user=CkEdZhs9Exqlbjr1x2FWd8xPTRi7MoKCHPO6-DbDnUohFD684OjDs1eqioZXY4AcVYZ1VtzKbnI96yqlwFWtx7_WGhpICjzs42VP7ulFaqVxKQxyCQuhl9VRumoBxk0Y8dUR9oMCt2F8dJmQZ9Q4tNscrcmGywpCu8G3WD5scPF0wCkQ4tikDRiJr9ZUIgED2pEOZw%3D%3D; sso_uid_tt=270676b34399fbff50c3fdaf033fc2c6; sso_uid_tt_ss=270676b34399fbff50c3fdaf033fc2c6; toutiao_sso_user=adec5c4429c05b858819ea01845c8725; toutiao_sso_user_ss=adec5c4429c05b858819ea01845c8725; sid_ucp_sso_v1=1.0.0-KDcxMjk2ZmYyOWViZWYxYjNlMDA3YTI3NWQ2ZmNkNGZlOTA2ZWQ0NDcKHwjcpbDY6vS3AhCr65qdBhjvMSAMMJqBq_sFOAZA9AcaAmhsIiBhZGVjNWM0NDI5YzA1Yjg1ODgxOWVhMDE4NDVjODcyNQ; ssid_ucp_sso_v1=1.0.0-KDcxMjk2ZmYyOWViZWYxYjNlMDA3YTI3NWQ2ZmNkNGZlOTA2ZWQ0NDcKHwjcpbDY6vS3AhCr65qdBhjvMSAMMJqBq_sFOAZA9AcaAmhsIiBhZGVjNWM0NDI5YzA1Yjg1ODgxOWVhMDE4NDVjODcyNQ; odin_tt=0f87a216705efe6993ac588188740708c56cca553c9d79938f3e2975ada4a982797a8717fdbbfede5671ffdb1b994a869b324ba4ec6d518f9e14468b471c41b0; passport_auth_status=80a6904fddf2ebd984fa21a8e85358a2%2Cdd63326f6f4519387766488788799563; passport_auth_status_ss=80a6904fddf2ebd984fa21a8e85358a2%2Cdd63326f6f4519387766488788799563; uid_tt=3846eb60ac9d17a6165a6f764235b50e; uid_tt_ss=3846eb60ac9d17a6165a6f764235b50e; sid_tt=5a3a9c8563dbeccbb9014db8ce9a675e; sessionid=5a3a9c8563dbeccbb9014db8ce9a675e; sessionid_ss=5a3a9c8563dbeccbb9014db8ce9a675e; LOGIN_STATUS=1; sid_guard=5a3a9c8563dbeccbb9014db8ce9a675e%7C1671869872%7C5183995%7CWed%2C+22-Feb-2023+08%3A17%3A47+GMT; sid_ucp_v1=1.0.0-KDU1NjRmNDAwNmFhOGNhMjA1NWI5MDA3MTZhMGQ4YTkyNTM2YWVkNDAKGQjcpbDY6vS3AhCw65qdBhjvMSAMOAZA9AcaAmhsIiA1YTNhOWM4NTYzZGJlY2NiYjkwMTRkYjhjZTlhNjc1ZQ; ssid_ucp_v1=1.0.0-KDU1NjRmNDAwNmFhOGNhMjA1NWI5MDA3MTZhMGQ4YTkyNTM2YWVkNDAKGQjcpbDY6vS3AhCw65qdBhjvMSAMOAZA9AcaAmhsIiA1YTNhOWM4NTYzZGJlY2NiYjkwMTRkYjhjZTlhNjc1ZQ; download_guide=%223%2F20221224%22; FOLLOW_RED_POINT_INFO=%221%22; SEARCH_RESULT_LIST_TYPE=%22single%22; home_can_add_dy_2_desktop=%220%22; strategyABtestKey=%221671906320.331%22; FOLLOW_NUMBER_YELLOW_POINT_INFO=%22MS4wLjABAAAAIpvieueUTPWlnUPC4BAnBlDORKstHlr4XgjX1hBFlgtwYNfiFDF3aDsIzLCbwanI%2F1671984000000%2F0%2F1671950215375%2F0%22; __ac_nonce=063a7ef9300183c0c1c3b; __ac_signature=_02B4Z6wo00f01uPrLXgAAIDCY-nXOoiU277jzynAANtqKyFzXsgIH2i98fwWU0jwl5R4k0ctLdNfPQlizWT892-AaC5Rc7WYrCeTPaLlUW1j8igjYrns4AhtWGwPlz-4pS5hFO9VKyg0SYRm0c; FOLLOW_LIVE_POINT_INFO=%22MS4wLjABAAAAIpvieueUTPWlnUPC4BAnBlDORKstHlr4XgjX1hBFlgtwYNfiFDF3aDsIzLCbwanI%2F1671984000000%2F0%2F1671951350975%2F0%22; msToken=3XDQ_VZ3g-lJ68o_XYi7AoV5sSH7iha08-K0pGNq_RAwUlu83WRA4lEHbeo8Dk2zt21oO0iFO_1e_lv3t98bC4AIzgNFHbcOBr2gwBfLe7fzxeUCXIN7VkCu9aIk-j-eyao=; live_can_add_dy_2_desktop=%220%22; tt_scid=exbhwpioFK3mrbGX6sf-KZpWiK-KcLY1Av2Fmx9tRNU-W4seiXlHURfE6vBFPUTY8dcb; msToken=4PYtrUpMD1KofBdHoo5UfaM9XTZWM-LwAitLOi6rs1FT8tBZl7AbAe9o4CUPb6fjLCOzsSRyIPgmL5pVz0GRh4ohma5o_wX6iRgN0G09liEPdJfhU_p832ortJW-W1ITBKA=',
-        'dnt': '1',
-        'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'document',
-        'sec-fetch-mode': 'navigate',
-        'sec-fetch-site': 'none',
-        'sec-fetch-user': '?1',
-        'upgrade-insecure-requests': '1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+        'dnt':
+            '1',
+        'sec-ch-ua':
+            '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+        'sec-ch-ua-mobile':
+            '?0',
+        'sec-ch-ua-platform':
+            '"Windows"',
+        'sec-fetch-dest':
+            'document',
+        'sec-fetch-mode':
+            'navigate',
+        'sec-fetch-site':
+            'none',
+        'sec-fetch-user':
+            '?1',
+        'upgrade-insecure-requests':
+            '1',
+        'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
     }
+    headers = {
+        'authority':
+            'live.douyin.com',
+        'accept':
+            'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-language':
+            'zh-CN,zh;q=0.9',
+        'cache-control':
+            'max-age=0',
+        # 'cookie': 'ttwid=1%7CFa3gU4c8VUgp3Hr4V14Vbw5-WlrdMCGazA6_f3bPcPo%7C1671869734%7C01ddb899f14522e87015515e885b0d43c3025cf7b6a7ccdc5054c9cce3ba814d; live_can_add_dy_2_desktop=%220%22; csrf_session_id=b105c42d0e79cb744b39325192f6c8a3; xgplayer_user_id=49845986568; odin_tt=e338b14b54a763adb09b09ad788f215a1a8a776474ada37e4e3f713586a3b23d8a934f600d330610674d65f28ed0450a2a0a341ac73f74f9ce48d2c7fb2a07788475430c5460b1979c55188e8056ce3a; ttcid=80517f7c93ee4e53a4f4998642fcbe9e57; download_guide=%223%2F20221224%22; home_can_add_dy_2_desktop=%220%22; passport_csrf_token=64491208e4cd342759363ed725abe523; passport_csrf_token_default=64491208e4cd342759363ed725abe523; __ac_signature=_02B4Z6wo00f0108SwEwAAIDDzxA6DVijXDtPMsTAALBuK6lVn2--xbCV0k-JziXoGp.azNm0ReC9w.4cm8VpbkAPBtme8nVIJk8iDs5yKQJJaykAozIY2mqvgFMVJxrdDA2leYgrXvpqKjlcf7; SEARCH_RESULT_LIST_TYPE=%22single%22; tt_scid=py1Mmake89.y8D4moozj18Bw39a3WqMPmZDeYI-HZYGFbbNS6U84CpbhlLgkYKK-3cb1; strategyABtestKey=%221671895757.267%22; msToken=QJL_W3D8ijHWgwuFB2xztDHthXVql1dcqFRKtyogVjsia-VsFeNCf10nyk8axIVRdWoTxI75rC28cK9xk3NYR23e2z9kdIv2IFS9TM3yJ7gOHvzsfji1HJg_czklbP8=; msToken=GVwLKsFa70M0oZqD4HuTsT4PCxtqS8QWmCjHeuJJTsQFztll4cLuo9890afSYA__RwgzfZhQmsZ2CGJ1l2H1q3WAA2XgF-aEfIDA8rfclkWHlg2xRVfyNvPy1fnyenc=',
+        'dnt':
+            '1',
+        'sec-ch-ua':
+            '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
+        'sec-ch-ua-mobile':
+            '?0',
+        'sec-ch-ua-platform':
+            '"Windows"',
+        'sec-fetch-dest':
+            'document',
+        'sec-fetch-mode':
+            'navigate',
+        'sec-fetch-site':
+            'none',
+        'sec-fetch-user':
+            '?1',
+        'upgrade-insecure-requests':
+            '1',
+        'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+    }
+    cookies = {
+        'ttwid':
+            '1%7CFa3gU4c8VUgp3Hr4V14Vbw5-WlrdMCGazA6_f3bPcPo%7C1671869734%7C01ddb899f14522e87015515e885b0d43c3025cf7b6a7ccdc5054c9cce3ba814d',
+        'live_can_add_dy_2_desktop':
+            '%220%22',
+        'csrf_session_id':
+            'b105c42d0e79cb744b39325192f6c8a3',
+        'xgplayer_user_id':
+            '49845986568',
+        'odin_tt':
+            'e338b14b54a763adb09b09ad788f215a1a8a776474ada37e4e3f713586a3b23d8a934f600d330610674d65f28ed0450a2a0a341ac73f74f9ce48d2c7fb2a07788475430c5460b1979c55188e8056ce3a',
+        'ttcid':
+            '80517f7c93ee4e53a4f4998642fcbe9e57',
+        'download_guide':
+            '%223%2F20221224%22',
+        'home_can_add_dy_2_desktop':
+            '%220%22',
+        'passport_csrf_token':
+            '64491208e4cd342759363ed725abe523',
+        'passport_csrf_token_default':
+            '64491208e4cd342759363ed725abe523',
+        '__ac_signature':
+            '_02B4Z6wo00f0108SwEwAAIDDzxA6DVijXDtPMsTAALBuK6lVn2--xbCV0k-JziXoGp.azNm0ReC9w.4cm8VpbkAPBtme8nVIJk8iDs5yKQJJaykAozIY2mqvgFMVJxrdDA2leYgrXvpqKjlcf7',
+        'SEARCH_RESULT_LIST_TYPE':
+            '%22single%22',
+        'tt_scid':
+            'py1Mmake89.y8D4moozj18Bw39a3WqMPmZDeYI-HZYGFbbNS6U84CpbhlLgkYKK-3cb1',
+        'strategyABtestKey':
+            '%221671895757.267%22',
+        'msToken':
+            'QJL_W3D8ijHWgwuFB2xztDHthXVql1dcqFRKtyogVjsia-VsFeNCf10nyk8axIVRdWoTxI75rC28cK9xk3NYR23e2z9kdIv2IFS9TM3yJ7gOHvzsfji1HJg_czklbP8=',
+        'msToken':
+            'GVwLKsFa70M0oZqD4HuTsT4PCxtqS8QWmCjHeuJJTsQFztll4cLuo9890afSYA__RwgzfZhQmsZ2CGJ1l2H1q3WAA2XgF-aEfIDA8rfclkWHlg2xRVfyNvPy1fnyenc=',
+    }
+    js_headers = {
+        # 'upgrade-insecure-requests':'1',
+        # 'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36'
+        'user-agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.34',
+    }
+    cookies = {
+    'ttwid': '1%7CvlOGkSvedQk7SLeMoZCu1L4C3i-_xE1XO7UGJML0h7w%7C1676359082%7Cf05662c11167e554920c94fce989fc24ba39528e31fb6ef87afb553d658fe751',
+    'msToken': 'VHHCwH0A-XVX4NkWAmaV2w3QByJNV8DWy6IL_at-2IBVtjhagPqSHz5pojVHzm3yvbrQvpQHqZgoBVUvMdiKKoCHvYLBOn9jEjtH2__LWXA=',
+    }
+
     headers = {
         'authority': 'live.douyin.com',
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'accept-language': 'zh-CN,zh;q=0.9',
         'cache-control': 'max-age=0',
-        # 'cookie': 'ttwid=1%7CFa3gU4c8VUgp3Hr4V14Vbw5-WlrdMCGazA6_f3bPcPo%7C1671869734%7C01ddb899f14522e87015515e885b0d43c3025cf7b6a7ccdc5054c9cce3ba814d; live_can_add_dy_2_desktop=%220%22; csrf_session_id=b105c42d0e79cb744b39325192f6c8a3; xgplayer_user_id=49845986568; odin_tt=e338b14b54a763adb09b09ad788f215a1a8a776474ada37e4e3f713586a3b23d8a934f600d330610674d65f28ed0450a2a0a341ac73f74f9ce48d2c7fb2a07788475430c5460b1979c55188e8056ce3a; ttcid=80517f7c93ee4e53a4f4998642fcbe9e57; download_guide=%223%2F20221224%22; home_can_add_dy_2_desktop=%220%22; passport_csrf_token=64491208e4cd342759363ed725abe523; passport_csrf_token_default=64491208e4cd342759363ed725abe523; __ac_signature=_02B4Z6wo00f0108SwEwAAIDDzxA6DVijXDtPMsTAALBuK6lVn2--xbCV0k-JziXoGp.azNm0ReC9w.4cm8VpbkAPBtme8nVIJk8iDs5yKQJJaykAozIY2mqvgFMVJxrdDA2leYgrXvpqKjlcf7; SEARCH_RESULT_LIST_TYPE=%22single%22; tt_scid=py1Mmake89.y8D4moozj18Bw39a3WqMPmZDeYI-HZYGFbbNS6U84CpbhlLgkYKK-3cb1; strategyABtestKey=%221671895757.267%22; msToken=QJL_W3D8ijHWgwuFB2xztDHthXVql1dcqFRKtyogVjsia-VsFeNCf10nyk8axIVRdWoTxI75rC28cK9xk3NYR23e2z9kdIv2IFS9TM3yJ7gOHvzsfji1HJg_czklbP8=; msToken=GVwLKsFa70M0oZqD4HuTsT4PCxtqS8QWmCjHeuJJTsQFztll4cLuo9890afSYA__RwgzfZhQmsZ2CGJ1l2H1q3WAA2XgF-aEfIDA8rfclkWHlg2xRVfyNvPy1fnyenc=',
+        # 'cookie': 'ttwid=1%7CvlOGkSvedQk7SLeMoZCu1L4C3i-_xE1XO7UGJML0h7w%7C1676359082%7Cf05662c11167e554920c94fce989fc24ba39528e31fb6ef87afb553d658fe751; msToken=VHHCwH0A-XVX4NkWAmaV2w3QByJNV8DWy6IL_at-2IBVtjhagPqSHz5pojVHzm3yvbrQvpQHqZgoBVUvMdiKKoCHvYLBOn9jEjtH2__LWXA=',
         'dnt': '1',
-        'sec-ch-ua': '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
+        # 'sec-ch-ua': '"Not_A Brand";v="99", "Google Chrome";v="109", "Chromium";v="109"',
+        # 'sec-ch-ua-mobile': '?0',
+        # 'sec-ch-ua-platform': '"Windows"',
         'sec-fetch-dest': 'document',
         'sec-fetch-mode': 'navigate',
         'sec-fetch-site': 'none',
         'sec-fetch-user': '?1',
         'upgrade-insecure-requests': '1',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
     }
-    cookies = {
-        'ttwid': '1%7CFa3gU4c8VUgp3Hr4V14Vbw5-WlrdMCGazA6_f3bPcPo%7C1671869734%7C01ddb899f14522e87015515e885b0d43c3025cf7b6a7ccdc5054c9cce3ba814d',
-        'live_can_add_dy_2_desktop': '%220%22',
-        'csrf_session_id': 'b105c42d0e79cb744b39325192f6c8a3',
-        'xgplayer_user_id': '49845986568',
-        'odin_tt': 'e338b14b54a763adb09b09ad788f215a1a8a776474ada37e4e3f713586a3b23d8a934f600d330610674d65f28ed0450a2a0a341ac73f74f9ce48d2c7fb2a07788475430c5460b1979c55188e8056ce3a',
-        'ttcid': '80517f7c93ee4e53a4f4998642fcbe9e57',
-        'download_guide': '%223%2F20221224%22',
-        'home_can_add_dy_2_desktop': '%220%22',
-        'passport_csrf_token': '64491208e4cd342759363ed725abe523',
-        'passport_csrf_token_default': '64491208e4cd342759363ed725abe523',
-        '__ac_signature': '_02B4Z6wo00f0108SwEwAAIDDzxA6DVijXDtPMsTAALBuK6lVn2--xbCV0k-JziXoGp.azNm0ReC9w.4cm8VpbkAPBtme8nVIJk8iDs5yKQJJaykAozIY2mqvgFMVJxrdDA2leYgrXvpqKjlcf7',
-        'SEARCH_RESULT_LIST_TYPE': '%22single%22',
-        'tt_scid': 'py1Mmake89.y8D4moozj18Bw39a3WqMPmZDeYI-HZYGFbbNS6U84CpbhlLgkYKK-3cb1',
-        'strategyABtestKey': '%221671895757.267%22',
-        'msToken': 'QJL_W3D8ijHWgwuFB2xztDHthXVql1dcqFRKtyogVjsia-VsFeNCf10nyk8axIVRdWoTxI75rC28cK9xk3NYR23e2z9kdIv2IFS9TM3yJ7gOHvzsfji1HJg_czklbP8=',
-        'msToken': 'GVwLKsFa70M0oZqD4HuTsT4PCxtqS8QWmCjHeuJJTsQFztll4cLuo9890afSYA__RwgzfZhQmsZ2CGJ1l2H1q3WAA2XgF-aEfIDA8rfclkWHlg2xRVfyNvPy1fnyenc=',
-    }
-    js_headers = {
-        # 'upgrade-insecure-requests':'1',
-        # 'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Mobile Safari/537.36'
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.34',
+    ua__ = get_random_desktop_ua()
+    headers['user-agent'] = ua__
 
-    }
+    # params = {
+    #     'aid': '6383',
+    #     'web_rid': '994012764653',
+    # }
+
+    # response = requests.get('https://live.douyin.com/webcast/room/web/enter/', params=params, cookies=cookies, headers=headers)
     while True:
         try:
             share_url = queue.get_nowait()
@@ -244,7 +342,9 @@ async def get(session, queue):
         logger.info('{} {}'.format(nickname_txt, share_url))
         res_html = ''
         try_time = 0
-        try_max = 2
+        try_max = 100
+        html_set_cookie = None
+
         while True:
             try:
                 try_time += 1
@@ -273,15 +373,46 @@ async def get(session, queue):
                 # roomid = ((resurl).split('/')[-1]).split('?')[0]
                 # print('{}'.format(roomid))
                 web_rid = share_url
-                jsurl = 'https://live.douyin.com/webcast/web/enter/?aid=6383&web_rid={}'.format(web_rid)
-                # jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
-                logger.info(jsurl)
+                # jsurl = 'https://live.douyin.com/webcast/web/enter/?aid=6383&web_rid={}'.format(
+                #   web_rid)
 
-                res_js = await session.get(jsurl, headers=Modelheaders,cookies=cookies, timeout=10)
+                jsurl = 'https://live.douyin.com/webcast/room/web/enter/?aid=6383&web_rid={}'.format(web_rid)
+                # jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
+                # jsurl = 'https://live.douyin.com/{}'.format(web_rid)
+                logger.info(jsurl)
+                # params = {
+                #     'aid': '6383',
+                #     'web_rid': '994012764653',
+                # }
+                # response = requests.get('https://live.douyin.com/webcast/room/web/enter/', params=params, cookies=cookies, headers=headers)
+                # res_js = await session.get(jsurl,
+                #                            headers=Modelheaders,
+                #                            cookies=cookies,
+                #                            timeout=10)
+
+                if html_set_cookie is None:
+                    res_js = await session.get(jsurl,
+                                            headers=headers,
+                                            #    cookies=cookies,
+                                            timeout=10)
+                else:
+                    res_js = await session.get(jsurl,
+                                            headers=headers,
+                                            cookies=html_set_cookie,
+                                            timeout=10)
+                # print(type(res_js.cookies))
+                
+                html_set_cookie_ = SimpleCookie(res_js.cookies)
+                html_set_cookie = {i.key:i.value for i in html_set_cookie_.values()}
+                # html_set_cookie = requests.utils.dict_from_cookiejar()
+                html_set_cookie[
+                    'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
+                
                 res_html = await res_js.text()
                 res_html = str(res_html)
-                # print('{}'.format(res_html))
+                # logger.info('{}'.format(res_html))
                 res_html = json.loads(res_html)
+
                 # exit(0)
 
                 if res_html != '':
@@ -295,11 +426,14 @@ async def get(session, queue):
                     sleep_dis(2)
             except Exception as e:
                 # traceback.print_exc()
-                logger.info('{}'.format(traceback.format_exc()))
+                # logger.info('{}'.format(traceback.format_exc()))
                 if try_time == try_max:
-                    logger.info('{}获取错误 退出'.format(ids_dic[share_url]))
+                    logger.info('{} 错误上限 退出'.format(ids_dic[share_url]))
                     ids_running[share_url] = False
                     return
+                else:
+                    logger.info('第 {} 次 {} 获取失败 1秒后重试'.format(try_time,ids_dic[share_url]))
+                    # sleep_dis(1)
         # print(res_html)
 
         res_roomid = await get_roomid(res_html)
@@ -308,10 +442,13 @@ async def get(session, queue):
         # logger.info('{} 1111'.format(res_html))
         res_nickname = await get_nickname(res_html)
         res_nickname = strfomat(res_nickname)
+        
         if res_roomid == -1:
             logger.info('{} 未在直播'.format(res_nickname))
             ids_running[share_url] = False
             return
+        else:
+            logger.info('获取次数 {} {} 获取成功  {} {}'.format(try_time,ids_dic[share_url],res_roomid,res_nickname))
         # print(res_roomid)
 
         # print(res_nickname)
@@ -357,14 +494,18 @@ async def get(session, queue):
         res_roomid = await get_roomid(res_html)
         res_status = await get_status(res_html)
         res_urls = await get_urls(res_html)
-        logger.info(
-            '获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls))
-        dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls)
+        logger.info(' 获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt,
+                                                        res_roomid, res_nickname,
+                                                        res_status, res_urls))
+        dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname,
+                            res_status, res_urls)
         dlthread.start()
+
 
 def getherokuargs(query_type):
     # h_url = 'https://owziotrlotjimdv.herokuapp.com/api?query_type={}'.format(query_type)
-    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(query_type)
+    h_url = 'https://raw.githubusercontent.com/xiaosijitest/weioferiogeroijiii/main/{}.txt'.format(
+        query_type)
 
     trytime = 0
     while True:
@@ -409,7 +550,10 @@ def get_ids():
     # 'test_web'
     # ids_gen = getherokuargs('test_web')
     # ids_gen = 'ODM5NDA5MTgwNjQs5Li75pKtOiDljZbovabnvo7lpbNf5bCP5p2o5aa5'
-    ids_gen = getherokuargs('dymcmn06_web')
+    if debugmode:
+        ids_gen = getherokuargs('test_web')
+    else:
+        ids_gen = getherokuargs('dymcmn06_web')
     # ids_gen = os.environ.get("ids_str")
     ids_str = base64decode(ids_gen)
     # with open(ids_txt, mode='r', encoding='utf-8') as ids_f:
@@ -462,11 +606,26 @@ async def main():
         queue = asyncio.Queue()
         # print(ids_dic)
         for id__ in ids_dic:
-            if id__ not in ids_running or ids_running[id__] == False:
+            if id__ not in ids_running:
+                logger.info('{} 加入录制'.format(ids_dic[id__]))
+                queue.put_nowait(id__)
+                ids_running[id__] = True
+            elif ids_running[id__] == False:
+                logger.info('{} 未在录制'.format(ids_dic[id__]))
                 queue.put_nowait(id__)
                 ids_running[id__] = True
             else:
-                logger.info('{} 已在录制'.format(ids_dic[id__]))
+                luzhimp4s = [mp4_ for mp4_ in os.listdir('luzhi') if '.mp4' in mp4_]
+                dlf = False
+                for ijk in luzhimp4s:
+                    if ids_dic[id__] in ijk:
+                        logger.info('{} 已在录制'.format(ids_dic[id__]))
+                        dlf = True
+                        break
+                if not dlf:
+                    queue.put_nowait(id__)
+                    ids_running[id__] = True
+
         tasks = []
         async with aiohttp.ClientSession() as session:
             for _ in range(len(ids_dic)):
@@ -478,7 +637,9 @@ async def main():
 
 # 关于同时录制
 class DLThread(threading.Thread):
-    def __init__(self, share_url, nickname_txt, res_roomid, res_nickname, res_status, res_urls):
+
+    def __init__(self, share_url, nickname_txt, res_roomid, res_nickname,
+                 res_status, res_urls):
         threading.Thread.__init__(self)
         self.share_url = share_url
         self.nickname_txt = nickname_txt
@@ -495,31 +656,38 @@ class DLThread(threading.Thread):
         trymax = 5
         while True:
             try:
-                logger.info(
-                    '开始录制 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
+                logger.info('开始录制 {} {} {} {}'.format(self.res_roomid,
+                                                          self.res_nickname,
+                                                          self.res_status, self.res_urls))
 
                 now = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
-                filename = '{}_{}_{}.mp4'.format(self.nickname_txt, self.res_nickname, now)
+                filename = '{}_{}_{}.mp4'.format(self.nickname_txt, self.res_nickname,
+                                                 now)
                 # filename = '{}.mp4'.format(base64encode(filename))
                 file = os.path.join(videopath, filename)
                 if not os.path.exists(videopath):
                     os.makedirs(videopath)
                 _output = subprocess.check_output(
-                    'dynjmvzylz -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(
-                        self.res_urls, luzhishichang, file),
-                    stderr=subprocess.STDOUT, shell=True)
+                    'dynjmvzylz -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'
+                    .format(self.res_urls, luzhishichang, file),
+                    stderr=subprocess.STDOUT,
+                    shell=True)
                 trytime = 1
                 if not os.path.exists(luzhi_ok_path):
                     os.makedirs(luzhi_ok_path)
                 shutil.move(file, luzhi_ok_path)
-                logger.info(
-                    '分段录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
+                logger.info('分段录制结束 {} {} {} {}'.format(self.res_roomid,
+                                                              self.res_nickname,
+                                                              self.res_status,
+                                                              self.res_urls))
             except Exception as e:
                 traceback.print_exc()
                 trytime += 1
 
-                logger.info(
-                    '遇到错误 录制结束 {} {} {} {}'.format(self.res_roomid, self.res_nickname, self.res_status, self.res_urls))
+                logger.info('遇到错误 录制结束 {} {} {} {}'.format(self.res_roomid,
+                                                                   self.res_nickname,
+                                                                   self.res_status,
+                                                                   self.res_urls))
                 if trytime == trymax:
                     ids_running[self.share_url] = False
                     return
@@ -527,15 +695,17 @@ class DLThread(threading.Thread):
 
 if __name__ == '__main__':
     '''
-    ids_str heroku读取
-    luzhishichang 1800
-    videopath luzhi
-    luzhi_ok_path luzhichenggong
-    '''
+      ids_str heroku读取
+      luzhishichang 1800
+      videopath luzhi
+      luzhi_ok_path luzhichenggong
+      '''
     # ids_gen = os.environ.get("ids_str")
     # proxies2 = config.get('1', '代理端口')
     # proxies2ip = config.get('1', '代理ip')
+    debugmode = False
     luzhishichang = os.environ.get("luzhishichang")
+    luzhishichang = 600
     videopath = 'luzhi'
     luzhi_ok_path = "luzhichenggong"
     logger.info('luzhishichang {}'.format(luzhishichang))
@@ -548,6 +718,6 @@ if __name__ == '__main__':
     # luzhishichang = 1800
     # ids_file_path = 'URL_config.ini'
     # ids_file_path = 'ids.txt'
-    SLEEP_TIME = 300
+    SLEEP_TIME = 60*2
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
