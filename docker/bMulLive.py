@@ -203,7 +203,9 @@ class getm3u8Thread(threading.Thread):
         self.rid = rid
 
     def down_m3u8(self):
-        try_max = 3
+        chanel_max = len(self.threadURL)
+        chanel_ = 0
+        try_max = 5
         try_time = 0
         self.nickname = author_dic[self.rid][0]
         while try_time < try_max:
@@ -239,7 +241,7 @@ class getm3u8Thread(threading.Thread):
                 # ], stderr=subprocess.STDOUT)
                 luzhishichang = os.environ.get("luzhishichang")
                 _output = subprocess.check_output(
-                    'bzzyjmlzgjmyrzyb -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(self.threadURL,luzhishichang,file),
+                    'bzzyjmlzgjmyrzyb -y -v verbose -rw_timeout 10000000 -loglevel error -hide_banner -analyzeduration 2147483647 -probesize 2147483647 -i "{}" -fs 1500M -t {} -bufsize 5000k -map 0 -sn -dn -c:v copy -max_muxing_queue_size 2048 "{}"'.format(self.threadURL[chanel_],luzhishichang,file),
                     stderr=subprocess.STDOUT, shell=True)
 
                 recordfinish = True
@@ -283,8 +285,11 @@ class getm3u8Thread(threading.Thread):
                     os.makedirs(record_ok_pathtmp)
                 logger.info('{} {}'.format(self.room, traceback.format_exc()))
                 traceback.print_exc()
-                slpt = 3
+                slpt = 2
                 logger.info('{}录制异常 {}秒后重试'.format(self.room, slpt))
+                chanel_ = (chanel_+1)%chanel_max
+                logger.info('{}录制异常 切换线路 {}\n{}\n'.format(self.room, chanel_,self.threadURL[chanel_]))
+
                 time.sleep(slpt)
 
     def run(self):
@@ -379,11 +384,12 @@ class BiliBili:
                 slpt = 3
                 logger.info('getRoomPlayInfo失败 {}秒后重试'.format(slpt))
                 sleep_dis(slpt)
-
+        ret_urls = []
         # print(res.text)
         res = res.json()
         # print(res)
         stream_info = res['data']['playurl_info']['playurl']['stream']
+        print(stream_info)
         qn_max = 0
 
         for data in stream_info:
@@ -398,17 +404,23 @@ class BiliBili:
         stream_urls = {}
         # flv流无法播放，暂修改成获取hls格式的流，
         for data in stream_info:
-            format_name = data['format'][0]['format_name']
-            if format_name == 'ts':
-                base_url = data['format'][-1]['codec'][0]['base_url']
-                url_info = data['format'][-1]['codec'][0]['url_info']
-                for i, info in enumerate(url_info):
-                    host = info['host']
-                    extra = info['extra']
-                    # stream_urls[f'线路{i + 1}'] = f'{host}{base_url}{extra}'
-                    stream_urls[i] = f'{host}{base_url}{extra}'
-                break
-        return stream_urls[0]
+            for fffmat in data['format']:
+                format_name = fffmat['format_name']
+            # format_name = data['format'][0]['format_name']
+                # if format_name == 'ts':
+                for codec_ in fffmat['codec']:
+                    base_url = codec_['base_url']
+                    url_info = codec_['url_info']
+                    for i, info in enumerate(url_info):
+                        host = info['host']
+                        extra = info['extra']
+                        ret_urls.append(f'{host}{base_url}{extra}')
+                        # stream_urls[f'线路{i + 1}'] = f'{host}{base_url}{extra}'
+                        stream_urls[i] = f'{host}{base_url}{extra}'
+                    break
+        # print(ret_urls)
+        # return stream_urls[0]
+        return ret_urls
 
 
 def get_real_url(rid):
@@ -443,7 +455,7 @@ def main(rid):
     #     url = rurl[chanel_]
     chanel_ = 0
     # print(rurl)
-    url = rurl
+    url = rurl[chanel_]
     if url is None:
         url = input('请输入url:\n')
 
@@ -466,13 +478,13 @@ def main(rid):
     downflagtrytime = 0
     downflagtrytimeMAX = 2
     iiii = 0
-    iiii_max = 2
+    iiii_max = 4
     # try:
     while iiii < iiii_max:
         try:
             iiii += 1
 
-            url = rurl
+            url = rurl[chanel_]
             time_now = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
             # last_split = url.rindex('/')
             #
@@ -482,8 +494,8 @@ def main(rid):
             room = 'B站直播_%s_%s_%s' % (ksnickname, rid, time_now)
             start_time = time.time()
             logger.info(
-                '{} getm3u8Thread(1, {},  {},  {},  {},  {})'.format(rid, url, host, realpath, room, start_time))
-            thread_getm3u8 = getm3u8Thread(1, url, host, realpath, room, start_time, rid)
+                '{} getm3u8Thread(1, {},  {},  {},  {},  {})'.format(rid, rurl, host, realpath, room, start_time))
+            thread_getm3u8 = getm3u8Thread(1, rurl, host, realpath, room, start_time, rid)
             thread_getm3u8.name = '{}-{}-{}'.format(rid, ksnickname, get_timenow())
             dlrids = list(set(dlrids))
 
@@ -511,6 +523,8 @@ def main(rid):
             downEndFlag = False
             logger.info('{} {}'.format(rid, traceback.format_exc()))
             traceback.print_exc()
+            chanel_ = (chanel_+1)%chanel_max
+            # logger.info('切换线路 {} {}'.format(chanel_,rurl[chanel_]))
             # rurl = get_real_url(rid)
             # if rurl == -1:
             #     # if room in dlrids:
