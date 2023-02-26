@@ -36,6 +36,18 @@ import base64
 from http.cookies import SimpleCookie
 import random
 
+def generate_ttwid() -> str:
+    """生成请求必带的ttwid
+    param :None
+    return:ttwid
+    """
+    url = 'https://ttwid.bytedance.com/ttwid/union/register/'
+    data = '{"region":"cn","aid":1768,"needFid":false,"service":"www.ixigua.com","migrate_info":{"ticket":"","source":"node"},"cbUrlProtocol":"https","union":true}'
+    response = requests.request("POST", url, data=data)
+    # j = ttwid  k = 1%7CfPx9ZM.....
+    for j, k in response.cookies.items():
+        return k
+
 def get_random_desktop_ua():
     chrome_version = f"{random.randint(70, 96)}.0.{random.randint(1000, 9999)}.{random.randint(100, 999)}"
     firefox_version = f"{random.randint(70, 85)}.0"
@@ -342,7 +354,7 @@ async def get(session, queue):
         logger.info('{} {}'.format(nickname_txt, share_url))
         res_html = ''
         try_time = 0
-        try_max = 100
+        try_max = 20
         html_set_cookie = None
 
         while True:
@@ -405,9 +417,14 @@ async def get(session, queue):
                 html_set_cookie_ = SimpleCookie(res_js.cookies)
                 html_set_cookie = {i.key:i.value for i in html_set_cookie_.values()}
                 # html_set_cookie = requests.utils.dict_from_cookiejar()
+                # html_set_cookie[
+                #     'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
+                # html_set_cookie[
+                #     'ttwid'] = '1%7CWiTfXrsUMBWuRZ31s2mgNKAEQvhlBfI_iKEoU-E5v7c%7C1677430668%7C72788078275c8bd6a1f2fd5ed8ba2eae39212ac55d1045faecd77b03ace9531b'
+                ttwid__ = generate_ttwid()
+                logger.info("生成ttwid为{}".format(ttwid__))
                 html_set_cookie[
-                    'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
-                
+                    'ttwid'] = ttwid__
                 res_html = await res_js.text()
                 res_html = str(res_html)
                 # logger.info('{}'.format(res_html))
