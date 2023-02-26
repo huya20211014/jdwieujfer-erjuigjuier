@@ -42,7 +42,10 @@ def generate_ttwid() -> str:
     return:ttwid
     """
     url = 'https://ttwid.bytedance.com/ttwid/union/register/'
-    data = '{"region":"cn","aid":1768,"needFid":false,"service":"www.ixigua.com","migrate_info":{"ticket":"","source":"node"},"cbUrlProtocol":"https","union":true}'
+
+    # data = '{"region":"cn","aid":1768,"needFid":false,"service":"www.ixigua.com","migrate_info":{"ticket":"","source":"node"},"cbUrlProtocol":"https","union":true}'
+    data = '{"region":"cn","aid":6383,"needFid":false,"service":"live.douyin.com","migrate_info":{"ticket":"","source":"node"},"cbUrlProtocol":"https","union":true}'
+
     response = requests.request("POST", url, data=data)
     # j = ttwid  k = 1%7CfPx9ZM.....
     for j, k in response.cookies.items():
@@ -421,10 +424,10 @@ async def get(session, queue):
                 #     'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
                 # html_set_cookie[
                 #     'ttwid'] = '1%7CWiTfXrsUMBWuRZ31s2mgNKAEQvhlBfI_iKEoU-E5v7c%7C1677430668%7C72788078275c8bd6a1f2fd5ed8ba2eae39212ac55d1045faecd77b03ace9531b'
+                
                 ttwid__ = generate_ttwid()
+                html_set_cookie['ttwid'] = ttwid__
                 logger.info("生成ttwid为{}".format(ttwid__))
-                html_set_cookie[
-                    'ttwid'] = ttwid__
                 res_html = await res_js.text()
                 res_html = str(res_html)
                 # logger.info('{}'.format(res_html))
@@ -435,7 +438,10 @@ async def get(session, queue):
                 if res_html != '':
                     break
                 else:
-                    logger.info('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
+                    logger.info('{}获取失败 切换ttwid_'.format(ids_dic[share_url]))
+                    ttwid__ = generate_ttwid()
+                    html_set_cookie['ttwid'] = ttwid__
+                    logger.info("生成ttwid为{}".format(ttwid__))
                     if try_time == try_max:
                         logger.info('{}获取失败 退出'.format(ids_dic[share_url]))
                         ids_running[share_url] = False
