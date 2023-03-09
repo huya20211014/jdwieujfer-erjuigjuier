@@ -316,9 +316,11 @@ class TikTok(object):
         try:
             live_api = self.urls.LIVE + self.utils.getXbogus(
                 url=f'aid=6383&device_platform=web&web_rid={web_rid}')
+            print(live_api)
             response = requests.get(live_api, headers=self.headers, timeout=10)
             live_json = json.loads(response.text)
         except Exception as e:
+            print(e)
             print("[  错误  ]:接口未返回数据, 请检查后重新运行!\r")
             return None
 

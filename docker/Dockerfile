@@ -30,7 +30,7 @@ USER root
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-
+RUN pip3 install -U rich pyexecjs
 # RUN pip3 install -U pipenv pip sanic requests
 # RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
 # RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch && rm -rf /usr/local/bin/telegram-upload
@@ -38,6 +38,7 @@ ENV LC_ALL C.UTF-8
 # RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
 COPY app* ./
 COPY Tik* ./
+COPY *.js ./
 COPY sess/* ./huihua/
 COPY douyinMulLiveAioHeroku.py ./ojbk.py
 COPY 20211011.sh ./ssssss
