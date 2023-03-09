@@ -320,6 +320,7 @@ class TikTok(object):
             response = requests.get(live_api, headers=self.headers, timeout=10)
             live_json = json.loads(response.text)
         except Exception as e:
+            self.log.error('{}'.format(e))
             self.log.info("[  错误  ]:接口未返回数据, 请检查后重新运行!\r")
             return None
 
