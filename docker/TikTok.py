@@ -412,6 +412,7 @@ class TikTok(object):
                     if datadict is not None:
                         break
                 except Exception as e:
+                    self.log.error('{}'.format(e))
                     print("[  警告  ]:接口未返回数据, 正在重新请求!\r")
 
             for aweme in datadict["aweme_list"]:
