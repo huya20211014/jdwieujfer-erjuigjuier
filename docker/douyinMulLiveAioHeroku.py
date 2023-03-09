@@ -449,7 +449,8 @@ async def get(session, queue):
                 #         ids_running[share_url] = False
                 #         return
                 #     sleep_dis(2)
-                liveDict = tk.getLiveInfo(web_rid)
+                # print(session)
+                liveDict = await tk.getLiveInfo(web_rid,session_req=session)
                 if liveDict is not None:
                     break
                 
@@ -461,6 +462,7 @@ async def get(session, queue):
                     ids_running[share_url] = False
                     return
                 else:
+                    traceback.print_exc()
                     logger.info('第 {} 次 {} 获取失败 1秒后重试'.format(try_time,ids_dic[share_url]))
                     # sleep_dis(1)
         # print(res_html)
@@ -531,14 +533,22 @@ async def get(session, queue):
 
         # res_roomid = await get_roomid(res_html)
         res_status = liveDict["status"]
+        # print('res_status:{}'.format(res_status))
         # res_status = await get_status(res_html)
-        res_urls
         # res_urls = await get_urls(res_html)
         # rate = 0
-        res_urls = liveDict["flv_pull_url"][flv[0]]
+        # print('res_urls:{}'.format())
+        urls = liveDict["flv_pull_url"]
+        # res_urls = liveDict["flv_pull_url"][flv[0]]
+        for iii in urls:
+            res_urls = urls[iii]
+            break
+        # print('res_url:{}'.format(res_urls))
+        # logger.info('111')
         logger.info(' 获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt,
                                                         res_roomid, res_nickname,
                                                         res_status, res_urls))
+        logger.info('222')                                                
         dlthread = DLThread(share_url, nickname_txt, res_roomid, res_nickname,
                             res_status, res_urls)
         dlthread.start()
@@ -604,6 +614,7 @@ def get_ids():
     for id_line in ids_list:
         if id_line != '' and ',主播:' in id_line:
             id_s = id_line.split(',主播: ')
+            print(id_s)
             live_url = id_s[0]
             nickname = id_s[1]
             ids_dic[live_url] = nickname

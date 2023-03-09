@@ -308,7 +308,7 @@ class TikTok(object):
 
         return awemeList
 
-    def getLiveInfo(self, web_rid: str):
+    async def getLiveInfo(self, web_rid: str,session_req):
         self.log.info('[  提示  ]:正在请求的直播间 id = %s\r\n' % web_rid)
 
         # web_rid = live_url.replace('https://live.douyin.com/', '')
@@ -316,10 +316,13 @@ class TikTok(object):
         try:
             live_api = self.urls.LIVE + self.utils.getXbogus(
                 url=f'aid=6383&device_platform=web&web_rid={web_rid}')
-            print(live_api)
-            response = requests.get(live_api, headers=self.headers, timeout=10)
-            live_json = json.loads(response.text)
+            # print(live_api)
+            # print(session_req)
+            response = await session_req.get(live_api, headers=self.headers, timeout=10)
+            restext = await response.text()
+            live_json = json.loads(restext)
         except Exception as e:
+            
             self.log.error('{}'.format(e))
             self.log.info("[  错误  ]:接口未返回数据, 请检查后重新运行!\r")
             return None
