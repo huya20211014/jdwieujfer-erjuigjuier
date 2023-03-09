@@ -37,6 +37,7 @@ ENV LC_ALL C.UTF-8
 # RUN pip3 install pyexecjs aiohttp
 # RUN mkdir luzhi && mkdir luzhichenggong && mkdir huihua
 COPY app* ./
+COPY Tik* ./
 COPY sess/* ./huihua/
 COPY douyinMulLiveAioHeroku.py ./ojbk.py
 COPY 20211011.sh ./ssssss

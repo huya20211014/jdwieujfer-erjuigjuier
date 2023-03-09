@@ -35,6 +35,8 @@ import aiohttp
 import base64
 from http.cookies import SimpleCookie
 import random
+from TikTok import TikTok
+from TikTokUtils import Utils
 
 def generate_ttwid() -> str:
     """生成请求必带的ttwid
@@ -391,62 +393,66 @@ async def get(session, queue):
                 # jsurl = 'https://live.douyin.com/webcast/web/enter/?aid=6383&web_rid={}'.format(
                 #   web_rid)
 
-                jsurl = 'https://live.douyin.com/webcast/room/web/enter/?aid=6383&web_rid={}'.format(web_rid)
-                # jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
-                # jsurl = 'https://live.douyin.com/{}'.format(web_rid)
-                logger.info(jsurl)
-                # params = {
-                #     'aid': '6383',
-                #     'web_rid': '994012764653',
-                # }
-                # response = requests.get('https://live.douyin.com/webcast/room/web/enter/', params=params, cookies=cookies, headers=headers)
-                # res_js = await session.get(jsurl,
-                #                            headers=Modelheaders,
-                #                            cookies=cookies,
-                #                            timeout=10)
+                # jsurl = 'https://live.douyin.com/webcast/room/web/enter/?aid=6383&web_rid={}'.format(web_rid)
+                # # jsurl = "https://webcast.amemv.com/webcast/room/reflow/info/?type_id=0&live_id=1&room_id=" + roomid + "&app_id=1128&verifyFp=verify_l7rjcs0w_v8JHPZG6_dMDh_4DdV_8Tah_ulpH9Cc9ljkq&sec_user_id=&msToken=EAgLgmWAd9KyOEnKwVwEn1q9nLpgepI9PcP8If7OpX0ApspZ3cVxwh3AopWkX8sbeT9YoIsD3F5zjo12ClWKxQ5UTPfmwdIa0xrKH8X2nh_M9lHlOa0dfPgOS8AOaA==&X-Bogus=DFSzswVO61iANaewSM5chl9WX7ra"
+                # # jsurl = 'https://live.douyin.com/{}'.format(web_rid)
+                # logger.info(jsurl)
+                # # params = {
+                # #     'aid': '6383',
+                # #     'web_rid': '994012764653',
+                # # }
+                # # response = requests.get('https://live.douyin.com/webcast/room/web/enter/', params=params, cookies=cookies, headers=headers)
+                # # res_js = await session.get(jsurl,
+                # #                            headers=Modelheaders,
+                # #                            cookies=cookies,
+                # #                            timeout=10)
 
-                if html_set_cookie is None:
-                    res_js = await session.get(jsurl,
-                                            headers=headers,
-                                            #    cookies=cookies,
-                                            timeout=10)
-                else:
-                    res_js = await session.get(jsurl,
-                                            headers=headers,
-                                            cookies=html_set_cookie,
-                                            timeout=10)
-                # print(type(res_js.cookies))
+                # if html_set_cookie is None:
+                #     res_js = await session.get(jsurl,
+                #                             headers=headers,
+                #                             #    cookies=cookies,
+                #                             timeout=10)
+                # else:
+                #     res_js = await session.get(jsurl,
+                #                             headers=headers,
+                #                             cookies=html_set_cookie,
+                #                             timeout=10)
+                # # print(type(res_js.cookies))
                 
-                html_set_cookie_ = SimpleCookie(res_js.cookies)
-                html_set_cookie = {i.key:i.value for i in html_set_cookie_.values()}
-                # html_set_cookie = requests.utils.dict_from_cookiejar()
-                # html_set_cookie[
-                #     'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
-                # html_set_cookie[
-                #     'ttwid'] = '1%7CWiTfXrsUMBWuRZ31s2mgNKAEQvhlBfI_iKEoU-E5v7c%7C1677430668%7C72788078275c8bd6a1f2fd5ed8ba2eae39212ac55d1045faecd77b03ace9531b'
+                # html_set_cookie_ = SimpleCookie(res_js.cookies)
+                # html_set_cookie = {i.key:i.value for i in html_set_cookie_.values()}
+                # # html_set_cookie = requests.utils.dict_from_cookiejar()
+                # # html_set_cookie[
+                # #     'ttwid'] = '1%7CerLPcO59u4__AARM8-ih9tCWAzxyQVST2kZtxBMwQyg%7C1676800285%7C13c9874396fb9e7273169800a0c9f2dc9e9e126a510d0aab314d83919455bd0f'
+                # # html_set_cookie[
+                # #     'ttwid'] = '1%7CWiTfXrsUMBWuRZ31s2mgNKAEQvhlBfI_iKEoU-E5v7c%7C1677430668%7C72788078275c8bd6a1f2fd5ed8ba2eae39212ac55d1045faecd77b03ace9531b'
                 
-                ttwid__ = generate_ttwid()
-                html_set_cookie['ttwid'] = ttwid__
-                logger.info("生成ttwid为{}".format(ttwid__))
-                res_html = await res_js.text()
-                res_html = str(res_html)
-                # logger.info('{}'.format(res_html))
-                res_html = json.loads(res_html)
+                # ttwid__ = generate_ttwid()
+                # html_set_cookie['ttwid'] = ttwid__
+                # logger.info("生成ttwid为{}".format(ttwid__))
+                # res_html = await res_js.text()
+                # res_html = str(res_html)
+                # # logger.info('{}'.format(res_html))
+                # res_html = json.loads(res_html)
 
-                # exit(0)
+                # # exit(0)
 
-                if res_html != '':
+                # if res_html != '':
+                #     break
+                # else:
+                #     logger.info('{}获取失败 切换ttwid_'.format(ids_dic[share_url]))
+                #     ttwid__ = generate_ttwid()
+                #     html_set_cookie['ttwid'] = ttwid__
+                #     logger.info("生成ttwid为{}".format(ttwid__))
+                #     if try_time == try_max:
+                #         logger.info('{}获取失败 退出'.format(ids_dic[share_url]))
+                #         ids_running[share_url] = False
+                #         return
+                #     sleep_dis(2)
+                liveDict = tk.getLiveInfo(web_rid)
+                if liveDict is not None:
                     break
-                else:
-                    logger.info('{}获取失败 切换ttwid_'.format(ids_dic[share_url]))
-                    ttwid__ = generate_ttwid()
-                    html_set_cookie['ttwid'] = ttwid__
-                    logger.info("生成ttwid为{}".format(ttwid__))
-                    if try_time == try_max:
-                        logger.info('{}获取失败 退出'.format(ids_dic[share_url]))
-                        ids_running[share_url] = False
-                        return
-                    sleep_dis(2)
+                
             except Exception as e:
                 # traceback.print_exc()
                 # logger.info('{}'.format(traceback.format_exc()))
@@ -458,18 +464,27 @@ async def get(session, queue):
                     logger.info('第 {} 次 {} 获取失败 1秒后重试'.format(try_time,ids_dic[share_url]))
                     # sleep_dis(1)
         # print(res_html)
+        # liveDict = tk.getLiveInfo(web_rid)
 
-        res_roomid = await get_roomid(res_html)
+        # res_roomid = await get_roomid(res_html)
         # print('res_roomid {}'.format(res_roomid))
         # return
         # logger.info('{} 1111'.format(res_html))
-        res_nickname = await get_nickname(res_html)
+        # res_nickname = await get_nickname(res_html)
+
+        res_roomid = ''
+        res_nickname = liveDict['nickname']
         res_nickname = strfomat(res_nickname)
-        
-        if res_roomid == -1:
+
+        if liveDict["status"] == 4:
             logger.info('{} 未在直播'.format(res_nickname))
             ids_running[share_url] = False
             return
+        
+        # if res_roomid == -1:
+        #     logger.info('{} 未在直播'.format(res_nickname))
+        #     ids_running[share_url] = False
+        #     return
         else:
             logger.info('获取次数 {} {} 获取成功  {} {}'.format(try_time,ids_dic[share_url],res_roomid,res_nickname))
         # print(res_roomid)
@@ -484,39 +499,43 @@ async def get(session, queue):
         # res_html = await res.text()
 
         # res_html = ''
-        try_time = 0
-        try_max = 2
-        while True:
-            try:
-                try_time += 1
-                # res = await session.get(room_url, headers=Modelheaders, timeout=10)
-                # res_html = await res.text()
-                # res_html = await res_js.text()
-                # res_html = str(res_html)
-                # exit(0)
-                # print(res_html)
-                # logger.info("{}".format(room_url))
-                # res_html = json.loads(res_html)
-                if res_html != '':
-                    break
-                else:
-                    logger.info('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
-                    if try_time == try_max:
-                        logger.info('{} 获取失败 退出'.format(ids_dic[share_url]))
-                        ids_running[share_url] = False
-                        return
-                    sleep_dis(2)
-            except Exception as e:
-                # traceback.print_exc()
-                logger.info('{}'.format(traceback.format_exc()))
-                if try_time == try_max:
-                    logger.info('{} 获取错误 退出'.format(ids_dic[share_url]))
-                    ids_running[share_url] = False
-                    return
+        # try_time = 0
+        # try_max = 2
+        # while True:
+        #     try:
+        #         try_time += 1
+        #         # res = await session.get(room_url, headers=Modelheaders, timeout=10)
+        #         # res_html = await res.text()
+        #         # res_html = await res_js.text()
+        #         # res_html = str(res_html)
+        #         # exit(0)
+        #         # print(res_html)
+        #         # logger.info("{}".format(room_url))
+        #         # res_html = json.loads(res_html)
+        #         if res_html != '':
+        #             break
+        #         else:
+        #             logger.info('{}获取失败 2秒后重试'.format(ids_dic[share_url]))
+        #             if try_time == try_max:
+        #                 logger.info('{} 获取失败 退出'.format(ids_dic[share_url]))
+        #                 ids_running[share_url] = False
+        #                 return
+        #             sleep_dis(2)
+        #     except Exception as e:
+        #         # traceback.print_exc()
+        #         logger.info('{}'.format(traceback.format_exc()))
+        #         if try_time == try_max:
+        #             logger.info('{} 获取错误 退出'.format(ids_dic[share_url]))
+        #             ids_running[share_url] = False
+        #             return
 
-        res_roomid = await get_roomid(res_html)
-        res_status = await get_status(res_html)
-        res_urls = await get_urls(res_html)
+        # res_roomid = await get_roomid(res_html)
+        res_status = liveDict["status"]
+        # res_status = await get_status(res_html)
+        res_urls
+        # res_urls = await get_urls(res_html)
+        # rate = 0
+        res_urls = liveDict["flv_pull_url"][flv[0]]
         logger.info(' 获取成功 {} {} {} {} {} {}'.format(share_url, nickname_txt,
                                                         res_roomid, res_nickname,
                                                         res_status, res_urls))
@@ -723,6 +742,8 @@ if __name__ == '__main__':
       videopath luzhi
       luzhi_ok_path luzhichenggong
       '''
+    tk = TikTok()
+    utilstk = Utils()
     # ids_gen = os.environ.get("ids_str")
     # proxies2 = config.get('1', '代理端口')
     # proxies2ip = config.get('1', '代理ip')
