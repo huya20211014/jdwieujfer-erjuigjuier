@@ -29,8 +29,9 @@ USER root
 # setup environment
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
-
-RUN pip3 install -U rich pyexecjs
+# RUN curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+# RUN sudo apt-get install -y nodejs
+# RUN pip3 install -U rich pyexecjs
 # RUN pip3 install -U pipenv pip sanic requests
 # RUN pip3 install git+https://github.com/muyangren907/telegram-upload.git#egg=telegram-upload
 # RUN cp /usr/local/bin/telegram-upload /usr/local/bin/neofetch && rm -rf /usr/local/bin/telegram-upload
